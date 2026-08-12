@@ -12,13 +12,18 @@
 
     <title>Orders | Blossom Flower Shop</title>
 
+
     <style>
 
         * {
+
             box-sizing: border-box;
+
             margin: 0;
+
             padding: 0;
         }
+
 
         body {
 
@@ -32,8 +37,12 @@
             color: #333;
 
             min-height: 100vh;
-
         }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
 
         .navbar {
 
@@ -56,8 +65,8 @@
             top: 0;
 
             z-index: 100;
-
         }
+
 
         .logo {
 
@@ -66,8 +75,8 @@
             font-size: 25px;
 
             font-weight: bold;
-
         }
+
 
         nav ul {
 
@@ -76,8 +85,8 @@
             display: flex;
 
             gap: 25px;
-
         }
+
 
         nav ul li a {
 
@@ -88,14 +97,18 @@
             font-weight: 600;
 
             transition: 0.3s;
-
         }
+
 
         nav ul li a:hover {
 
             color: #d63384;
-
         }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
 
         .orders-section {
 
@@ -104,8 +117,8 @@
             margin: 45px auto;
 
             padding: 0 20px;
-
         }
+
 
         .page-title {
 
@@ -120,22 +133,26 @@
             box-shadow:
                 0 5px 20px
                 rgba(0, 0, 0, 0.07);
-
         }
+
 
         .page-title h2 {
 
             color: #c2185b;
 
             margin-bottom: 7px;
-
         }
+
 
         .page-title p {
 
             color: #777;
-
         }
+
+
+        /* =====================================================
+           ORDER CARD
+        ===================================================== */
 
         .order-card {
 
@@ -153,8 +170,8 @@
 
             border-left:
                 5px solid #d63384;
-
         }
+
 
         .order-header {
 
@@ -174,16 +191,16 @@
             padding-bottom: 15px;
 
             margin-bottom: 18px;
-
         }
+
 
         .order-header h3 {
 
             color: #c2185b;
 
             font-size: 19px;
-
         }
+
 
         .status-btn {
 
@@ -198,8 +215,12 @@
             border-radius: 20px;
 
             font-weight: bold;
-
         }
+
+
+        /* =====================================================
+           DETAILS
+        ===================================================== */
 
         .order-details {
 
@@ -211,8 +232,8 @@
             gap: 12px;
 
             margin-bottom: 20px;
-
         }
+
 
         .detail-box {
 
@@ -224,14 +245,18 @@
             padding: 13px;
 
             border-radius: 9px;
-
         }
+
 
         .detail-box strong {
 
             color: #c2185b;
-
         }
+
+
+        /* =====================================================
+           PRODUCTS
+        ===================================================== */
 
         .products-title {
 
@@ -240,8 +265,8 @@
             margin-bottom: 12px;
 
             font-size: 18px;
-
         }
+
 
         .product-list {
 
@@ -251,8 +276,8 @@
             border-radius: 10px;
 
             overflow: hidden;
-
         }
+
 
         .product-item {
 
@@ -268,22 +293,22 @@
                 1px solid #eee;
 
             gap: 15px;
-
         }
+
 
         .product-item:last-child {
 
             border-bottom: none;
-
         }
+
 
         .product-name {
 
             font-weight: bold;
 
             color: #555;
-
         }
+
 
         .product-quantity {
 
@@ -292,16 +317,20 @@
             font-size: 14px;
 
             margin-top: 5px;
-
         }
+
 
         .product-price {
 
             font-weight: bold;
 
             color: #d63384;
-
         }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
 
         .order-footer {
 
@@ -319,8 +348,8 @@
             align-items: center;
 
             gap: 15px;
-
         }
+
 
         .order-total {
 
@@ -329,8 +358,8 @@
             font-size: 21px;
 
             font-weight: bold;
-
         }
+
 
         .delete-btn {
 
@@ -348,7 +377,19 @@
 
             font-weight: bold;
 
+            transition: 0.2s;
         }
+
+
+        .delete-btn:hover {
+
+            background: #f8c5d4;
+        }
+
+
+        /* =====================================================
+           EMPTY
+        ===================================================== */
 
         .empty-order {
 
@@ -363,24 +404,24 @@
             box-shadow:
                 0 6px 25px
                 rgba(0, 0, 0, 0.08);
-
         }
+
 
         .empty-order h2 {
 
             color: #d63384;
 
             margin-bottom: 10px;
-
         }
+
 
         .empty-order p {
 
             color: #777;
 
             margin-bottom: 20px;
-
         }
+
 
         .shop-btn {
 
@@ -398,7 +439,15 @@
 
             font-weight: bold;
 
+            border: none;
+
+            cursor: pointer;
         }
+
+
+        /* =====================================================
+           LOADING
+        ===================================================== */
 
         .loading {
 
@@ -411,8 +460,8 @@
             border-radius: 15px;
 
             color: #777;
-
         }
+
 
         .error-box {
 
@@ -425,8 +474,12 @@
             border-radius: 15px;
 
             color: #c2185b;
-
         }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
 
         @media (max-width: 700px) {
 
@@ -437,8 +490,8 @@
                 gap: 15px;
 
                 padding: 20px;
-
             }
+
 
             nav ul {
 
@@ -447,35 +500,34 @@
                 justify-content: center;
 
                 gap: 15px;
-
             }
+
 
             .order-details {
 
                 grid-template-columns: 1fr;
-
             }
+
 
             .product-item {
 
                 flex-direction: column;
 
                 align-items: flex-start;
-
             }
+
 
             .order-footer {
 
                 flex-direction: column;
 
                 align-items: stretch;
-
             }
+
 
             .delete-btn {
 
                 width: 100%;
-
             }
 
         }
@@ -484,13 +536,21 @@
 
 </head>
 
+
 <body>
 
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
 <header class="navbar">
+
 
     <div class="logo">
         🌸 Blossom Flower Shop
     </div>
+
 
     <nav>
 
@@ -502,11 +562,13 @@
                 </a>
             </li>
 
+
             <li>
                 <a href="{{ url_for('home_page') }}">
                     Home
                 </a>
             </li>
+
 
             <li>
                 <a href="{{ url_for('flowers_page') }}">
@@ -514,11 +576,13 @@
                 </a>
             </li>
 
+
             <li>
                 <a href="{{ url_for('cart_page') }}">
                     Cart
                 </a>
             </li>
+
 
             <li>
                 <a href="{{ url_for('orders_page') }}">
@@ -532,7 +596,13 @@
 
 </header>
 
+
+<!-- =========================================================
+     ORDERS
+========================================================= -->
+
 <section class="orders-section">
+
 
     <div class="page-title">
 
@@ -540,11 +610,13 @@
             📦 Order History
         </h2>
 
+
         <p>
             View all your previously placed orders.
         </p>
 
     </div>
+
 
     <div id="ordersContainer">
 
@@ -554,39 +626,52 @@
 
     </div>
 
+
 </section>
+
 
 <script>
 
-const API_URL =
-    "http://127.0.0.1:5000";
+
+/* =========================================================
+   API
+========================================================= */
+
+const API_URL = "";
+
+
+/* =========================================================
+   GET CURRENT USER
+========================================================= */
 
 function getCurrentUser() {
 
     const userData =
-        localStorage.getItem(
-            "currentUser"
-        );
+        localStorage.getItem("currentUser");
+
 
     if (!userData) {
 
         return null;
-
     }
+
 
     try {
 
-        return JSON.parse(
-            userData
-        );
+        return JSON.parse(userData);
 
     } catch (error) {
 
+        console.error(error);
+
         return null;
-
     }
-
 }
+
+
+/* =========================================================
+   LOAD ORDERS
+========================================================= */
 
 async function loadOrders() {
 
@@ -595,13 +680,12 @@ async function loadOrders() {
             "ordersContainer"
         );
 
+
     const user =
         getCurrentUser();
 
-    if (
-        !user ||
-        !user.id
-    ) {
+
+    if (!user || !user.id) {
 
         container.innerHTML = `
 
@@ -611,9 +695,11 @@ async function loadOrders() {
                     🌸 Please Login
                 </h2>
 
+
                 <p>
                     Login to view your orders.
                 </p>
+
 
                 <a
                     href="{{ url_for('login_page') }}"
@@ -627,18 +713,35 @@ async function loadOrders() {
         `;
 
         return;
-
     }
+
 
     try {
 
+
+        /*
+         * IMPORTANT:
+         *
+         * Backend route:
+         *
+         * /api/orders/user/<user_id>
+         *
+         */
+
         const response =
             await fetch(
-                `${API_URL}/api/orders/${user.id}`
+                `${API_URL}/api/orders/user/${user.id}`,
+                {
+                    method: "GET",
+
+                    credentials: "include"
+                }
             );
+
 
         const data =
             await response.json();
+
 
         if (
             !response.ok ||
@@ -649,12 +752,13 @@ async function loadOrders() {
                 data.message ||
                 "Unable to load orders"
             );
-
         }
+
 
         displayOrders(
             data.orders || []
         );
+
 
     } catch (error) {
 
@@ -662,6 +766,7 @@ async function loadOrders() {
             "Orders Error:",
             error
         );
+
 
         container.innerHTML = `
 
@@ -671,11 +776,14 @@ async function loadOrders() {
                     ❌ Unable to Load Orders
                 </h2>
 
+
                 <p>
                     Please make sure Flask server is running.
                 </p>
 
+
                 <br>
+
 
                 <button
                     class="shop-btn"
@@ -687,10 +795,13 @@ async function loadOrders() {
             </div>
 
         `;
-
     }
-
 }
+
+
+/* =========================================================
+   DISPLAY ORDERS
+========================================================= */
 
 function displayOrders(
     orders
@@ -701,7 +812,9 @@ function displayOrders(
             "ordersContainer"
         );
 
+
     container.innerHTML = "";
+
 
     if (
         !orders ||
@@ -716,9 +829,11 @@ function displayOrders(
                     📦 No Orders Found
                 </h2>
 
+
                 <p>
                     Your placed orders will appear here.
                 </p>
+
 
                 <a
                     href="{{ url_for('flowers_page') }}"
@@ -732,45 +847,59 @@ function displayOrders(
         `;
 
         return;
-
     }
+
 
     orders.forEach(
         function(order) {
 
+
             let productsHTML = "";
+
 
             if (
                 order.items &&
                 order.items.length > 0
             ) {
 
+
                 order.items.forEach(
                     function(item) {
+
 
                         productsHTML += `
 
                             <div class="product-item">
+
 
                                 <div>
 
                                     <div class="product-name">
 
                                         🌸
+
                                         ${escapeHtml(
                                             item.name
                                         )}
 
                                     </div>
 
+
                                     <div class="product-quantity">
 
                                         Quantity:
                                         ${item.quantity}
 
+                                        &nbsp; × &nbsp;
+
+                                        ₹${Number(
+                                            item.price || 0
+                                        ).toFixed(2)}
+
                                     </div>
 
                                 </div>
+
 
                                 <div class="product-price">
 
@@ -780,19 +909,21 @@ function displayOrders(
 
                                 </div>
 
+
                             </div>
 
                         `;
-
                     }
                 );
 
             }
 
+
             const date =
                 formatDate(
                     order.created_at
                 );
+
 
             container.innerHTML += `
 
@@ -801,17 +932,21 @@ function displayOrders(
                     data-order-id="${order.id}"
                 >
 
+
                     <div class="order-header">
+
 
                         <h3>
 
-                            Order ID :
+                            📦 Order ID :
                             ${order.id}
 
                         </h3>
 
+
                         <button
                             class="status-btn"
+                            type="button"
                         >
 
                             ${escapeHtml(
@@ -821,9 +956,12 @@ function displayOrders(
 
                         </button>
 
+
                     </div>
 
+
                     <div class="order-details">
+
 
                         <div class="detail-box">
 
@@ -839,6 +977,7 @@ function displayOrders(
 
                         </div>
 
+
                         <div class="detail-box">
 
                             <strong>
@@ -852,6 +991,7 @@ function displayOrders(
                             )}
 
                         </div>
+
 
                         <div class="detail-box">
 
@@ -867,6 +1007,7 @@ function displayOrders(
 
                         </div>
 
+
                         <div class="detail-box">
 
                             <strong>
@@ -878,6 +1019,7 @@ function displayOrders(
                             ${date}
 
                         </div>
+
 
                         <div
                             class="detail-box"
@@ -896,7 +1038,9 @@ function displayOrders(
 
                         </div>
 
+
                     </div>
+
 
                     <h3 class="products-title">
 
@@ -904,13 +1048,16 @@ function displayOrders(
 
                     </h3>
 
+
                     <div class="product-list">
 
                         ${productsHTML}
 
                     </div>
 
+
                     <div class="order-footer">
+
 
                         <div class="order-total">
 
@@ -921,6 +1068,7 @@ function displayOrders(
 
                         </div>
 
+
                         <button
                             class="delete-btn"
                             onclick="deleteOrder(${order.id})"
@@ -930,7 +1078,9 @@ function displayOrders(
 
                         </button>
 
+
                     </div>
+
 
                 </div>
 
@@ -938,36 +1088,47 @@ function displayOrders(
 
         }
     );
-
 }
+
+
+/* =========================================================
+   DELETE ORDER
+========================================================= */
 
 async function deleteOrder(
     orderId
 ) {
+
 
     const confirmDelete =
         confirm(
             "Are you sure you want to delete this order?"
         );
 
+
     if (!confirmDelete) {
 
         return;
-
     }
 
+
     try {
+
 
         const response =
             await fetch(
                 `${API_URL}/api/orders/${orderId}`,
                 {
-                    method: "DELETE"
+                    method: "DELETE",
+
+                    credentials: "include"
                 }
             );
 
+
         const data =
             await response.json();
+
 
         if (
             !response.ok ||
@@ -978,47 +1139,66 @@ async function deleteOrder(
                 data.message ||
                 "Unable to delete order"
             );
-
         }
+
 
         alert(
             "Order deleted successfully."
         );
 
+
         loadOrders();
+
 
     } catch (error) {
 
         console.error(
+            "Delete Order Error:",
             error
         );
+
 
         alert(
             error.message ||
             "Unable to delete order."
         );
-
     }
-
 }
+
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
 
 function formatDate(
     dateString
 ) {
 
+
     if (!dateString) {
 
         return "-";
-
     }
 
-    const date =
-        new Date(
-            dateString.replace(
-                " ",
-                "T"
-            )
-        );
+
+    let date;
+
+
+    try {
+
+        date =
+            new Date(
+                dateString.replace(
+                    " ",
+                    "T"
+                )
+            );
+
+    } catch (error) {
+
+        return dateString;
+    }
+
 
     if (
         isNaN(
@@ -1027,25 +1207,36 @@ function formatDate(
     ) {
 
         return dateString;
-
     }
+
 
     return date.toLocaleString(
         "en-IN",
         {
+
             day: "2-digit",
+
             month: "short",
+
             year: "numeric",
+
             hour: "2-digit",
+
             minute: "2-digit"
+
         }
     );
-
 }
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
 function escapeHtml(
     text
 ) {
+
 
     if (
         text === null ||
@@ -1053,8 +1244,8 @@ function escapeHtml(
     ) {
 
         return "";
-
     }
+
 
     return String(text)
 
@@ -1082,8 +1273,12 @@ function escapeHtml(
             /'/g,
             "&#039;"
         );
-
 }
+
+
+/* =========================================================
+   PAGE LOAD
+========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -1095,6 +1290,7 @@ document.addEventListener(
 );
 
 </script>
+
 
 </body>
 

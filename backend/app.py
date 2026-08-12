@@ -26,6 +26,7 @@ from werkzeug.security import (
 
 app = Flask(__name__)
 
+
 # =========================================================
 # SECRET KEY
 # =========================================================
@@ -35,6 +36,7 @@ app.secret_key = os.environ.get(
     "blossom_flower_shop_secret_key_2026"
 )
 
+
 # =========================================================
 # SESSION CONFIGURATION
 # =========================================================
@@ -42,7 +44,6 @@ app.secret_key = os.environ.get(
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 
-# Render HTTPS par secure cookie use karega
 if os.environ.get("RENDER"):
     app.config["SESSION_COOKIE_SECURE"] = True
 else:
@@ -64,11 +65,11 @@ CORS(
 # =========================================================
 
 swagger_template = {
-
     "swagger": "2.0",
 
     "info": {
         "title": "Blossom Flower Shop API",
+
         "description": """
 Complete API documentation for Blossom Flower Shop.
 
@@ -84,8 +85,9 @@ Features:
 - Checkout
 - Orders
 - Health Check
-        """,
-        "version": "3.0.0"
+""",
+
+        "version": "4.0.0"
     },
 
     "basePath": "/",
@@ -104,7 +106,6 @@ Features:
     ],
 
     "tags": [
-
         {
             "name": "Authentication",
             "description":
@@ -134,7 +135,6 @@ Features:
             "description":
                 "System and health APIs"
         }
-
     ]
 }
 
@@ -280,8 +280,11 @@ def init_db():
 
     conn.execute("""
         UPDATE cart
+
         SET status = 'In Cart'
+
         WHERE status IS NULL
+
         OR status = ''
     """)
 
@@ -401,7 +404,6 @@ def init_db():
                 "https://images.unsplash.com/photo-1490750967868-88aa4486c946",
                 12
             )
-
         ]
 
         conn.executemany("""
@@ -414,6 +416,7 @@ def init_db():
                 image,
                 stock
             )
+
             VALUES (?, ?, ?, ?, ?, ?)
         """, flowers)
 
@@ -702,7 +705,10 @@ def javascript_files(filename):
 # API HOME
 # =========================================================
 
-@app.route("/api", methods=["GET"])
+@app.route(
+    "/api",
+    methods=["GET"]
+)
 def home_api():
     """
     API Home
@@ -728,42 +734,16 @@ def home_api():
 # REGISTER API
 # =========================================================
 
-@app.route("/api/register", methods=["POST"])
+@app.route(
+    "/api/register",
+    methods=["POST"]
+)
 def register():
     """
     Register a new user
     ---
     tags:
       - Authentication
-
-    parameters:
-      - in: body
-        name: body
-        required: true
-        schema:
-          type: object
-          required:
-            - name
-            - email
-            - password
-          properties:
-            name:
-              type: string
-              example: John Doe
-            email:
-              type: string
-              example: john@gmail.com
-            password:
-              type: string
-              example: 123456
-
-    responses:
-      201:
-        description: Registration successful
-      400:
-        description: Invalid request
-      409:
-        description: Email already registered
     """
 
     data = request.get_json(
@@ -782,18 +762,31 @@ def register():
         }), 400
 
     name = str(
-        data.get("name", "")
+        data.get(
+            "name",
+            ""
+        )
     ).strip()
 
     email = str(
-        data.get("email", "")
+        data.get(
+            "email",
+            ""
+        )
     ).strip().lower()
 
     password = str(
-        data.get("password", "")
+        data.get(
+            "password",
+            ""
+        )
     )
 
-    if not name or not email or not password:
+    if (
+        not name
+        or not email
+        or not password
+    ):
 
         return jsonify({
 
@@ -854,6 +847,7 @@ def register():
             email,
             password
         )
+
         VALUES (?, ?, ?)
         """,
         (
@@ -880,11 +874,14 @@ def register():
 
         "user": {
 
-            "id": user_id,
+            "id":
+                user_id,
 
-            "name": name,
+            "name":
+                name,
 
-            "email": email
+            "email":
+                email
 
         }
 
@@ -895,40 +892,16 @@ def register():
 # LOGIN API
 # =========================================================
 
-@app.route("/api/login", methods=["POST"])
+@app.route(
+    "/api/login",
+    methods=["POST"]
+)
 def login():
     """
     Login user
     ---
     tags:
       - Authentication
-
-    parameters:
-      - in: body
-        name: body
-        required: true
-        schema:
-          type: object
-          required:
-            - email
-            - password
-          properties:
-            email:
-              type: string
-              example: john@gmail.com
-            password:
-              type: string
-              example: 123456
-
-    responses:
-      200:
-        description: Login successful
-      400:
-        description: Email and password required
-      401:
-        description: Incorrect password
-      404:
-        description: User is not registered
     """
 
     data = request.get_json(
@@ -947,11 +920,17 @@ def login():
         }), 400
 
     email = str(
-        data.get("email", "")
+        data.get(
+            "email",
+            ""
+        )
     ).strip().lower()
 
     password = str(
-        data.get("password", "")
+        data.get(
+            "password",
+            ""
+        )
     )
 
     if not email or not password:
@@ -1009,14 +988,10 @@ def login():
         }), 401
 
     # =====================================================
-    # CLEAR OLD SESSION
+    # CREATE SESSION
     # =====================================================
 
     session.clear()
-
-    # =====================================================
-    # CREATE NEW SESSION
-    # =====================================================
 
     session["user_id"] = user["id"]
     session["user_name"] = user["name"]
@@ -1035,11 +1010,14 @@ def login():
 
         "user": {
 
-            "id": user["id"],
+            "id":
+                user["id"],
 
-            "name": user["name"],
+            "name":
+                user["name"],
 
-            "email": user["email"]
+            "email":
+                user["email"]
 
         }
 
@@ -1050,18 +1028,16 @@ def login():
 # CURRENT USER
 # =========================================================
 
-@app.route("/api/me", methods=["GET"])
+@app.route(
+    "/api/me",
+    methods=["GET"]
+)
 def get_current_user():
     """
     Get currently logged-in user
     ---
     tags:
       - Authentication
-    responses:
-      200:
-        description: Current user information
-      401:
-        description: User is not logged in
     """
 
     user_id = session.get(
@@ -1090,13 +1066,19 @@ def get_current_user():
         "user": {
 
             "id":
-                session.get("user_id"),
+                session.get(
+                    "user_id"
+                ),
 
             "name":
-                session.get("user_name"),
+                session.get(
+                    "user_name"
+                ),
 
             "email":
-                session.get("user_email")
+                session.get(
+                    "user_email"
+                )
 
         }
 
@@ -1107,11 +1089,11 @@ def get_current_user():
 # LOGOUT PAGE
 # =========================================================
 
-@app.route("/logout", methods=["GET"])
+@app.route(
+    "/logout",
+    methods=["GET"]
+)
 def logout_page():
-    """
-    Logout user and redirect to login page
-    """
 
     session.clear()
 
@@ -1127,15 +1109,6 @@ def logout_page():
     methods=["GET", "POST"]
 )
 def logout():
-    """
-    Logout current user
-    ---
-    tags:
-      - Authentication
-    responses:
-      200:
-        description: Logout successful
-    """
 
     session.clear()
 
@@ -1165,12 +1138,6 @@ def logout():
     methods=["POST"]
 )
 def forgot_password():
-    """
-    Reset user password
-    ---
-    tags:
-      - Authentication
-    """
 
     try:
 
@@ -1190,15 +1157,24 @@ def forgot_password():
             }), 400
 
         email = str(
-            data.get("email", "")
+            data.get(
+                "email",
+                ""
+            )
         ).strip().lower()
 
         new_password = str(
-            data.get("new_password", "")
+            data.get(
+                "new_password",
+                ""
+            )
         )
 
         confirm_password = str(
-            data.get("confirm_password", "")
+            data.get(
+                "confirm_password",
+                ""
+            )
         )
 
         if not email:
@@ -1266,7 +1242,9 @@ def forgot_password():
         conn.execute(
             """
             UPDATE users
+
             SET password = ?
+
             WHERE id = ?
             """,
             (
@@ -1314,15 +1292,6 @@ def forgot_password():
     methods=["GET"]
 )
 def get_flowers():
-    """
-    Get all flowers
-    ---
-    tags:
-      - Flowers
-    responses:
-      200:
-        description: List of all flowers
-    """
 
     conn = get_db()
 
@@ -1342,13 +1311,26 @@ def get_flowers():
 
         flower_list.append({
 
-            "id": flower["id"],
-            "name": flower["name"],
-            "category": flower["category"],
-            "description": flower["description"],
-            "price": flower["price"],
-            "image": flower["image"],
-            "stock": flower["stock"]
+            "id":
+                flower["id"],
+
+            "name":
+                flower["name"],
+
+            "category":
+                flower["category"],
+
+            "description":
+                flower["description"],
+
+            "price":
+                flower["price"],
+
+            "image":
+                flower["image"],
+
+            "stock":
+                flower["stock"]
 
         })
 
@@ -1374,12 +1356,6 @@ def get_flowers():
     methods=["GET"]
 )
 def get_flower(flower_id):
-    """
-    Get a single flower
-    ---
-    tags:
-      - Flowers
-    """
 
     conn = get_db()
 
@@ -1446,12 +1422,6 @@ def get_flower(flower_id):
     methods=["POST"]
 )
 def add_to_cart():
-    """
-    Add flower to cart
-    ---
-    tags:
-      - Cart
-    """
 
     data = request.get_json(
         silent=True
@@ -1602,8 +1572,11 @@ def add_to_cart():
             conn.execute(
                 """
                 UPDATE cart
+
                 SET quantity = ?,
+
                     status = 'In Cart'
+
                 WHERE id = ?
                 """,
                 (
@@ -1635,7 +1608,9 @@ def add_to_cart():
             conn.execute(
                 """
                 UPDATE cart
+
                 SET quantity = ?
+
                 WHERE id = ?
                 """,
                 (
@@ -1655,6 +1630,7 @@ def add_to_cart():
                 quantity,
                 status
             )
+
             VALUES (?, ?, ?, 'In Cart')
             """,
             (
@@ -1687,12 +1663,6 @@ def add_to_cart():
     methods=["GET"]
 )
 def get_cart(user_id):
-    """
-    Get user's complete cart
-    ---
-    tags:
-      - Cart
-    """
 
     conn = get_db()
 
@@ -1723,7 +1693,9 @@ def get_cart(user_id):
         FROM cart
 
         JOIN flowers
-            ON cart.flower_id = flowers.id
+
+            ON cart.flower_id =
+               flowers.id
 
         WHERE cart.user_id = ?
 
@@ -1835,12 +1807,6 @@ def get_cart(user_id):
     methods=["PUT"]
 )
 def update_cart_quantity(cart_id):
-    """
-    Update cart quantity
-    ---
-    tags:
-      - Cart
-    """
 
     data = request.get_json(
         silent=True
@@ -1893,13 +1859,19 @@ def update_cart_quantity(cart_id):
     item = conn.execute(
         """
         SELECT
+
             cart.*,
+
             flowers.stock,
+
             flowers.name
+
         FROM cart
 
         JOIN flowers
-            ON cart.flower_id = flowers.id
+
+            ON cart.flower_id =
+               flowers.id
 
         WHERE cart.id = ?
         """,
@@ -1948,7 +1920,9 @@ def update_cart_quantity(cart_id):
     conn.execute(
         """
         UPDATE cart
+
         SET quantity = ?
+
         WHERE id = ?
         """,
         (
@@ -1980,12 +1954,6 @@ def update_cart_quantity(cart_id):
     methods=["DELETE"]
 )
 def remove_cart_item(cart_id):
-    """
-    Remove one cart item
-    ---
-    tags:
-      - Cart
-    """
 
     conn = get_db()
 
@@ -2042,12 +2010,6 @@ def remove_cart_item(cart_id):
     methods=["DELETE"]
 )
 def clear_user_cart(user_id):
-    """
-    Remove all cart items for a user
-    ---
-    tags:
-      - Cart
-    """
 
     conn = get_db()
 
@@ -2082,12 +2044,6 @@ def clear_user_cart(user_id):
     methods=["POST"]
 )
 def create_order():
-    """
-    Create a new order from selected cart items
-    ---
-    tags:
-      - Orders
-    """
 
     data = request.get_json(
         silent=True
@@ -2254,7 +2210,9 @@ def create_order():
         FROM cart
 
         JOIN flowers
-            ON cart.flower_id = flowers.id
+
+            ON cart.flower_id =
+               flowers.id
 
         WHERE cart.user_id = ?
 
@@ -2347,6 +2305,7 @@ def create_order():
             total,
             status
         )
+
         VALUES (?, ?, ?, ?, ?, ?, ?)
         """,
         (
@@ -2380,6 +2339,7 @@ def create_order():
                 quantity,
                 subtotal
             )
+
             VALUES (?, ?, ?, ?, ?, ?)
             """,
             (
@@ -2395,7 +2355,10 @@ def create_order():
         conn.execute(
             """
             UPDATE flowers
-            SET stock = stock - ?
+
+            SET stock =
+                stock - ?
+
             WHERE id = ?
             """,
             (
@@ -2407,8 +2370,11 @@ def create_order():
         conn.execute(
             """
             UPDATE cart
+
             SET status = 'Ordered'
+
             WHERE id = ?
+
             AND user_id = ?
             """,
             (
@@ -2480,12 +2446,6 @@ def create_order():
     methods=["GET"]
 )
 def get_user_orders(user_id):
-    """
-    Get orders of a user
-    ---
-    tags:
-      - Orders
-    """
 
     conn = get_db()
 
@@ -2515,7 +2475,9 @@ def get_user_orders(user_id):
         """
         SELECT *
         FROM orders
+
         WHERE user_id = ?
+
         ORDER BY id DESC
         """,
         (user_id,)
@@ -2529,7 +2491,9 @@ def get_user_orders(user_id):
             """
             SELECT *
             FROM order_items
+
             WHERE order_id = ?
+
             ORDER BY id ASC
             """,
             (order["id"],)
@@ -2619,12 +2583,6 @@ def get_user_orders(user_id):
     methods=["GET"]
 )
 def get_all_orders():
-    """
-    Get all orders
-    ---
-    tags:
-      - Orders
-    """
 
     conn = get_db()
 
@@ -2632,6 +2590,7 @@ def get_all_orders():
         """
         SELECT *
         FROM orders
+
         ORDER BY id DESC
         """
     ).fetchall()
@@ -2644,7 +2603,9 @@ def get_all_orders():
             """
             SELECT *
             FROM order_items
+
             WHERE order_id = ?
+
             ORDER BY id ASC
             """,
             (order["id"],)
@@ -2734,12 +2695,6 @@ def get_all_orders():
     methods=["DELETE"]
 )
 def delete_order(order_id):
-    """
-    Delete an order
-    ---
-    tags:
-      - Orders
-    """
 
     conn = get_db()
 
@@ -2765,17 +2720,52 @@ def delete_order(order_id):
 
         }), 404
 
+    # =====================================================
+    # CHECK LOGGED-IN USER
+    # =====================================================
+
+    logged_user_id = session.get(
+        "user_id"
+    )
+
+    if logged_user_id:
+
+        if int(logged_user_id) != int(
+            order["user_id"]
+        ):
+
+            conn.close()
+
+            return jsonify({
+
+                "success": False,
+
+                "message":
+                    "You can delete only your own orders"
+
+            }), 403
+
+    # =====================================================
+    # DELETE ORDER ITEMS
+    # =====================================================
+
     conn.execute(
         """
         DELETE FROM order_items
+
         WHERE order_id = ?
         """,
         (order_id,)
     )
 
+    # =====================================================
+    # DELETE ORDER
+    # =====================================================
+
     conn.execute(
         """
         DELETE FROM orders
+
         WHERE id = ?
         """,
         (order_id,)
@@ -2809,9 +2799,6 @@ def health_check():
     ---
     tags:
       - System
-    responses:
-      200:
-        description: Backend is working
     """
 
     return jsonify({
@@ -2855,26 +2842,49 @@ if __name__ == "__main__":
     )
 
     print("")
-    print("==========================================")
-    print("🌸 BLOSSOM FLOWER SHOP")
-    print("==========================================")
+
+    print(
+        "=========================================="
+    )
+
+    print(
+        "🌸 BLOSSOM FLOWER SHOP"
+    )
+
+    print(
+        "=========================================="
+    )
+
     print("")
+
     print("Server:")
+
     print(
         f"http://127.0.0.1:{port}"
     )
+
     print("")
+
     print("Swagger:")
+
     print(
         f"http://127.0.0.1:{port}/apidocs/"
     )
+
     print("")
+
     print("API JSON:")
+
     print(
         f"http://127.0.0.1:{port}/apispec_1.json"
     )
+
     print("")
-    print("==========================================")
+
+    print(
+        "=========================================="
+    )
+
     print("")
 
     app.run(

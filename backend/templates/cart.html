@@ -32,10 +32,13 @@
             color: #333;
 
             min-height: 100vh;
-
         }
 
-        .dashboard-header {
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
 
             background: white;
 
@@ -56,28 +59,27 @@
             top: 0;
 
             z-index: 100;
-
         }
 
-        .dashboard-header h1 {
+        .logo {
 
             color: #d63384;
 
-            font-size: 27px;
+            font-size: 25px;
 
+            font-weight: bold;
         }
 
-        nav {
+        nav ul {
+
+            list-style: none;
 
             display: flex;
 
             gap: 25px;
-
-            flex-wrap: wrap;
-
         }
 
-        nav a {
+        nav ul li a {
 
             text-decoration: none;
 
@@ -85,72 +87,85 @@
 
             font-weight: 600;
 
+            transition: 0.3s;
         }
 
-        nav a:hover {
+        nav ul li a:hover {
 
             color: #d63384;
-
         }
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
 
         .cart-section {
 
-            width: 100%;
-
-            padding: 50px 20px;
-
-        }
-
-        .cart-container {
-
             max-width: 1100px;
 
-            margin: auto;
+            margin: 45px auto;
 
+            padding: 0 20px;
         }
 
-        .cart-header {
+        .page-title {
 
             background: white;
 
-            padding: 25px 30px;
+            padding: 25px;
 
-            border-radius: 18px;
-
-            box-shadow:
-                0 8px 30px
-                rgba(0, 0, 0, 0.08);
+            border-radius: 15px;
 
             margin-bottom: 25px;
 
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.07);
         }
 
-        .cart-header h2 {
+        .page-title h2 {
 
             color: #c2185b;
 
-            margin-bottom: 8px;
-
+            margin-bottom: 7px;
         }
 
-        .cart-header p {
+        .page-title p {
 
             color: #777;
-
         }
 
-        .cart-list {
+        /* =====================================================
+           CART LAYOUT
+        ===================================================== */
+
+        .cart-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 330px;
+
+            gap: 25px;
+
+            align-items: start;
+        }
+
+        /* =====================================================
+           CART CARD
+        ===================================================== */
+
+        .cart-card {
 
             background: white;
 
-            border-radius: 18px;
+            border-radius: 16px;
 
-            overflow: hidden;
+            padding: 20px;
 
             box-shadow:
-                0 8px 30px
+                0 6px 25px
                 rgba(0, 0, 0, 0.08);
-
         }
 
         .cart-item {
@@ -159,310 +174,216 @@
 
             align-items: center;
 
-            gap: 20px;
+            gap: 18px;
 
-            padding: 20px;
+            padding: 18px 0;
 
             border-bottom:
                 1px solid #eee;
-
         }
 
         .cart-item:last-child {
 
             border-bottom: none;
-
         }
 
-        .cart-item.ordered {
+        .product-image {
 
-            background: #fffafb;
+            width: 100px;
 
-        }
-
-        .cart-item img {
-
-            width: 95px;
-
-            height: 95px;
+            height: 100px;
 
             object-fit: cover;
 
             border-radius: 12px;
 
-            flex-shrink: 0;
+            border:
+                1px solid #f2d4df;
 
+            background: #fff5f8;
         }
 
-        .cart-item-info {
+        .product-info {
 
             flex: 1;
-
         }
 
-        .cart-item-info h3 {
-
-            color: #c2185b;
-
-            margin-bottom: 7px;
-
-        }
-
-        .cart-item-info p {
-
-            color: #666;
-
-            margin: 4px 0;
-
-        }
-
-        .status-badge {
-
-            display: inline-block;
-
-            padding: 6px 12px;
-
-            border-radius: 20px;
-
-            font-size: 12px;
-
-            font-weight: bold;
-
-            margin-top: 7px;
-
-        }
-
-        .status-in-cart {
-
-            background: #ffe0ea;
-
-            color: #c2185b;
-
-        }
-
-        .status-ordered {
-
-            background: #e7f7ed;
-
-            color: #218838;
-
-        }
-
-        .cart-price {
-
-            min-width: 120px;
-
-            text-align: right;
-
-        }
-
-        .cart-price .price {
-
-            color: #d63384;
-
-            font-size: 19px;
-
-            font-weight: bold;
-
-        }
-
-        .cart-price .label {
-
-            color: #888;
-
-            font-size: 13px;
-
-            margin-top: 5px;
-
-        }
-
-        .quantity-control {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            margin-top: 10px;
-
-        }
-
-        .quantity-control button {
-
-            width: 32px;
-
-            height: 32px;
-
-            border: none;
-
-            border-radius: 7px;
-
-            background: #ffe0ea;
+        .product-name {
 
             color: #c2185b;
 
             font-size: 18px;
 
-            cursor: pointer;
-
             font-weight: bold;
 
+            margin-bottom: 5px;
         }
 
-        .quantity-control button:hover {
+        .product-price {
 
-            background: #f7c4d6;
+            color: #555;
 
+            font-size: 15px;
+
+            margin-bottom: 12px;
         }
 
-        .quantity-control span {
+        .stock-text {
 
-            min-width: 30px;
+            color: #777;
 
-            text-align: center;
+            font-size: 13px;
 
-            font-weight: bold;
-
+            margin-top: 7px;
         }
 
-        .cart-actions {
+        /* =====================================================
+           QUANTITY
+        ===================================================== */
+
+        .quantity-area {
 
             display: flex;
 
-            flex-direction: column;
+            align-items: center;
 
-            gap: 8px;
-
-            min-width: 110px;
-
+            gap: 7px;
         }
 
-        .btn {
+        .quantity-btn {
+
+            width: 34px;
+
+            height: 34px;
 
             border: none;
 
-            border-radius: 8px;
+            border-radius: 7px;
 
-            padding: 10px 14px;
+            background: #ffe0e8;
 
-            font-size: 14px;
+            color: #c2185b;
+
+            font-size: 18px;
 
             font-weight: bold;
 
             cursor: pointer;
 
-            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .quantity-btn:hover {
+
+            background: #f8c5d4;
+        }
+
+        .quantity-number {
+
+            min-width: 35px;
 
             text-align: center;
 
+            font-weight: bold;
+
+            color: #444;
         }
 
-        .btn-remove {
+        /* =====================================================
+           ITEM RIGHT SIDE
+        ===================================================== */
 
-            background: #ffe1e1;
+        .item-right {
 
-            color: #c62828;
+            min-width: 130px;
 
+            text-align: right;
         }
 
-        .btn-remove:hover {
+        .item-subtotal {
 
-            background: #ffcaca;
+            color: #d63384;
 
+            font-size: 17px;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
         }
 
-        .btn-select {
+        .remove-btn {
 
-            background: #d63384;
+            border: none;
 
-            color: white;
-
-        }
-
-        .btn-select:hover {
-
-            background: #ad1457;
-
-        }
-
-        .btn-disabled {
-
-            background: #e7f7ed;
-
-            color: #218838;
-
-            cursor: default;
-
-        }
-
-        .bottom-section {
-
-            margin-top: 25px;
-
-            display: grid;
-
-            grid-template-columns: 1fr 360px;
-
-            gap: 25px;
-
-        }
-
-        .selection-info {
-
-            background: white;
-
-            border-radius: 18px;
-
-            padding: 25px;
-
-            box-shadow:
-                0 8px 30px
-                rgba(0, 0, 0, 0.08);
-
-        }
-
-        .selection-info h3 {
+            background: #fff0f3;
 
             color: #c2185b;
 
-            margin-bottom: 10px;
+            padding: 8px 12px;
 
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: bold;
         }
 
-        .selection-info p {
+        .remove-btn:hover {
 
-            color: #666;
-
-            line-height: 1.6;
-
+            background: #ffe0e8;
         }
 
-        .order-summary {
+        /* =====================================================
+           ORDERED ITEM
+        ===================================================== */
+
+        .ordered-label {
+
+            display: inline-block;
+
+            background: #e8f5e9;
+
+            color: #2e7d32;
+
+            padding: 5px 10px;
+
+            border-radius: 15px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            margin-top: 8px;
+        }
+
+        /* =====================================================
+           SUMMARY
+        ===================================================== */
+
+        .summary-card {
 
             background: white;
 
-            border-radius: 18px;
+            border-radius: 16px;
 
             padding: 25px;
 
             box-shadow:
-                0 8px 30px
+                0 6px 25px
                 rgba(0, 0, 0, 0.08);
 
+            position: sticky;
+
+            top: 100px;
         }
 
-        .order-summary h3 {
+        .summary-card h3 {
 
             color: #c2185b;
 
             margin-bottom: 20px;
 
-            border-bottom:
-                2px solid #f3c1d3;
-
-            padding-bottom: 12px;
-
+            font-size: 20px;
         }
 
         .summary-row {
@@ -471,104 +392,93 @@
 
             justify-content: space-between;
 
-            margin: 12px 0;
+            padding: 11px 0;
 
-            color: #555;
-
-        }
-
-        .summary-total {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            border-top:
+            border-bottom:
                 1px solid #eee;
 
-            padding-top: 15px;
+            color: #555;
+        }
 
-            margin-top: 15px;
+        .summary-row.total {
+
+            border-bottom: none;
+
+            margin-top: 10px;
 
             font-size: 21px;
 
             font-weight: bold;
 
-        }
-
-        .summary-total span:last-child {
-
-            color: #d63384;
-
+            color: #c2185b;
         }
 
         .checkout-btn {
 
-            display: block;
-
             width: 100%;
 
-            margin-top: 20px;
-
-            padding: 14px;
+            border: none;
 
             background: #d63384;
 
             color: white;
 
+            padding: 14px;
+
             border-radius: 9px;
-
-            text-decoration: none;
-
-            text-align: center;
-
-            font-weight: bold;
-
-            border: none;
-
-            cursor: pointer;
 
             font-size: 16px;
 
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 20px;
+
+            transition: 0.3s;
         }
 
         .checkout-btn:hover {
 
-            background: #ad1457;
-
+            background: #c2185b;
         }
 
-        .checkout-btn.disabled {
+        .checkout-btn:disabled {
 
             background: #ccc;
 
             cursor: not-allowed;
-
         }
 
-        .continue-btn {
-
-            display: block;
+        .clear-btn {
 
             width: 100%;
 
-            margin-top: 10px;
+            border: 1px solid #d63384;
 
-            padding: 13px;
-
-            background: #ffe0ea;
+            background: white;
 
             color: #c2185b;
 
+            padding: 12px;
+
             border-radius: 9px;
-
-            text-decoration: none;
-
-            text-align: center;
 
             font-weight: bold;
 
+            cursor: pointer;
+
+            margin-top: 10px;
         }
+
+        .clear-btn:hover {
+
+            background: #fff0f3;
+        }
+
+        /* =====================================================
+           EMPTY
+        ===================================================== */
 
         .empty-cart {
 
@@ -576,184 +486,131 @@
 
             text-align: center;
 
-            padding: 60px 20px;
+            padding: 70px 25px;
 
-            border-radius: 18px;
+            border-radius: 16px;
 
             box-shadow:
-                0 8px 30px
+                0 6px 25px
                 rgba(0, 0, 0, 0.08);
-
         }
 
         .empty-cart h2 {
 
             color: #d63384;
 
-            margin-bottom: 12px;
-
+            margin-bottom: 10px;
         }
 
         .empty-cart p {
 
-            color: #666;
-
-            margin-bottom: 25px;
-
-        }
-
-        .loading {
-
-            background: white;
-
-            padding: 50px;
-
-            text-align: center;
-
             color: #777;
 
-            border-radius: 18px;
-
-        }
-
-        .login-message {
-
-            background: white;
-
-            padding: 50px;
-
-            text-align: center;
-
-            border-radius: 18px;
-
-            box-shadow:
-                0 8px 30px
-                rgba(0, 0, 0, 0.08);
-
-        }
-
-        .login-message h2 {
-
-            color: #d63384;
-
-            margin-bottom: 12px;
-
-        }
-
-        .login-message p {
-
-            color: #666;
-
             margin-bottom: 20px;
-
         }
 
-        .login-message a {
+        .shop-btn {
 
             display: inline-block;
 
-            padding: 12px 25px;
+            text-decoration: none;
 
             background: #d63384;
 
             color: white;
 
+            padding: 12px 20px;
+
             border-radius: 8px;
 
-            text-decoration: none;
-
             font-weight: bold;
-
         }
 
-        .ordered-note {
+        /* =====================================================
+           LOADING
+        ===================================================== */
 
-            margin-top: 8px;
+        .loading {
 
-            color: #218838 !important;
+            text-align: center;
 
-            font-size: 13px;
+            background: white;
 
-            font-weight: bold;
+            padding: 50px;
 
+            border-radius: 15px;
+
+            color: #777;
         }
 
-        @media (max-width: 800px) {
+        .error-box {
 
-            .dashboard-header {
+            text-align: center;
+
+            background: white;
+
+            padding: 50px;
+
+            border-radius: 15px;
+
+            color: #c2185b;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .cart-layout {
+
+                grid-template-columns: 1fr;
+            }
+
+            .summary-card {
+
+                position: static;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .navbar {
 
                 flex-direction: column;
 
                 gap: 15px;
 
                 padding: 20px;
-
             }
 
-            nav {
+            nav ul {
+
+                flex-wrap: wrap;
 
                 justify-content: center;
 
                 gap: 15px;
-
             }
 
             .cart-item {
 
                 flex-wrap: wrap;
-
             }
 
-            .cart-price {
+            .item-right {
+
+                width: 100%;
 
                 text-align: left;
-
             }
 
-            .cart-actions {
+            .product-image {
 
-                width: 100%;
+                width: 80px;
 
-                flex-direction: row;
-
+                height: 80px;
             }
-
-            .cart-actions .btn {
-
-                flex: 1;
-
-            }
-
-            .bottom-section {
-
-                grid-template-columns: 1fr;
-
-            }
-
-        }
-
-        @media (max-width: 500px) {
-
-            .cart-item img {
-
-                width: 75px;
-
-                height: 75px;
-
-            }
-
-            .cart-item-info {
-
-                min-width: calc(100% - 100px);
-
-            }
-
-            .cart-price {
-
-                width: 100%;
-
-            }
-
         }
 
     </style>
@@ -764,172 +621,133 @@
 <body>
 
 
-<header class="dashboard-header">
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
 
-    <h1>
+<header class="navbar">
+
+    <div class="logo">
         🌸 Blossom Flower Shop
-    </h1>
+    </div>
 
     <nav>
 
-        <a href="{{ url_for('dashboard_page') }}">
-            Dashboard
-        </a>
+        <ul>
 
-        <a href="{{ url_for('home_page') }}">
-            Home
-        </a>
+            <li>
+                <a href="{{ url_for('dashboard_page') }}">
+                    Dashboard
+                </a>
+            </li>
 
-        <a href="{{ url_for('flowers_page') }}">
-            Flowers
-        </a>
+            <li>
+                <a href="{{ url_for('home_page') }}">
+                    Home
+                </a>
+            </li>
 
-        <a href="{{ url_for('cart_page') }}">
-            Cart
-        </a>
+            <li>
+                <a href="{{ url_for('flowers_page') }}">
+                    Flowers
+                </a>
+            </li>
 
-        <a href="{{ url_for('orders_page') }}">
-            Orders
-        </a>
+            <li>
+                <a href="{{ url_for('cart_page') }}">
+                    Cart
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('orders_page') }}">
+                    Orders
+                </a>
+            </li>
+
+        </ul>
 
     </nav>
 
 </header>
 
 
+<!-- =========================================================
+     CART SECTION
+========================================================= -->
+
 <section class="cart-section">
 
-    <div class="cart-container">
 
+    <div class="page-title">
 
-        <div class="cart-header">
+        <h2>
+            🛒 My Shopping Cart
+        </h2>
 
-            <h2>
-                🛒 My Shopping Cart
-            </h2>
-
-            <p>
-                Your cart items will stay here even after placing an order.
-                You can remove them whenever you want.
-            </p>
-
-        </div>
-
-
-        <div id="cartContent">
-
-            <div class="loading">
-
-                Loading your cart...
-
-            </div>
-
-        </div>
-
+        <p>
+            Review your selected flowers before checkout.
+        </p>
 
     </div>
+
+
+    <div id="cartContainer">
+
+        <div class="loading">
+            Loading cart...
+        </div>
+
+    </div>
+
 
 </section>
 
 
 <script>
 
+/* =========================================================
+   API
+========================================================= */
 
-const API_URL =
-    "http://127.0.0.1:5000";
+const API_URL = "";
 
 
-let cart = [];
-
-let selectedCartIds = [];
-
-let total = 0;
-
+/* =========================================================
+   GET CURRENT USER
+========================================================= */
 
 function getCurrentUser() {
 
     const userData =
-        localStorage.getItem(
-            "currentUser"
-        );
+        localStorage.getItem("currentUser");
 
     if (!userData) {
 
         return null;
-
     }
 
     try {
 
-        return JSON.parse(
-            userData
-        );
+        return JSON.parse(userData);
 
     } catch (error) {
+
+        console.error(error);
 
         return null;
-
     }
-
 }
 
 
-function getSelectedIds() {
-
-    const stored =
-        sessionStorage.getItem(
-            "selectedCartIds"
-        );
-
-    if (!stored) {
-
-        return [];
-
-    }
-
-    try {
-
-        const ids =
-            JSON.parse(stored);
-
-        if (!Array.isArray(ids)) {
-
-            return [];
-
-        }
-
-        return ids.map(
-            Number
-        );
-
-    } catch (error) {
-
-        return [];
-
-    }
-
-}
-
-
-function saveSelectedIds() {
-
-    sessionStorage.setItem(
-        "selectedCartIds",
-        JSON.stringify(
-            selectedCartIds
-        )
-    );
-
-}
-
+/* =========================================================
+   LOAD CART
+========================================================= */
 
 async function loadCart() {
 
     const container =
-        document.getElementById(
-            "cartContent"
-        );
-
+        document.getElementById("cartContainer");
 
     const user =
         getCurrentUser();
@@ -939,17 +757,20 @@ async function loadCart() {
 
         container.innerHTML = `
 
-            <div class="login-message">
+            <div class="empty-cart">
 
                 <h2>
                     🌸 Please Login
                 </h2>
 
                 <p>
-                    Please login to view your shopping cart.
+                    Login to view your shopping cart.
                 </p>
 
-                <a href="{{ url_for('login_page') }}">
+                <a
+                    href="{{ url_for('login_page') }}"
+                    class="shop-btn"
+                >
                     Login
                 </a>
 
@@ -958,7 +779,6 @@ async function loadCart() {
         `;
 
         return;
-
     }
 
 
@@ -966,7 +786,11 @@ async function loadCart() {
 
         const response =
             await fetch(
-                `${API_URL}/api/cart/${user.id}`
+                `${API_URL}/api/cart/${user.id}`,
+                {
+                    method: "GET",
+                    credentials: "include"
+                }
             );
 
 
@@ -983,54 +807,10 @@ async function loadCart() {
                 data.message ||
                 "Unable to load cart"
             );
-
         }
 
 
-        cart =
-            data.cart || [];
-
-
-        total =
-            Number(
-                data.total || 0
-            );
-
-
-        // =================================================
-        // REMOVE INVALID / ORDERED IDs FROM CHECKOUT
-        // =================================================
-
-        selectedCartIds =
-            selectedCartIds.filter(
-                function(id) {
-
-                    const item =
-                        cart.find(
-                            function(cartItem) {
-
-                                return Number(
-                                    cartItem.id
-                                ) === Number(id);
-
-                            }
-                        );
-
-
-                    return (
-                        item &&
-                        item.status !== "Ordered"
-                    );
-
-                }
-            );
-
-
-        saveSelectedIds();
-
-
-        displayCart();
-
+        displayCart(data);
 
     } catch (error) {
 
@@ -1042,18 +822,20 @@ async function loadCart() {
 
         container.innerHTML = `
 
-            <div class="empty-cart">
+            <div class="error-box">
 
                 <h2>
                     ❌ Unable to Load Cart
                 </h2>
 
                 <p>
-                    ${error.message}
+                    Please make sure Flask server is running.
                 </p>
 
+                <br>
+
                 <button
-                    class="checkout-btn"
+                    class="shop-btn"
                     onclick="loadCart()"
                 >
                     Try Again
@@ -1062,17 +844,28 @@ async function loadCart() {
             </div>
 
         `;
-
     }
-
 }
 
 
-function displayCart() {
+/* =========================================================
+   DISPLAY CART
+========================================================= */
+
+function displayCart(data) {
 
     const container =
-        document.getElementById(
-            "cartContent"
+        document.getElementById("cartContainer");
+
+
+    const cart =
+        data.cart || [];
+
+
+    const activeItems =
+        cart.filter(
+            item =>
+                item.status !== "Ordered"
         );
 
 
@@ -1092,9 +885,9 @@ function displayCart() {
 
                 <a
                     href="{{ url_for('flowers_page') }}"
-                    class="checkout-btn"
+                    class="shop-btn"
                 >
-                    🌸 Browse Flowers
+                    🌸 Shop Flowers
                 </a>
 
             </div>
@@ -1102,15 +895,10 @@ function displayCart() {
         `;
 
         return;
-
     }
 
 
-    let html = `
-
-        <div class="cart-list">
-
-    `;
+    let itemsHTML = "";
 
 
     cart.forEach(
@@ -1121,250 +909,160 @@ function displayCart() {
                 item.status === "Ordered";
 
 
-            const isSelected =
-                selectedCartIds.includes(
-                    Number(item.id)
-                );
-
-
-            html += `
+            itemsHTML += `
 
                 <div
-                    class="cart-item ${isOrdered ? "ordered" : ""}"
+                    class="cart-item"
+                    data-id="${item.id}"
                 >
 
                     <img
-                        src="${item.image}"
+                        class="product-image"
+                        src="${escapeHtml(item.image || '')}"
                         alt="${escapeHtml(item.name)}"
+                        onerror="this.src='https://via.placeholder.com/100x100?text=Flower'"
                     >
 
 
-                    <div class="cart-item-info">
+                    <div class="product-info">
 
-                        <h3>
-                            🌸 ${escapeHtml(item.name)}
-                        </h3>
+                        <div class="product-name">
 
+                            🌸
+                            ${escapeHtml(item.name)}
 
-                        <p>
-                            Price:
-                            ₹${Number(item.price).toFixed(2)}
-                        </p>
+                        </div>
 
 
-                        <p>
-                            Quantity:
-                            ${item.quantity}
-                        </p>
+                        <div class="product-price">
 
+                            ₹${Number(
+                                item.price || 0
+                            ).toFixed(2)}
 
-                        <span
-                            class="
-                                status-badge
-                                ${
-                                    isOrdered
-                                    ? "status-ordered"
-                                    : "status-in-cart"
-                                }
-                            "
-                        >
+                            per item
 
-                            ${
-                                isOrdered
-                                ? "✓ ORDERED"
-                                : "🛒 IN CART"
-                            }
-
-                        </span>
+                        </div>
 
 
                         ${
                             isOrdered
-                            ? `
-                                <p class="ordered-note">
-                                    This flower has already been ordered.
-                                </p>
-                              `
-                            : ""
-                        }
-
-
-                        ${
-                            !isOrdered
-                            ? `
-
-                                <div class="quantity-control">
+                            ?
+                            `
+                                <span class="ordered-label">
+                                    ✓ Already Ordered
+                                </span>
+                            `
+                            :
+                            `
+                                <div class="quantity-area">
 
                                     <button
+                                        class="quantity-btn"
                                         onclick="changeQuantity(
                                             ${item.id},
                                             ${item.quantity - 1}
                                         )"
+                                        ${item.quantity <= 1 ? "disabled" : ""}
                                     >
                                         −
                                     </button>
 
 
-                                    <span>
+                                    <span class="quantity-number">
+
                                         ${item.quantity}
+
                                     </span>
 
 
                                     <button
+                                        class="quantity-btn"
                                         onclick="changeQuantity(
                                             ${item.id},
                                             ${item.quantity + 1}
                                         )"
+                                        ${
+                                            item.quantity >= item.stock
+                                            ? "disabled"
+                                            : ""
+                                        }
                                     >
                                         +
                                     </button>
 
                                 </div>
 
-                              `
-                            : ""
+
+                                <div class="stock-text">
+
+                                    Available stock:
+                                    ${item.stock}
+
+                                </div>
+                            `
                         }
 
                     </div>
 
 
-                    <div class="cart-price">
+                    <div class="item-right">
 
-                        <div class="price">
+                        <div class="item-subtotal">
 
                             ₹${Number(
-                                item.subtotal
+                                item.subtotal || 0
                             ).toFixed(2)}
 
                         </div>
 
 
-                        <div class="label">
-
-                            ${
-                                isOrdered
-                                ? "Order Amount"
-                                : "Cart Amount"
-                            }
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="cart-actions">
-
-
-                        ${
-                            isOrdered
-
-                            ? `
-
-                                <button
-                                    class="btn btn-disabled"
-                                    disabled
-                                >
-                                    ✓ Ordered
-                                </button>
-
-                              `
-
-                            : `
-
-                                <button
-                                    class="btn btn-select"
-                                    onclick="toggleSelection(
-                                        ${item.id}
-                                    )"
-                                >
-
-                                    ${
-                                        isSelected
-                                        ? "✓ Selected"
-                                        : "Select"
-                                    }
-
-                                </button>
-
-                              `
-
-                        }
-
-
                         <button
-                            class="btn btn-remove"
-                            onclick="removeCartItem(
-                                ${item.id}
-                            )"
+                            class="remove-btn"
+                            onclick="removeCartItem(${item.id})"
                         >
-                            🗑 Remove
-                        </button>
 
+                            🗑 Remove
+
+                        </button>
 
                     </div>
 
                 </div>
 
             `;
-
         }
     );
 
 
-    html += `
+    container.innerHTML = `
 
-        </div>
-
-
-        <div class="bottom-section">
+        <div class="cart-layout">
 
 
-            <div class="selection-info">
+            <div class="cart-card">
 
-                <h3>
-                    🌸 Checkout Selection
-                </h3>
-
-
-                <p>
-
-                    Select the flowers you want to order.
-
-                    Already ordered flowers will stay in
-                    your cart but cannot be selected again
-                    until you add them again.
-
-                </p>
-
-
-                <p style="margin-top:10px;">
-
-                    Selected items:
-                    <strong>
-                        ${selectedCartIds.length}
-                    </strong>
-
-                </p>
+                ${itemsHTML}
 
             </div>
 
 
-            <div class="order-summary">
+            <div class="summary-card">
 
                 <h3>
-                    Order Summary
+                    🧾 Cart Summary
                 </h3>
 
 
                 <div class="summary-row">
 
                     <span>
-                        Available Cart Items
+                        Active Items
                     </span>
 
-                    <span>
-                        ${getAvailableCount()}
-                    </span>
+                    <strong>
+                        ${data.active_count || 0}
+                    </strong>
 
                 </div>
 
@@ -1372,242 +1070,64 @@ function displayCart() {
                 <div class="summary-row">
 
                     <span>
-                        Selected Items
+                        Ordered Items
                     </span>
 
-                    <span>
-                        ${selectedCartIds.length}
-                    </span>
+                    <strong>
+                        ${data.ordered_count || 0}
+                    </strong>
 
                 </div>
 
 
-                <div class="summary-total">
+                <div class="summary-row total">
 
                     <span>
                         Total
                     </span>
 
                     <span>
-                        ₹${getSelectedTotal().toFixed(2)}
+
+                        ₹${Number(
+                            data.total || 0
+                        ).toFixed(2)}
+
                     </span>
 
                 </div>
 
 
                 <button
-                    id="checkoutButton"
                     class="checkout-btn"
                     onclick="goToCheckout()"
+                    ${activeItems.length === 0 ? "disabled" : ""}
                 >
-                    Proceed to Checkout
+
+                    🛍 Proceed to Checkout
+
                 </button>
 
 
-                <a
-                    href="{{ url_for('flowers_page') }}"
-                    class="continue-btn"
+                <button
+                    class="clear-btn"
+                    onclick="clearCart()"
                 >
-                    🌸 Continue Shopping
-                </a>
+
+                    🗑 Clear Cart
+
+                </button>
 
             </div>
-
 
         </div>
 
     `;
-
-
-    container.innerHTML =
-        html;
-
-
-    updateCheckoutButton();
-
 }
 
 
-function getAvailableCount() {
-
-    return cart.filter(
-        function(item) {
-
-            return item.status !== "Ordered";
-
-        }
-    ).length;
-
-}
-
-
-function getSelectedTotal() {
-
-    let selectedTotal = 0;
-
-
-    selectedCartIds.forEach(
-        function(id) {
-
-            const item =
-                cart.find(
-                    function(cartItem) {
-
-                        return (
-                            Number(cartItem.id)
-                            === Number(id)
-                        );
-
-                    }
-                );
-
-
-            if (
-                item &&
-                item.status !== "Ordered"
-            ) {
-
-                selectedTotal +=
-                    Number(item.subtotal);
-
-            }
-
-        }
-    );
-
-
-    return selectedTotal;
-
-}
-
-
-function toggleSelection(cartId) {
-
-    const item =
-        cart.find(
-            function(cartItem) {
-
-                return Number(
-                    cartItem.id
-                ) === Number(cartId);
-
-            }
-        );
-
-
-    if (!item) {
-
-        return;
-
-    }
-
-
-    if (
-        item.status === "Ordered"
-    ) {
-
-        alert(
-            "This flower has already been ordered."
-        );
-
-        return;
-
-    }
-
-
-    const index =
-        selectedCartIds.indexOf(
-            Number(cartId)
-        );
-
-
-    if (index === -1) {
-
-        selectedCartIds.push(
-            Number(cartId)
-        );
-
-    } else {
-
-        selectedCartIds.splice(
-            index,
-            1
-        );
-
-    }
-
-
-    saveSelectedIds();
-
-
-    displayCart();
-
-}
-
-
-function updateCheckoutButton() {
-
-    const button =
-        document.getElementById(
-            "checkoutButton"
-        );
-
-
-    if (!button) {
-
-        return;
-
-    }
-
-
-    if (
-        selectedCartIds.length === 0
-    ) {
-
-        button.classList.add(
-            "disabled"
-        );
-
-        button.textContent =
-            "Select Flowers First";
-
-    } else {
-
-        button.classList.remove(
-            "disabled"
-        );
-
-        button.textContent =
-            "Proceed to Checkout";
-
-    }
-
-}
-
-
-function goToCheckout() {
-
-    if (
-        selectedCartIds.length === 0
-    ) {
-
-        alert(
-            "Please select at least one flower."
-        );
-
-        return;
-
-    }
-
-
-    saveSelectedIds();
-
-
-    window.location.href =
-        "{{ url_for('checkout_page') }}";
-
-}
-
+/* =========================================================
+   CHANGE QUANTITY
+========================================================= */
 
 async function changeQuantity(
     cartId,
@@ -1617,7 +1137,6 @@ async function changeQuantity(
     if (quantity < 1) {
 
         return;
-
     }
 
 
@@ -1627,24 +1146,18 @@ async function changeQuantity(
             await fetch(
                 `${API_URL}/api/cart/${cartId}`,
                 {
-
                     method: "PUT",
 
                     headers: {
-
                         "Content-Type":
                             "application/json"
-
                     },
 
-                    body:
-                        JSON.stringify({
+                    credentials: "include",
 
-                            quantity:
-                                quantity
-
-                        })
-
+                    body: JSON.stringify({
+                        quantity: quantity
+                    })
                 }
             );
 
@@ -1658,61 +1171,45 @@ async function changeQuantity(
             !data.success
         ) {
 
-            throw new Error(
+            alert(
                 data.message ||
                 "Unable to update quantity"
             );
 
+            return;
         }
 
 
-        await loadCart();
-
+        loadCart();
 
     } catch (error) {
 
+        console.error(error);
+
         alert(
-            error.message
+            "Unable to update cart quantity."
         );
-
     }
-
 }
 
+
+/* =========================================================
+   REMOVE ITEM
+========================================================= */
 
 async function removeCartItem(
     cartId
 ) {
 
-    const item =
-        cart.find(
-            function(cartItem) {
-
-                return Number(
-                    cartItem.id
-                ) === Number(cartId);
-
-            }
-        );
-
-
-    if (!item) {
-
-        return;
-
-    }
-
-
-    const confirmed =
+    const confirmDelete =
         confirm(
-            `Remove "${item.name}" from your cart?`
+            "Are you sure you want to remove this flower from cart?"
         );
 
 
-    if (!confirmed) {
+    if (!confirmDelete) {
 
         return;
-
     }
 
 
@@ -1722,9 +1219,9 @@ async function removeCartItem(
             await fetch(
                 `${API_URL}/api/cart/${cartId}`,
                 {
+                    method: "DELETE",
 
-                    method: "DELETE"
-
+                    credentials: "include"
                 }
             );
 
@@ -1738,91 +1235,172 @@ async function removeCartItem(
             !data.success
         ) {
 
-            throw new Error(
+            alert(
                 data.message ||
                 "Unable to remove item"
             );
 
+            return;
         }
 
 
-        selectedCartIds =
-            selectedCartIds.filter(
-                function(id) {
+        loadCart();
 
-                    return Number(id)
-                        !== Number(cartId);
+    } catch (error) {
 
+        console.error(error);
+
+        alert(
+            "Unable to remove item."
+        );
+    }
+}
+
+
+/* =========================================================
+   CLEAR CART
+========================================================= */
+
+async function clearCart() {
+
+    const user =
+        getCurrentUser();
+
+
+    if (!user || !user.id) {
+
+        return;
+    }
+
+
+    const confirmClear =
+        confirm(
+            "Are you sure you want to clear your cart?"
+        );
+
+
+    if (!confirmClear) {
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/api/cart/user/${user.id}`,
+                {
+                    method: "DELETE",
+
+                    credentials: "include"
                 }
             );
 
 
-        saveSelectedIds();
+        const data =
+            await response.json();
 
 
-        await loadCart();
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
+            alert(
+                data.message ||
+                "Unable to clear cart"
+            );
+
+            return;
+        }
+
+
+        alert(
+            "Cart cleared successfully."
+        );
+
+
+        loadCart();
 
     } catch (error) {
 
+        console.error(error);
+
         alert(
-            error.message
+            "Unable to clear cart."
         );
-
     }
-
 }
 
 
-function escapeHtml(value) {
+/* =========================================================
+   CHECKOUT
+========================================================= */
 
-    return String(value)
+function goToCheckout() {
+
+    window.location.href =
+        "{{ url_for('checkout_page') }}";
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(text) {
+
+    if (
+        text === null ||
+        text === undefined
+    ) {
+
+        return "";
+    }
+
+
+    return String(text)
+
         .replace(
             /&/g,
             "&amp;"
         )
+
         .replace(
             /</g,
             "&lt;"
         )
+
         .replace(
             />/g,
             "&gt;"
         )
+
         .replace(
             /"/g,
             "&quot;"
         )
+
         .replace(
             /'/g,
             "&#039;"
         );
-
 }
 
+
+/* =========================================================
+   PAGE LOAD
+========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        selectedCartIds =
-            getSelectedIds();
-
         loadCart();
 
     }
 );
-
-
-window.addEventListener(
-    "pageshow",
-    function() {
-
-        loadCart();
-
-    }
-);
-
 
 </script>
 
