@@ -12,7 +12,6 @@
 
     <title>Register - Blossom Flower Shop</title>
 
-
     <style>
 
         * {
@@ -20,7 +19,6 @@
             margin: 0;
             padding: 0;
         }
-
 
         body {
 
@@ -50,11 +48,6 @@
 
         }
 
-
-        /* =========================
-           REGISTER CONTAINER
-        ========================= */
-
         .register-container {
 
             width: 100%;
@@ -73,7 +66,6 @@
 
         }
 
-
         .register-container h1 {
 
             text-align: center;
@@ -86,7 +78,6 @@
 
         }
 
-
         .welcome-text {
 
             text-align: center;
@@ -96,7 +87,6 @@
             margin-bottom: 25px;
 
         }
-
 
         .register-container h2 {
 
@@ -108,11 +98,6 @@
 
         }
 
-
-        /* =========================
-           FORM
-        ========================= */
-
         #registerForm {
 
             display: flex;
@@ -122,7 +107,6 @@
             gap: 16px;
 
         }
-
 
         #registerForm input {
 
@@ -140,7 +124,6 @@
 
         }
 
-
         #registerForm input:focus {
 
             border-color: #d63384;
@@ -150,7 +133,6 @@
                 rgba(214, 51, 132, 0.10);
 
         }
-
 
         #registerForm button {
 
@@ -176,13 +158,11 @@
 
         }
 
-
         #registerForm button:hover {
 
             background: #ad1457;
 
         }
-
 
         #registerForm button:disabled {
 
@@ -191,7 +171,6 @@
             cursor: not-allowed;
 
         }
-
 
         #message {
 
@@ -203,11 +182,6 @@
 
         }
 
-
-        /* =========================
-           LOGIN LINK
-        ========================= */
-
         .account-text {
 
             text-align: center;
@@ -215,7 +189,6 @@
             margin-top: 20px;
 
         }
-
 
         .account-text a {
 
@@ -227,17 +200,11 @@
 
         }
 
-
         .account-text a:hover {
 
             text-decoration: underline;
 
         }
-
-
-        /* =========================
-           MOBILE
-        ========================= */
 
         @media (max-width: 500px) {
 
@@ -336,7 +303,7 @@
 
         Already have an account?
 
-        <a href="login.html">
+        <a href="/login">
             Login Here
         </a>
 
@@ -388,7 +355,8 @@
                 document
                     .getElementById("regEmail")
                     .value
-                    .trim();
+                    .trim()
+                    .toLowerCase();
 
 
             const password =
@@ -419,6 +387,7 @@
                     "red";
 
                 return;
+
             }
 
 
@@ -435,11 +404,20 @@
                     "red";
 
                 return;
+
             }
 
 
+            // =================================
+            // DISABLE BUTTON
+            // =================================
+
             registerButton.disabled =
                 true;
+
+
+            registerButton.innerText =
+                "Registering...";
 
 
             message.textContent =
@@ -451,37 +429,59 @@
 
             // =================================
             // SEND TO FLASK
+            // IMPORTANT:
+            // RELATIVE API URL
             // =================================
 
             try {
 
                 const response =
                     await fetch(
-                        "http://127.0.0.1:5000/api/register",
+                        "/api/register",
                         {
+
                             method: "POST",
 
                             headers: {
+
                                 "Content-Type":
                                     "application/json"
+
                             },
 
-                            body: JSON.stringify({
+                            credentials:
+                                "include",
 
-                                name: name,
+                            body:
+                                JSON.stringify({
 
-                                email: email,
+                                    name:
+                                        name,
 
-                                password: password
+                                    email:
+                                        email,
 
-                            })
+                                    password:
+                                        password
+
+                                })
 
                         }
                     );
 
 
+                // =================================
+                // READ RESPONSE
+                // =================================
+
                 const data =
                     await response.json();
+
+
+                console.log(
+                    "Registration response:",
+                    data
+                );
 
 
                 // =================================
@@ -507,7 +507,7 @@
                         function() {
 
                             window.location.href =
-                                "login.html";
+                                "/login";
 
                         },
                         1200
@@ -515,11 +515,40 @@
 
 
                     return;
+
                 }
 
 
                 // =================================
-                // ERROR
+                // EMAIL ALREADY REGISTERED
+                // =================================
+
+                if (
+                    response.status === 409
+                ) {
+
+                    message.textContent =
+                        data.message ||
+                        "Email already registered. Please login.";
+
+                    message.style.color =
+                        "#d63384";
+
+
+                    registerButton.disabled =
+                        false;
+
+                    registerButton.innerText =
+                        "Register";
+
+
+                    return;
+
+                }
+
+
+                // =================================
+                // OTHER ERROR
                 // =================================
 
                 message.textContent =
@@ -532,6 +561,10 @@
 
                 registerButton.disabled =
                     false;
+
+                registerButton.innerText =
+                    "Register";
+
 
             } catch (error) {
 
@@ -550,6 +583,9 @@
 
                 registerButton.disabled =
                     false;
+
+                registerButton.innerText =
+                    "Register";
 
             }
 
