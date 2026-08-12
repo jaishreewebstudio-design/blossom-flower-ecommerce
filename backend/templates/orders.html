@@ -12,7 +12,6 @@
 
     <title>My Orders | Blossom Flower Shop</title>
 
-
     <style>
 
         * {
@@ -21,7 +20,6 @@
             padding: 0;
         }
 
-
         body {
 
             font-family:
@@ -29,121 +27,125 @@
                 Helvetica,
                 sans-serif;
 
-            background: #fff5f8;
-
-            color: #333;
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff7fa,
+                    #fdf1f5,
+                    #ffffff
+                );
 
             min-height: 100vh;
+
+            color: #333;
         }
 
-
         /* =====================================================
-           NAVBAR
+           HEADER
         ===================================================== */
 
-        .navbar {
+        .header {
 
-            background: white;
+            background: #ffffff;
 
-            padding: 18px 50px;
+            border-bottom:
+                1px solid #eadde2;
+
+            padding:
+                18px 7%;
 
             display: flex;
 
-            justify-content: space-between;
-
             align-items: center;
 
-            box-shadow:
-                0 3px 15px
-                rgba(0, 0, 0, 0.08);
+            justify-content: space-between;
 
             position: sticky;
 
             top: 0;
 
-            z-index: 1000;
+            z-index: 100;
         }
-
 
         .logo {
 
-            color: #d63384;
-
-            font-size: 25px;
-
-            font-weight: bold;
-
-            white-space: nowrap;
-        }
-
-
-        nav ul {
-
-            list-style: none;
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 25px;
-        }
-
-
-        nav ul li a {
+            color: #c2185b;
 
             text-decoration: none;
 
-            color: #444;
+            font-size: 25px;
+
+            font-weight: 700;
+        }
+
+        .header-actions {
+
+            display: flex;
+
+            gap: 10px;
+
+            align-items: center;
+        }
+
+        .header-btn {
+
+            text-decoration: none;
+
+            padding:
+                9px 17px;
+
+            border-radius: 8px;
 
             font-weight: 600;
 
-            transition: 0.3s;
+            border:
+                1px solid #c2185b;
+
+            color: #c2185b;
+
+            transition: 0.2s;
         }
 
+        .header-btn:hover {
 
-        nav ul li a:hover {
+            background: #c2185b;
 
-            color: #d63384;
+            color: white;
         }
-
 
         /* =====================================================
            MAIN
         ===================================================== */
 
-        .orders-section {
+        .container {
+
+            width: 90%;
 
             max-width: 1100px;
 
-            margin: 45px auto;
-
-            padding: 0 20px;
+            margin:
+                35px auto 60px;
         }
-
-
-        .orders-header {
-
-            margin-bottom: 25px;
-        }
-
 
         .page-title {
 
-            color: #c2185b;
+            text-align: center;
 
-            font-size: 30px;
+            font-size: 34px;
+
+            color: #9c174b;
 
             margin-bottom: 8px;
         }
 
-
         .page-subtitle {
+
+            text-align: center;
 
             color: #777;
 
-            font-size: 15px;
+            margin-bottom: 30px;
         }
-
 
         /* =====================================================
            MESSAGE
@@ -153,59 +155,119 @@
 
             display: none;
 
-            padding: 13px 16px;
+            padding: 13px 15px;
 
-            border-radius: 9px;
+            border-radius: 8px;
 
             margin-bottom: 20px;
 
-            font-weight: bold;
+            font-weight: 600;
 
-            line-height: 1.5;
+            text-align: center;
         }
-
-
-        .message.error {
-
-            display: block;
-
-            background: #ffe7e7;
-
-            color: #b42323;
-
-            border:
-                1px solid #f2b8b8;
-        }
-
 
         .message.success {
 
             display: block;
 
-            background: #e7f8ed;
-
-            color: #16803c;
+            background: #e8f7ed;
 
             border:
-                1px solid #b8e5c7;
+                1px solid #bde5ca;
+
+            color: #187a3d;
         }
 
-
-        .message.warning {
+        .message.error {
 
             display: block;
 
-            background: #fff7df;
-
-            color: #856404;
+            background: #fff0f0;
 
             border:
-                1px solid #f0dc9c;
+                1px solid #f1c1c1;
+
+            color: #b42318;
         }
 
+        /* =====================================================
+           LOADING
+        ===================================================== */
+
+        .loading {
+
+            text-align: center;
+
+            padding: 45px;
+
+            color: #777;
+
+            font-size: 16px;
+        }
 
         /* =====================================================
-           ORDERS CONTAINER
+           EMPTY
+        ===================================================== */
+
+        .empty {
+
+            background: #ffffff;
+
+            border:
+                1px solid #eadde2;
+
+            border-radius: 15px;
+
+            padding: 55px 20px;
+
+            text-align: center;
+
+            box-shadow:
+                0 8px 25px
+                rgba(80, 30, 50, 0.07);
+        }
+
+        .empty-icon {
+
+            font-size: 50px;
+
+            margin-bottom: 15px;
+        }
+
+        .empty h2 {
+
+            color: #9c174b;
+
+            margin-bottom: 10px;
+        }
+
+        .empty p {
+
+            color: #777;
+
+            margin-bottom: 20px;
+        }
+
+        .shop-btn {
+
+            display: inline-block;
+
+            background: #c2185b;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding:
+                11px 20px;
+
+            border-radius: 8px;
+
+            font-weight: 600;
+        }
+
+        /* =====================================================
+           ORDERS
         ===================================================== */
 
         .orders-container {
@@ -214,57 +276,61 @@
 
             flex-direction: column;
 
-            gap: 20px;
+            gap: 22px;
         }
-
-
-        /* =====================================================
-           ORDER CARD
-        ===================================================== */
 
         .order-card {
 
-            background: white;
-
-            border-radius: 16px;
-
-            padding: 24px;
-
-            box-shadow:
-                0 6px 25px
-                rgba(0, 0, 0, 0.07);
+            background: #ffffff;
 
             border:
-                1px solid #f4dce5;
+                1px solid #eadde2;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 25px
+                rgba(80, 30, 50, 0.08);
         }
 
+        /* =====================================================
+           ORDER HEADER
+        ===================================================== */
 
-        .order-top {
+        .order-header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff1f6,
+                    #fff8fa
+                );
+
+            border-bottom:
+                1px solid #eadde2;
+
+            padding:
+                18px 22px;
 
             display: flex;
 
-            justify-content: space-between;
-
             align-items: center;
 
+            justify-content: space-between;
+
             gap: 15px;
-
-            padding-bottom: 18px;
-
-            border-bottom:
-                1px solid #eeeeee;
         }
-
 
         .order-number {
 
-            color: #c2185b;
-
             font-size: 20px;
 
-            font-weight: bold;
-        }
+            font-weight: 700;
 
+            color: #9c174b;
+        }
 
         .order-date {
 
@@ -275,498 +341,336 @@
             margin-top: 5px;
         }
 
-
         /* =====================================================
            STATUS
         ===================================================== */
 
         .status {
 
-            padding: 8px 15px;
+            display: inline-block;
+
+            padding:
+                7px 13px;
 
             border-radius: 30px;
 
             font-size: 13px;
 
-            font-weight: bold;
+            font-weight: 700;
+
+            background: #fff0d8;
+
+            color: #9a5a00;
 
             white-space: nowrap;
         }
 
-
-        .status.pending {
-
-            background: #fff3cd;
-
-            color: #856404;
-        }
-
-
-        .status.confirmed {
-
-            background: #e7f1ff;
-
-            color: #1557a0;
-        }
-
-
-        .status.processing {
-
-            background: #f0e7ff;
-
-            color: #6332a5;
-        }
-
-
-        .status.shipped {
-
-            background: #e5f7ff;
-
-            color: #08718f;
-        }
-
-
-        .status.delivered {
-
-            background: #e6f8ed;
-
-            color: #16803c;
-        }
-
-
-        .status.cancelled {
-
-            background: #ffe7e7;
-
-            color: #b42323;
-        }
-
-
-        .status.default {
-
-            background: #eeeeee;
-
-            color: #555;
-        }
-
-
         /* =====================================================
-           CUSTOMER DETAILS
+           ORDER BODY
         ===================================================== */
 
-        .customer-details {
+        .order-body {
+
+            padding: 22px;
+        }
+
+        .details-grid {
 
             display: grid;
 
             grid-template-columns:
-                repeat(2, 1fr);
+                repeat(
+                    2,
+                    1fr
+                );
 
-            gap: 12px 25px;
+            gap: 14px;
 
-            padding: 20px 0;
-
-            border-bottom:
-                1px solid #eeeeee;
+            margin-bottom: 22px;
         }
-
-
-        .details-title {
-
-            color: #c2185b;
-
-            font-size: 17px;
-
-            margin-bottom: 10px;
-
-            font-weight: bold;
-        }
-
 
         .detail {
 
-            font-size: 14px;
+            border:
+                1px solid #eee3e7;
 
-            color: #666;
+            border-radius: 9px;
 
-            line-height: 1.6;
+            padding: 12px;
+
+            background: #fffafd;
         }
 
+        .detail-label {
 
-        .detail strong {
+            display: block;
+
+            color: #888;
+
+            font-size: 12px;
+
+            margin-bottom: 5px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.3px;
+        }
+
+        .detail-value {
 
             color: #444;
-        }
 
+            font-weight: 600;
+
+            word-break: break-word;
+        }
 
         /* =====================================================
            ITEMS
         ===================================================== */
 
-        .items-section {
-
-            padding-top: 20px;
-        }
-
-
         .items-title {
 
-            color: #c2185b;
+            font-size: 18px;
 
-            font-size: 17px;
-
-            font-weight: bold;
+            color: #9c174b;
 
             margin-bottom: 12px;
+
+            padding-bottom: 10px;
+
+            border-bottom:
+                1px solid #eadde2;
         }
 
-
-        .item-row {
+        .order-item {
 
             display: flex;
-
-            justify-content: space-between;
 
             align-items: center;
 
             gap: 15px;
 
-            padding: 13px 15px;
+            padding:
+                12px 0;
 
-            background: #fff9fb;
+            border-bottom:
+                1px solid #f0e7ea;
+        }
 
-            border:
-                1px solid #f4dce5;
+        .order-item:last-child {
+
+            border-bottom: none;
+        }
+
+        .item-image {
+
+            width: 65px;
+
+            height: 65px;
 
             border-radius: 9px;
 
-            margin-bottom: 8px;
+            object-fit: cover;
+
+            border:
+                1px solid #eee;
         }
-
-
-        .item-name {
-
-            font-weight: bold;
-
-            color: #444;
-        }
-
 
         .item-info {
 
-            color: #777;
-
-            font-size: 13px;
-
-            margin-top: 4px;
+            flex: 1;
         }
 
+        .item-name {
 
-        .item-price {
+            font-weight: 700;
 
-            color: #d63384;
+            color: #444;
 
-            font-weight: bold;
-
-            white-space: nowrap;
+            margin-bottom: 5px;
         }
 
-
-        /* =====================================================
-           ORDER TOTAL
-        ===================================================== */
-
-        .order-total {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            margin-top: 18px;
-
-            padding-top: 18px;
-
-            border-top:
-                1px solid #eeeeee;
-        }
-
-
-        .order-total-label {
-
-            color: #c2185b;
-
-            font-size: 19px;
-
-            font-weight: bold;
-        }
-
-
-        .order-total-price {
-
-            color: #d63384;
-
-            font-size: 23px;
-
-            font-weight: bold;
-        }
-
-
-        /* =====================================================
-           PAYMENT
-        ===================================================== */
-
-        .payment-info {
-
-            margin-top: 12px;
+        .item-meta {
 
             color: #777;
 
             font-size: 14px;
         }
 
+        .item-subtotal {
 
-        .payment-info strong {
+            font-weight: 700;
 
-            color: #444;
+            color: #c2185b;
+
+            white-space: nowrap;
         }
-
 
         /* =====================================================
-           EMPTY STATE
+           ORDER FOOTER
         ===================================================== */
 
-        .empty-box {
+        .order-footer {
 
-            background: white;
+            border-top:
+                1px solid #eadde2;
 
-            border-radius: 18px;
+            margin-top: 15px;
 
-            padding: 60px 25px;
+            padding-top: 18px;
 
-            text-align: center;
+            display: flex;
 
-            box-shadow:
-                0 6px 25px
-                rgba(0, 0, 0, 0.07);
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
         }
 
+        .total-label {
 
-        .empty-icon {
+            color: #666;
 
-            font-size: 55px;
-
-            margin-bottom: 15px;
+            font-size: 14px;
         }
 
+        .total-amount {
 
-        .empty-box h2 {
+            font-size: 24px;
 
-            color: #d63384;
+            font-weight: 700;
 
-            margin-bottom: 10px;
+            color: #9c174b;
+
+            margin-top: 3px;
         }
 
+        .delete-btn {
 
-        .empty-box p {
+            border: none;
 
-            color: #777;
+            background: #fff0f0;
 
-            margin-bottom: 22px;
+            color: #b42318;
 
-            line-height: 1.6;
-        }
+            border:
+                1px solid #efc5c5;
 
+            padding:
+                10px 16px;
 
-        .shop-btn {
+            border-radius: 8px;
 
-            display: inline-block;
+            cursor: pointer;
 
-            text-decoration: none;
-
-            background: #d63384;
-
-            color: white;
-
-            padding: 13px 22px;
-
-            border-radius: 9px;
-
-            font-weight: bold;
+            font-weight: 600;
 
             transition: 0.2s;
         }
 
+        .delete-btn:hover {
 
-        .shop-btn:hover {
+            background: #b42318;
 
-            background: #c2185b;
+            color: white;
         }
 
+        .delete-btn:disabled {
 
-        /* =====================================================
-           LOADING
-        ===================================================== */
+            opacity: 0.5;
 
-        .loading {
-
-            background: white;
-
-            border-radius: 16px;
-
-            padding: 45px;
-
-            text-align: center;
-
-            color: #777;
-
-            box-shadow:
-                0 6px 25px
-                rgba(0, 0, 0, 0.07);
-
-            font-size: 16px;
+            cursor: not-allowed;
         }
-
-
-        /* =====================================================
-           API ERROR BOX
-        ===================================================== */
-
-        .api-error-box {
-
-            background: white;
-
-            border-radius: 18px;
-
-            padding: 45px 25px;
-
-            text-align: center;
-
-            box-shadow:
-                0 6px 25px
-                rgba(0, 0, 0, 0.07);
-
-            border:
-                1px solid #f4dce5;
-        }
-
-
-        .api-error-icon {
-
-            font-size: 55px;
-
-            margin-bottom: 15px;
-        }
-
-
-        .api-error-box h2 {
-
-            color: #d63384;
-
-            margin-bottom: 10px;
-        }
-
-
-        .api-error-box p {
-
-            color: #777;
-
-            margin-bottom: 22px;
-
-            line-height: 1.6;
-        }
-
-
-        .error-details {
-
-            max-width: 700px;
-
-            margin: 0 auto 20px;
-
-            padding: 12px 15px;
-
-            background: #fff5f5;
-
-            border:
-                1px solid #f2d0d0;
-
-            border-radius: 8px;
-
-            color: #a33;
-
-            font-size: 13px;
-
-            word-break: break-word;
-
-            text-align: left;
-        }
-
 
         /* =====================================================
            RESPONSIVE
         ===================================================== */
 
-        @media (max-width: 700px) {
+        @media (
+            max-width: 700px
+        ) {
 
-            .navbar {
+            .header {
 
-                flex-direction: column;
-
-                gap: 15px;
-
-                padding: 20px;
+                padding:
+                    15px 5%;
             }
 
+            .header-actions {
 
-            nav ul {
-
-                flex-wrap: wrap;
-
-                justify-content: center;
-
-                gap: 15px;
+                gap: 5px;
             }
 
+            .header-btn {
 
-            .orders-section {
+                padding:
+                    8px 10px;
 
-                margin-top: 25px;
+                font-size: 13px;
             }
 
+            .page-title {
 
-            .order-card {
-
-                padding: 18px;
+                font-size: 28px;
             }
 
-
-            .order-top {
-
-                flex-direction: column;
+            .order-header {
 
                 align-items: flex-start;
+
+                flex-direction: column;
             }
 
-
-            .customer-details {
+            .details-grid {
 
                 grid-template-columns: 1fr;
             }
 
-
-            .item-row {
+            .order-footer {
 
                 align-items: flex-start;
 
                 flex-direction: column;
             }
 
+            .delete-btn {
 
-            .order-total {
+                width: 100%;
+            }
+        }
 
-                gap: 15px;
+        @media (
+            max-width: 450px
+        ) {
+
+            .container {
+
+                width: 94%;
             }
 
+            .order-body {
+
+                padding: 16px;
+            }
+
+            .order-item {
+
+                align-items: flex-start;
+            }
+
+            .item-image {
+
+                width: 55px;
+
+                height: 55px;
+            }
+
+            .item-subtotal {
+
+                font-size: 14px;
+            }
         }
 
     </style>
@@ -778,80 +682,54 @@
 
 
 <!-- =========================================================
-     NAVBAR
+     HEADER
 ========================================================= -->
 
-<header class="navbar">
+<header class="header">
 
-    <div class="logo">
+    <a
+        href="/flower"
+        class="logo"
+    >
         🌸 Blossom Flower Shop
+    </a>
+
+
+    <div class="header-actions">
+
+        <a
+            href="/flower"
+            class="header-btn"
+        >
+            Flowers
+        </a>
+
+
+        <a
+            href="/cart"
+            class="header-btn"
+        >
+            Cart
+        </a>
+
     </div>
-
-
-    <nav>
-
-        <ul>
-
-            <li>
-                <a href="{{ url_for('dashboard_page') }}">
-                    Dashboard
-                </a>
-            </li>
-
-
-            <li>
-                <a href="{{ url_for('home_page') }}">
-                    Home
-                </a>
-            </li>
-
-
-            <li>
-                <a href="{{ url_for('flowers_page') }}">
-                    Flowers
-                </a>
-            </li>
-
-
-            <li>
-                <a href="{{ url_for('cart_page') }}">
-                    Cart
-                </a>
-            </li>
-
-
-            <li>
-                <a href="{{ url_for('orders_page') }}">
-                    Orders
-                </a>
-            </li>
-
-        </ul>
-
-    </nav>
 
 </header>
 
 
 <!-- =========================================================
-     ORDERS
+     MAIN
 ========================================================= -->
 
-<section class="orders-section">
+<main class="container">
 
+    <h1 class="page-title">
+        My Orders
+    </h1>
 
-    <div class="orders-header">
-
-        <h1 class="page-title">
-            🌸 My Orders
-        </h1>
-
-
-        <p class="page-subtitle">
-            View your flower orders and delivery details.
-        </p>
-
-    </div>
+    <p class="page-subtitle">
+        View your previous Blossom Flower Shop orders.
+    </p>
 
 
     <div
@@ -861,1205 +739,986 @@
 
 
     <div
-        id="ordersContainer"
-        class="orders-container"
+        id="loading"
+        class="loading"
+    >
+        Loading your orders...
+    </div>
+
+
+    <div
+        id="empty"
+        class="empty"
+        style="display:none;"
     >
 
-        <div class="loading">
-            🌸 Loading your orders...
+        <div class="empty-icon">
+            🌷
         </div>
+
+        <h2>
+            No Orders Yet
+        </h2>
+
+        <p>
+            You haven't placed any orders yet.
+        </p>
+
+        <a
+            href="/flower"
+            class="shop-btn"
+        >
+            Shop Flowers
+        </a>
 
     </div>
 
 
-</section>
+    <div
+        id="ordersContainer"
+        class="orders-container"
+        style="display:none;"
+    ></div>
+
+</main>
 
 
 <script>
 
+    /* =========================================================
+       GLOBAL
+    ========================================================= */
 
-/* =========================================================
-   API CONFIGURATION
-========================================================= */
-
-const API_URL = "";
-
-
-/* =========================================================
-   CURRENT USER
-========================================================= */
-
-function getCurrentUser() {
-
-    const userData =
-        localStorage.getItem("currentUser");
+    let currentUser = null;
 
 
-    if (!userData) {
+    /* =========================================================
+       ELEMENTS
+    ========================================================= */
 
-        return null;
-    }
-
-
-    try {
-
-        return JSON.parse(userData);
-
-    } catch (error) {
-
-        console.error(
-            "Current User Parse Error:",
-            error
+    const loading =
+        document.getElementById(
+            "loading"
         );
 
-        return null;
-    }
-}
-
-
-/* =========================================================
-   SHOW MESSAGE
-========================================================= */
-
-function showMessage(
-    text,
-    type = "error"
-) {
-
-    const message =
-        document.getElementById("message");
-
-
-    message.textContent = text;
-
-
-    message.className =
-        `message ${type}`;
-}
-
-
-/* =========================================================
-   HIDE MESSAGE
-========================================================= */
-
-function hideMessage() {
-
-    const message =
-        document.getElementById("message");
-
-
-    message.textContent = "";
-
-    message.className = "message";
-}
-
-
-/* =========================================================
-   CLEAR ORDERS
-========================================================= */
-
-function clearOrders() {
-
-    document.getElementById(
-        "ordersContainer"
-    ).innerHTML = "";
-}
-
-
-/* =========================================================
-   LOAD ORDERS
-========================================================= */
-
-async function loadOrders() {
-
-    hideMessage();
-
-
-    const user =
-        getCurrentUser();
-
-
-    /*
-     * If user is not found in localStorage
-     */
-
-    if (!user || !user.id) {
-
-        showMessage(
-            "Please login to view your orders.",
-            "error"
+    const empty =
+        document.getElementById(
+            "empty"
         );
 
-
+    const ordersContainer =
         document.getElementById(
             "ordersContainer"
-        ).innerHTML = `
+        );
 
-            <div class="empty-box">
+    const message =
+        document.getElementById(
+            "message"
+        );
 
-                <div class="empty-icon">
-                    🔐
-                </div>
 
-                <h2>
-                    Please Login
-                </h2>
+    /* =========================================================
+       MESSAGE
+    ========================================================= */
 
-                <p>
-                    You need to login before viewing your orders.
-                </p>
+    function showMessage(
+        text,
+        type
+    ) {
 
-                <a
-                    href="{{ url_for('login_page') }}"
-                    class="shop-btn"
-                >
-                    Login
-                </a>
+        message.textContent =
+            text;
 
-            </div>
-
-        `;
-
-        return;
+        message.className =
+            "message " + type;
     }
 
 
-    /*
-     * Show loading
-     */
+    /* =========================================================
+       FORMAT DATE
+    ========================================================= */
 
-    document.getElementById(
-        "ordersContainer"
-    ).innerHTML = `
+    function formatDate(
+        dateValue
+    ) {
 
-        <div class="loading">
-            🌸 Loading your orders...
-        </div>
+        if (!dateValue) {
 
-    `;
-
-
-    try {
-
-        /*
-         * API URL
-         *
-         * Backend expected:
-         *
-         * GET /api/orders/<user_id>
-         */
-
-        const url =
-            `${API_URL}/api/orders/${encodeURIComponent(user.id)}`;
+            return "N/A";
+        }
 
 
-        console.log(
-            "Loading Orders From:",
-            url
+        const date =
+            new Date(
+                dateValue.replace(
+                    " ",
+                    "T"
+                ) + "Z"
+            );
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return dateValue;
+        }
+
+
+        return date.toLocaleString(
+            "en-IN",
+            {
+                day: "2-digit",
+
+                month: "short",
+
+                year: "numeric",
+
+                hour: "2-digit",
+
+                minute: "2-digit"
+            }
         );
+    }
 
+
+    /* =========================================================
+       GET CURRENT USER
+    ========================================================= */
+
+    async function getCurrentUser() {
 
         const response =
             await fetch(
-                url,
+                "/api/me",
                 {
                     method: "GET",
 
-                    credentials: "include",
-
-                    headers: {
-                        "Accept":
-                            "application/json"
-                    }
+                    credentials: "include"
                 }
             );
 
 
-        /*
-         * IMPORTANT:
-         *
-         * Do NOT directly call response.json().
-         *
-         * If Flask returns HTML,
-         * response.json() causes:
-         *
-         * Unexpected token '<'
-         */
-
-        const contentType =
-            response.headers.get(
-                "content-type"
-            ) || "";
-
-
-        let data = null;
+        const data =
+            await response.json();
 
 
         if (
-            contentType
-                .toLowerCase()
-                .includes("application/json")
+            !response.ok ||
+            !data.success ||
+            !data.logged_in
         ) {
 
-            data =
+            throw new Error(
+                "Please login to view your orders."
+            );
+        }
+
+
+        currentUser =
+            data.user;
+
+
+        return currentUser;
+    }
+
+
+    /* =========================================================
+       LOAD ORDERS
+    ========================================================= */
+
+    async function loadOrders() {
+
+        loading.style.display =
+            "block";
+
+        empty.style.display =
+            "none";
+
+        ordersContainer.style.display =
+            "none";
+
+
+        try {
+
+            /* -----------------------------------------------
+               STEP 1
+               Get logged-in user
+            ----------------------------------------------- */
+
+            const user =
+                await getCurrentUser();
+
+
+            /* -----------------------------------------------
+               STEP 2
+               Get user's orders
+            ----------------------------------------------- */
+
+            const response =
+                await fetch(
+                    "/api/orders/user/" +
+                    encodeURIComponent(
+                        user.id
+                    ),
+                    {
+                        method: "GET",
+
+                        credentials: "include"
+                    }
+                );
+
+
+            const data =
                 await response.json();
 
-        } else {
-
-            /*
-             * Backend returned HTML
-             */
-
-            const html =
-                await response.text();
-
-
-            console.error(
-                "Backend returned HTML instead of JSON:",
-                html.substring(0, 500)
-            );
-
 
             if (
-                response.status === 404
-            ) {
-
-                throw new Error(
-                    "Orders API route was not found. Please check the Flask backend route: /api/orders/<user_id>."
-                );
-            }
-
-
-            if (
-                response.status === 401 ||
-                response.status === 403
-            ) {
-
-                throw new Error(
-                    "Your login session has expired. Please login again."
-                );
-            }
-
-
-            throw new Error(
-                `Server returned HTML instead of JSON. HTTP ${response.status}.`
-            );
-        }
-
-
-        console.log(
-            "Orders API Response:",
-            data
-        );
-
-
-        /*
-         * Handle HTTP errors
-         */
-
-        if (!response.ok) {
-
-            throw new Error(
-                data?.message ||
-                data?.error ||
-                `Unable to load orders. HTTP ${response.status}.`
-            );
-        }
-
-
-        /*
-         * Support multiple backend response formats.
-         *
-         * Format 1:
-         *
-         * {
-         *    success: true,
-         *    orders: [...]
-         * }
-         *
-         * Format 2:
-         *
-         * {
-         *    orders: [...]
-         * }
-         *
-         * Format 3:
-         *
-         * [...]
-         */
-
-        let orders = [];
-
-
-        if (
-            Array.isArray(data)
-        ) {
-
-            orders = data;
-
-        } else if (
-            data &&
-            Array.isArray(data.orders)
-        ) {
-
-            orders = data.orders;
-
-        } else if (
-            data &&
-            Array.isArray(data.data)
-        ) {
-
-            orders = data.data;
-
-        } else {
-
-            /*
-             * Backend explicitly returned
-             * success false
-             */
-
-            if (
-                data &&
-                data.success === false
+                !response.ok ||
+                !data.success
             ) {
 
                 throw new Error(
                     data.message ||
-                    data.error ||
-                    "Unable to load orders."
+                    "Unable to load orders"
                 );
             }
 
 
-            orders = [];
-        }
+            const orders =
+                data.orders || [];
 
 
-        displayOrders(
-            orders
-        );
+            loading.style.display =
+                "none";
 
 
-    } catch (error) {
+            if (
+                orders.length === 0
+            ) {
 
-        console.error(
-            "Orders Loading Error:",
-            error
-        );
+                empty.style.display =
+                    "block";
 
-
-        const errorMessage =
-            error?.message ||
-            "Unable to load orders.";
+                return;
+            }
 
 
-        showMessage(
-            errorMessage,
-            "error"
-        );
-
-
-        document.getElementById(
-            "ordersContainer"
-        ).innerHTML = `
-
-            <div class="api-error-box">
-
-                <div class="api-error-icon">
-                    ⚠️
-                </div>
-
-
-                <h2>
-                    Unable to Load Orders
-                </h2>
-
-
-                <p>
-                    We could not retrieve your orders right now.
-                    Please try again.
-                </p>
-
-
-                <div class="error-details">
-                    <strong>
-                        Details:
-                    </strong>
-
-                    ${escapeHtml(
-                        errorMessage
-                    )}
-                </div>
-
-
-                <button
-                    class="shop-btn"
-                    onclick="loadOrders()"
-                    style="
-                        border:none;
-                        cursor:pointer;
-                    "
-                >
-                    🔄 Try Again
-                </button>
-
-            </div>
-
-        `;
-    }
-}
-
-
-/* =========================================================
-   DISPLAY ORDERS
-========================================================= */
-
-function displayOrders(
-    orders
-) {
-
-    const container =
-        document.getElementById(
-            "ordersContainer"
-        );
-
-
-    container.innerHTML = "";
-
-
-    /*
-     * No orders
-     */
-
-    if (
-        !Array.isArray(orders) ||
-        orders.length === 0
-    ) {
-
-        container.innerHTML = `
-
-            <div class="empty-box">
-
-                <div class="empty-icon">
-                    🌸
-                </div>
-
-
-                <h2>
-                    No Orders Yet
-                </h2>
-
-
-                <p>
-                    You haven't placed any flower orders yet.
-                </p>
-
-
-                <a
-                    href="{{ url_for('flowers_page') }}"
-                    class="shop-btn"
-                >
-                    🌸 Shop Flowers
-                </a>
-
-            </div>
-
-        `;
-
-        return;
-    }
-
-
-    /*
-     * Display every order
-     */
-
-    orders.forEach(
-        order => {
-
-            const card =
-                createOrderCard(
-                    order
-                );
-
-
-            container.appendChild(
-                card
+            renderOrders(
+                orders
             );
 
+
+            ordersContainer.style.display =
+                "flex";
+
+
+        } catch (error) {
+
+            loading.style.display =
+                "none";
+
+
+            showMessage(
+                error.message,
+                "error"
+            );
         }
-    );
-}
+    }
 
 
-/* =========================================================
-   CREATE ORDER CARD
-========================================================= */
+    /* =========================================================
+       RENDER ORDERS
+    ========================================================= */
 
-function createOrderCard(
-    order
-) {
+    function renderOrders(
+        orders
+    ) {
 
-    const card =
-        document.createElement(
-            "div"
+        ordersContainer.innerHTML =
+            "";
+
+
+        orders.forEach(
+            function(order) {
+
+                const card =
+                    createOrderCard(
+                        order
+                    );
+
+
+                ordersContainer.appendChild(
+                    card
+                );
+
+            }
+        );
+    }
+
+
+    /* =========================================================
+       CREATE ORDER CARD
+    ========================================================= */
+
+    function createOrderCard(
+        order
+    ) {
+
+        const card =
+            document.createElement(
+                "article"
+            );
+
+
+        card.className =
+            "order-card";
+
+
+        /* =================================================
+           HEADER
+        ================================================= */
+
+        const header =
+            document.createElement(
+                "div"
+            );
+
+
+        header.className =
+            "order-header";
+
+
+        const titleWrapper =
+            document.createElement(
+                "div"
+            );
+
+
+        const orderNumber =
+            document.createElement(
+                "div"
+            );
+
+
+        orderNumber.className =
+            "order-number";
+
+
+        orderNumber.textContent =
+            "Order #" +
+            order.id;
+
+
+        const date =
+            document.createElement(
+                "div"
+            );
+
+
+        date.className =
+            "order-date";
+
+
+        date.textContent =
+            formatDate(
+                order.created_at
+            );
+
+
+        titleWrapper.appendChild(
+            orderNumber
+        );
+
+        titleWrapper.appendChild(
+            date
         );
 
 
-    card.className =
-        "order-card";
+        const status =
+            document.createElement(
+                "span"
+            );
 
 
-    const orderId =
-        order.id ??
-        order.order_id ??
-        "-";
+        status.className =
+            "status";
 
 
-    const status =
-        order.status ||
-        "Pending";
+        status.textContent =
+            order.status ||
+            "Processing";
 
 
-    const statusClass =
-        getStatusClass(
+        header.appendChild(
+            titleWrapper
+        );
+
+        header.appendChild(
             status
         );
 
 
-    const orderDate =
-        formatDate(
-            order.created_at ||
-            order.order_date ||
-            order.date ||
-            order.createdAt
+        /* =================================================
+           BODY
+        ================================================= */
+
+        const body =
+            document.createElement(
+                "div"
+            );
+
+
+        body.className =
+            "order-body";
+
+
+        /* =================================================
+           CUSTOMER DETAILS
+        ================================================= */
+
+        const details =
+            document.createElement(
+                "div"
+            );
+
+
+        details.className =
+            "details-grid";
+
+
+        details.appendChild(
+            createDetail(
+                "Customer Name",
+                order.customer_name
+            )
         );
 
 
-    const customerName =
-        order.customer_name ||
-        order.name ||
-        order.customerName ||
-        "-";
-
-
-    const phone =
-        order.phone ||
-        order.mobile ||
-        order.contact ||
-        "-";
-
-
-    const address =
-        order.address ||
-        order.delivery_address ||
-        order.shipping_address ||
-        "-";
-
-
-    const payment =
-        order.payment ||
-        order.payment_method ||
-        order.paymentMethod ||
-        "-";
-
-
-    const total =
-        Number(
-            order.total ??
-            order.total_amount ??
-            order.amount ??
-            0
+        details.appendChild(
+            createDetail(
+                "Phone",
+                order.phone
+            )
         );
 
 
-    const items =
-        getOrderItems(
-            order
+        details.appendChild(
+            createDetail(
+                "Payment",
+                order.payment
+            )
         );
 
 
-    card.innerHTML = `
+        details.appendChild(
+            createDetail(
+                "Address",
+                order.address
+            )
+        );
 
-        <div class="order-top">
 
-            <div>
+        body.appendChild(
+            details
+        );
 
-                <div class="order-number">
 
-                    🌸 Order #${escapeHtml(
-                        orderId
-                    )}
+        /* =================================================
+           ITEMS TITLE
+        ================================================= */
 
-                </div>
+        const itemsTitle =
+            document.createElement(
+                "h3"
+            );
 
 
-                <div class="order-date">
+        itemsTitle.className =
+            "items-title";
 
-                    ${escapeHtml(
-                        orderDate
-                    )}
 
-                </div>
+        itemsTitle.textContent =
+            "Ordered Flowers";
 
-            </div>
 
+        body.appendChild(
+            itemsTitle
+        );
 
-            <div
-                class="status ${statusClass}"
-            >
 
-                ${escapeHtml(
-                    status
-                )}
+        /* =================================================
+           ITEMS
+        ================================================= */
 
-            </div>
+        const itemsWrapper =
+            document.createElement(
+                "div"
+            );
 
-        </div>
 
+        const items =
+            order.items || [];
 
-        <div class="customer-details">
 
-            <div>
+        if (
+            items.length === 0
+        ) {
 
-                <div class="details-title">
-                    👤 Customer Details
-                </div>
+            const noItems =
+                document.createElement(
+                    "p"
+                );
 
 
-                <div class="detail">
+            noItems.textContent =
+                "No order items found.";
 
-                    <strong>
-                        Name:
-                    </strong>
 
-                    ${escapeHtml(
-                        customerName
-                    )}
+            noItems.style.color =
+                "#777";
 
-                </div>
 
-            </div>
+            itemsWrapper.appendChild(
+                noItems
+            );
 
+        } else {
 
-            <div>
+            items.forEach(
+                function(item) {
 
-                <div class="details-title">
-                    📞 Contact
-                </div>
+                    itemsWrapper.appendChild(
+                        createOrderItem(
+                            item
+                        )
+                    );
 
+                }
+            );
+        }
 
-                <div class="detail">
 
-                    <strong>
-                        Phone:
-                    </strong>
+        body.appendChild(
+            itemsWrapper
+        );
 
-                    ${escapeHtml(
-                        phone
-                    )}
 
-                </div>
+        /* =================================================
+           FOOTER
+        ================================================= */
 
-            </div>
+        const footer =
+            document.createElement(
+                "div"
+            );
 
 
-            <div>
+        footer.className =
+            "order-footer";
 
-                <div class="detail">
 
-                    <strong>
-                        Address:
-                    </strong>
+        const totalWrapper =
+            document.createElement(
+                "div"
+            );
 
-                    ${escapeHtml(
-                        address
-                    )}
 
-                </div>
+        const totalLabel =
+            document.createElement(
+                "div"
+            );
 
-            </div>
 
+        totalLabel.className =
+            "total-label";
 
-            <div>
 
-                <div class="detail">
+        totalLabel.textContent =
+            "Order Total";
 
-                    <strong>
-                        Payment:
-                    </strong>
 
-                    ${escapeHtml(
-                        payment
-                    )}
+        const total =
+            document.createElement(
+                "div"
+            );
 
-                </div>
 
-            </div>
+        total.className =
+            "total-amount";
 
-        </div>
 
+        total.textContent =
+            "₹" +
+            Number(
+                order.total || 0
+            ).toFixed(2);
 
-        <div class="items-section">
 
-            <div class="items-title">
+        totalWrapper.appendChild(
+            totalLabel
+        );
 
-                🌸 Ordered Flowers
+        totalWrapper.appendChild(
+            total
+        );
 
-            </div>
 
+        /* =================================================
+           DELETE BUTTON
+        ================================================= */
 
-            <div class="items-list">
+        const deleteButton =
+            document.createElement(
+                "button"
+            );
 
-                ${createItemsHtml(
-                    items
-                )}
 
-            </div>
+        deleteButton.type =
+            "button";
 
 
-            <div class="order-total">
+        deleteButton.className =
+            "delete-btn";
 
-                <div class="order-total-label">
 
-                    Total
+        deleteButton.textContent =
+            "Delete Order";
 
-                </div>
 
+        deleteButton.addEventListener(
+            "click",
+            function() {
 
-                <div class="order-total-price">
+                deleteOrder(
+                    order.id,
+                    deleteButton
+                );
 
-                    ₹${total.toFixed(2)}
+            }
+        );
 
-                </div>
 
-            </div>
+        footer.appendChild(
+            totalWrapper
+        );
 
+        footer.appendChild(
+            deleteButton
+        );
 
-            <div class="payment-info">
 
-                <strong>
-                    Payment Method:
-                </strong>
+        body.appendChild(
+            footer
+        );
 
-                ${escapeHtml(
-                    payment
-                )}
 
-            </div>
+        card.appendChild(
+            header
+        );
 
-        </div>
+        card.appendChild(
+            body
+        );
 
-    `;
 
-
-    return card;
-}
-
-
-/* =========================================================
-   GET ORDER ITEMS
-========================================================= */
-
-function getOrderItems(
-    order
-) {
-
-    /*
-     * Standard items
-     */
-
-    if (
-        Array.isArray(
-            order.items
-        )
-    ) {
-
-        return order.items;
+        return card;
     }
 
 
-    /*
-     * Products
-     */
+    /* =========================================================
+       CREATE DETAIL
+    ========================================================= */
 
-    if (
-        Array.isArray(
-            order.products
-        )
+    function createDetail(
+        label,
+        value
     ) {
 
-        return order.products;
+        const wrapper =
+            document.createElement(
+                "div"
+            );
+
+
+        wrapper.className =
+            "detail";
+
+
+        const labelElement =
+            document.createElement(
+                "span"
+            );
+
+
+        labelElement.className =
+            "detail-label";
+
+
+        labelElement.textContent =
+            label;
+
+
+        const valueElement =
+            document.createElement(
+                "div"
+            );
+
+
+        valueElement.className =
+            "detail-value";
+
+
+        valueElement.textContent =
+            value || "N/A";
+
+
+        wrapper.appendChild(
+            labelElement
+        );
+
+        wrapper.appendChild(
+            valueElement
+        );
+
+
+        return wrapper;
     }
 
 
-    /*
-     * Order items
-     */
+    /* =========================================================
+       CREATE ORDER ITEM
+    ========================================================= */
 
-    if (
-        Array.isArray(
-            order.order_items
-        )
+    function createOrderItem(
+        item
     ) {
 
-        return order.order_items;
+        const wrapper =
+            document.createElement(
+                "div"
+            );
+
+
+        wrapper.className =
+            "order-item";
+
+
+        const image =
+            document.createElement(
+                "img"
+            );
+
+
+        image.className =
+            "item-image";
+
+
+        image.src =
+            item.image ||
+            "https://via.placeholder.com/100x100?text=Flower";
+
+
+        image.alt =
+            item.name ||
+            "Flower";
+
+
+        image.onerror =
+            function() {
+
+                this.src =
+                    "https://via.placeholder.com/100x100?text=Flower";
+
+            };
+
+
+        const info =
+            document.createElement(
+                "div"
+            );
+
+
+        info.className =
+            "item-info";
+
+
+        const name =
+            document.createElement(
+                "div"
+            );
+
+
+        name.className =
+            "item-name";
+
+
+        name.textContent =
+            item.name ||
+            "Flower";
+
+
+        const meta =
+            document.createElement(
+                "div"
+            );
+
+
+        meta.className =
+            "item-meta";
+
+
+        meta.textContent =
+            "₹" +
+            Number(
+                item.price || 0
+            ).toFixed(2) +
+            " × " +
+            Number(
+                item.quantity || 0
+            );
+
+
+        info.appendChild(
+            name
+        );
+
+        info.appendChild(
+            meta
+        );
+
+
+        const subtotal =
+            document.createElement(
+                "div"
+            );
+
+
+        subtotal.className =
+            "item-subtotal";
+
+
+        subtotal.textContent =
+            "₹" +
+            Number(
+                item.subtotal || 0
+            ).toFixed(2);
+
+
+        wrapper.appendChild(
+            image
+        );
+
+        wrapper.appendChild(
+            info
+        );
+
+        wrapper.appendChild(
+            subtotal
+        );
+
+
+        return wrapper;
     }
 
 
-    /*
-     * If backend sends JSON string
-     */
+    /* =========================================================
+       DELETE ORDER
+    ========================================================= */
 
-    if (
-        typeof order.items === "string"
+    async function deleteOrder(
+        orderId,
+        button
     ) {
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to delete Order #" +
+                orderId +
+                "?\n\nThe order will be removed and the flower stock will be restored."
+            );
+
+
+        if (!confirmed) {
+
+            return;
+        }
+
+
+        button.disabled =
+            true;
+
+        button.textContent =
+            "Deleting...";
+
 
         try {
 
-            const parsed =
-                JSON.parse(
-                    order.items
+            const response =
+                await fetch(
+                    "/api/orders/" +
+                    encodeURIComponent(
+                        orderId
+                    ),
+                    {
+                        method: "DELETE",
+
+                        credentials: "include"
+                    }
                 );
+
+
+            const data =
+                await response.json();
 
 
             if (
-                Array.isArray(parsed)
+                !response.ok ||
+                !data.success
             ) {
 
-                return parsed;
+                throw new Error(
+                    data.message ||
+                    "Unable to delete order"
+                );
             }
+
+
+            showMessage(
+                data.message ||
+                "Order deleted successfully.",
+                "success"
+            );
+
+
+            /* Reload orders */
+            await loadOrders();
+
 
         } catch (error) {
 
-            console.warn(
-                "Unable to parse order.items:",
-                error
+            showMessage(
+                error.message,
+                "error"
             );
+
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "Delete Order";
         }
     }
 
 
-    /*
-     * If backend sends one flower
-     * directly with order
-     */
-
-    if (
-        order.flower_name ||
-        order.product_name
-    ) {
-
-        return [
-
-            {
-
-                name:
-                    order.flower_name ||
-                    order.product_name ||
-                    "Flower",
-
-                quantity:
-                    order.quantity || 1,
-
-                price:
-                    order.price || 0
-
-            }
-
-        ];
-    }
-
-
-    return [];
-}
-
-
-/* =========================================================
-   CREATE ITEMS HTML
-========================================================= */
-
-function createItemsHtml(
-    items
-) {
-
-    if (
-        !items ||
-        items.length === 0
-    ) {
-
-        return `
-
-            <div class="item-row">
-
-                <div>
-
-                    <div class="item-name">
-                        🌸 Flower Order
-                    </div>
-
-                    <div class="item-info">
-                        Order details available
-                    </div>
-
-                </div>
-
-            </div>
-
-        `;
-    }
-
-
-    return items.map(
-        item => {
-
-            const name =
-                item.name ||
-                item.flower_name ||
-                item.product_name ||
-                "Flower";
-
-
-            const quantity =
-                Number(
-                    item.quantity || 1
-                );
-
-
-            const price =
-                Number(
-                    item.price ||
-                    item.unit_price ||
-                    0
-                );
-
-
-            const subtotal =
-                Number(
-                    item.subtotal ??
-                    item.total ??
-                    (price * quantity)
-                );
-
-
-            return `
-
-                <div class="item-row">
-
-                    <div>
-
-                        <div class="item-name">
-
-                            🌸
-                            ${escapeHtml(
-                                name
-                            )}
-
-                        </div>
-
-
-                        <div class="item-info">
-
-                            Quantity:
-                            ${quantity}
-
-                            ×
-
-                            ₹${price.toFixed(2)}
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="item-price">
-
-                        ₹${subtotal.toFixed(2)}
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }
-    ).join("");
-}
-
-
-/* =========================================================
-   STATUS CLASS
-========================================================= */
-
-function getStatusClass(
-    status
-) {
-
-    const value =
-        String(
-            status || ""
-        ).toLowerCase();
-
-
-    if (
-        value.includes("pending")
-    ) {
-
-        return "pending";
-    }
-
-
-    if (
-        value.includes("confirm")
-    ) {
-
-        return "confirmed";
-    }
-
-
-    if (
-        value.includes("process")
-    ) {
-
-        return "processing";
-    }
-
-
-    if (
-        value.includes("ship")
-    ) {
-
-        return "shipped";
-    }
-
-
-    if (
-        value.includes("deliver")
-    ) {
-
-        return "delivered";
-    }
-
-
-    if (
-        value.includes("cancel")
-    ) {
-
-        return "cancelled";
-    }
-
-
-    return "default";
-}
-
-
-/* =========================================================
-   FORMAT DATE
-========================================================= */
-
-function formatDate(
-    value
-) {
-
-    if (!value) {
-
-        return "Date not available";
-    }
-
-
-    const date =
-        new Date(value);
-
-
-    if (
-        Number.isNaN(
-            date.getTime()
-        )
-    ) {
-
-        return String(value);
-    }
-
-
-    return date.toLocaleString(
-        "en-IN",
-        {
-
-            day: "2-digit",
-
-            month: "short",
-
-            year: "numeric",
-
-            hour: "2-digit",
-
-            minute: "2-digit",
-
-            hour12: true
-
-        }
-    );
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHtml(
-    text
-) {
-
-    if (
-        text === null ||
-        text === undefined
-    ) {
-
-        return "";
-    }
-
-
-    return String(text)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-}
-
-
-/* =========================================================
-   PAGE LOAD
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        loadOrders();
-
-    }
-);
+    /* =========================================================
+       INITIAL LOAD
+    ========================================================= */
+
+    loadOrders();
 
 </script>
 
