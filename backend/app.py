@@ -333,62 +333,60 @@ def init_db():
 
             flowers = [
 
-                (
-                    "Red Rose",
-                    "Rose",
-                    "Fresh red roses, perfect for love and special occasions.",
-                    499,
-                    "https://images.unsplash.com/photo-1496062031456-07b8f162a322",
-                    25,
-                ),
+    (
+        "Red Rose",
+        "Rose",
+        "Fresh red roses, perfect for love and special occasions.",
+        499,
+        "https://images.unsplash.com/photo-1518704601994-6a9b5d3c6d83?auto=format&fit=crop&w=900&q=85",
+        25,
+    ),
 
-                (
-                    "White Lily",
-                    "Lily",
-                    "Beautiful fresh white lilies with an elegant fragrance.",
-                    599,
-                    "https://i.pinimg.com/736x/57/97/b2/5797b2fd00d20c8446658b6038c6de1a.jpg",
-                    20,
-                ),
+    (
+        "White Lily",
+        "Lily",
+        "Beautiful fresh white lilies with an elegant fragrance.",
+        599,
+        "https://images.unsplash.com/photo-1546014311-dcd91d8aa884?auto=format&fit=crop&w=900&q=85",
+        20,
+    ),
 
-                (
-                    "Pink Tulip",
-                    "Tulip",
-                    "Fresh pink tulips that bring beauty and happiness.",
-                    449,
-                    "https://images.unsplash.com/photo-1520763185298-1b434c919102",
-                    30,
-                ),
+    (
+        "Pink Tulip",
+        "Tulip",
+        "Fresh pink tulips that bring beauty and happiness.",
+        449,
+        "https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=900&q=85",
+        30,
+    ),
 
-                (
-                    "Yellow Sunflower",
-                    "Sunflower",
-                    "Bright yellow sunflowers to make every day cheerful.",
-                    399,
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpiDig3frKUzINOZZ6ssqFRqhDF3DP_akQIPaaTWkk2A&s=10",
-                    15,
-                ),
+    (
+        "Yellow Sunflower",
+        "Sunflower",
+        "Bright yellow sunflowers to make every day cheerful.",
+        399,
+        "https://images.unsplash.com/photo-1444894423756-1bb106dce5a7?auto=format&fit=crop&w=900&q=85",
+        15,
+    ),
 
-                (
-                    "Pink Rose",
-                    "Rose",
-                    "Soft pink roses suitable for gifts and celebrations.",
-                    549,
-                    "https://blacktulipflowers.in/wp-content/uploads/2026/01/Blush-Pink-Roses-Valentine-Bouquet-4.png",
-                    18,
-                ),
+    (
+        "Pink Rose",
+        "Rose",
+        "Soft pink roses suitable for gifts and celebrations.",
+        549,
+        "https://images.unsplash.com/photo-1483954954641-4b0aa06d332d?auto=format&fit=crop&w=900&q=85",
+        18,
+    ),
 
-                (
-                    "Orange Lily",
-                    "Lily",
-                    "Beautiful orange lilies with vibrant natural colors.",
-                    649,
-                    "https://images.unsplash.com/photo-1490750967868-88aa4486c946",
-                    12,
-                ),
-            ]
-
-
+    (
+        "Orange Lily",
+        "Lily",
+        "Beautiful orange lilies with vibrant natural colors.",
+        649,
+        "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=85",
+        12,
+    ),
+]
             conn.executemany(
                 """
                 INSERT INTO flowers
