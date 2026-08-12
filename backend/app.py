@@ -88,7 +88,7 @@ Features:
 - Health Check
         """,
 
-        "version": "6.0.0"
+        "version": "7.0.0"
     },
 
     "basePath": "/",
@@ -123,7 +123,13 @@ Features:
         {
             "name": "Cart",
             "description":
-                "Shopping cart APIs and selective cart checkout"
+                "Shopping cart APIs"
+        },
+
+        {
+            "name": "Checkout",
+            "description":
+                "Selective cart checkout APIs"
         },
 
         {
@@ -450,10 +456,13 @@ def init_db():
 # =========================================================
 
 init_db()
+# =========================================================
+# FRONTEND PAGE ROUTES
+# =========================================================
 
 
 # =========================================================
-# FRONTEND PAGE ROUTES
+# ROOT
 # =========================================================
 
 @app.route("/")
@@ -619,15 +628,6 @@ def cart_html():
 @app.route("/checkout")
 def checkout_page():
 
-    # -----------------------------------------------------
-    # GET SELECTED CART IDS FROM URL
-    #
-    # Example:
-    # /checkout?cart_ids=4,7
-    #
-    # Only cart item 4 and 7 will be used.
-    # -----------------------------------------------------
-
     cart_ids_text = request.args.get(
         "cart_ids",
         ""
@@ -655,18 +655,9 @@ def checkout_page():
             )
 
 
-            if selected_ids:
-
-                session[
-                    "checkout_cart_ids"
-                ] = selected_ids
-
-            else:
-
-                session.pop(
-                    "checkout_cart_ids",
-                    None
-                )
+            session[
+                "checkout_cart_ids"
+            ] = selected_ids
 
 
         except ValueError:
@@ -676,10 +667,8 @@ def checkout_page():
                 None
             )
 
-    else:
 
-        # No new selection
-        # Do not automatically take complete cart.
+    else:
 
         session.pop(
             "checkout_cart_ids",
@@ -904,87 +893,113 @@ def register():
     conn = get_db()
 
 
-    existing = conn.execute(
-        """
-        SELECT id
-        FROM users
-        WHERE LOWER(TRIM(email)) = ?
-        LIMIT 1
-        """,
-        (email,)
-    ).fetchone()
+    try:
+
+        existing = conn.execute(
+            """
+            SELECT id
+
+            FROM users
+
+            WHERE LOWER(TRIM(email)) = ?
+
+            LIMIT 1
+            """,
+            (email,)
+        ).fetchone()
 
 
-    if existing:
+        if existing:
 
-        conn.close()
+            return jsonify({
+
+                "success": False,
+
+                "registered": True,
+
+                "message":
+                    "Email already registered. Please login."
+
+            }), 409
+
+
+        hashed_password = generate_password_hash(
+            password
+        )
+
+
+        cursor = conn.execute(
+            """
+            INSERT INTO users
+            (
+                name,
+                email,
+                password
+            )
+
+            VALUES (?, ?, ?)
+            """,
+            (
+                name,
+                email,
+                hashed_password
+            )
+        )
+
+
+        user_id = cursor.lastrowid
+
+
+        conn.commit()
+
+
+        return jsonify({
+
+            "success": True,
+
+            "registered": True,
+
+            "message":
+                "Registration successful. You can now login.",
+
+            "user": {
+
+                "id":
+                    user_id,
+
+                "name":
+                    name,
+
+                "email":
+                    email
+            }
+
+        }), 201
+
+
+    except Exception as error:
+
+        conn.rollback()
+
+        print(
+            "Register Error:",
+            error
+        )
+
 
         return jsonify({
 
             "success": False,
 
-            "registered": True,
-
             "message":
-                "Email already registered. Please login."
+                "Unable to register user"
 
-        }), 409
-
-
-    hashed_password = generate_password_hash(
-        password
-    )
+        }), 500
 
 
-    cursor = conn.execute(
-        """
-        INSERT INTO users
-        (
-            name,
-            email,
-            password
-        )
+    finally:
 
-        VALUES (?, ?, ?)
-        """,
-        (
-            name,
-            email,
-            hashed_password
-        )
-    )
-
-
-    user_id = cursor.lastrowid
-
-
-    conn.commit()
-
-    conn.close()
-
-
-    return jsonify({
-
-        "success": True,
-
-        "registered": True,
-
-        "message":
-            "Registration successful. You can now login.",
-
-        "user": {
-
-            "id":
-                user_id,
-
-            "name":
-                name,
-
-            "email":
-                email
-        }
-
-    }), 201
+        conn.close()
 
 
 # =========================================================
@@ -1054,8 +1069,11 @@ def login():
     user = conn.execute(
         """
         SELECT *
+
         FROM users
+
         WHERE LOWER(TRIM(email)) = ?
+
         LIMIT 1
         """,
         (email,)
@@ -1135,7 +1153,7 @@ def login():
 
 
 # =========================================================
-# CURRENT USER
+# CURRENT USER API
 # =========================================================
 
 @app.route(
@@ -1193,7 +1211,7 @@ def get_current_user():
                 )
         }
 
-    })
+    }), 200
 
 
 # =========================================================
@@ -1240,8 +1258,6 @@ def logout():
             "/login"
 
     }), 200
-
-
 # =========================================================
 # FORGOT PASSWORD API
 # =========================================================
@@ -1337,8 +1353,11 @@ def forgot_password():
         user = conn.execute(
             """
             SELECT id
+
             FROM users
+
             WHERE LOWER(TRIM(email)) = ?
+
             LIMIT 1
             """,
             (email,)
@@ -1436,7 +1455,9 @@ def get_flowers():
         flowers = conn.execute(
             """
             SELECT *
+
             FROM flowers
+
             ORDER BY id DESC
             """
         ).fetchall()
@@ -1529,7 +1550,9 @@ def get_flower(flower_id):
     flower = conn.execute(
         """
         SELECT *
+
         FROM flowers
+
         WHERE id = ?
         """,
         (flower_id,)
@@ -1710,7 +1733,9 @@ def add_to_cart():
         flower = conn.execute(
             """
             SELECT *
+
             FROM flowers
+
             WHERE id = ?
             """,
             (flower_id,)
@@ -1744,6 +1769,7 @@ def add_to_cart():
         existing = conn.execute(
             """
             SELECT *
+
             FROM cart
 
             WHERE user_id = ?
@@ -1783,6 +1809,7 @@ def add_to_cart():
                     )
                 )
 
+
             else:
 
                 new_quantity = (
@@ -1819,6 +1846,7 @@ def add_to_cart():
                         session_user_id
                     )
                 )
+
 
         else:
 
@@ -2323,9 +2351,7 @@ def update_cart_quantity(cart_id):
     finally:
 
         conn.close()
-
-
-# =========================================================
+        # =========================================================
 # DELETE SINGLE CART ITEM
 # =========================================================
 
@@ -2406,9 +2432,6 @@ def remove_cart_item(cart_id):
             )
         )
 
-
-        # Remove deleted cart item
-        # from pending checkout selection.
 
         selected_ids = session.get(
             "checkout_cart_ids",
@@ -2584,15 +2607,10 @@ def checkout_selected():
     """
     Get ONLY selected cart items for checkout.
 
-    IMPORTANT:
-    This endpoint NEVER automatically uses the complete cart.
-
-    Selected cart IDs come from:
-    1. POST body cart_ids
-    2. checkout session
+    The complete cart is NEVER automatically selected.
     ---
     tags:
-      - Cart
+      - Checkout
     """
 
     user_id = session.get(
@@ -2641,20 +2659,6 @@ def checkout_selected():
         )
 
 
-        if not isinstance(
-            cart_ids,
-            list
-        ):
-
-            return jsonify({
-
-                "success": False,
-
-                "message":
-                    "cart_ids must be a list"
-
-            }), 400
-
     else:
 
         cart_ids = session.get(
@@ -2663,16 +2667,19 @@ def checkout_selected():
         )
 
 
-    # =====================================================
-    # VALIDATE SELECTION
-    # =====================================================
-
     if not isinstance(
         cart_ids,
         list
     ):
 
-        cart_ids = []
+        return jsonify({
+
+            "success": False,
+
+            "message":
+                "cart_ids must be a list"
+
+        }), 400
 
 
     if len(cart_ids) == 0:
@@ -2717,9 +2724,6 @@ def checkout_selected():
         )
     )
 
-
-    # Save exact selection
-    # into checkout session.
 
     session[
         "checkout_cart_ids"
@@ -2952,10 +2956,6 @@ def create_order():
         }), 400
 
 
-    # =====================================================
-    # LOGIN CHECK
-    # =====================================================
-
     session_user_id = session.get(
         "user_id"
     )
@@ -2997,10 +2997,6 @@ def create_order():
     user_id = session_user_id
 
 
-    # =====================================================
-    # CUSTOMER DETAILS
-    # =====================================================
-
     customer_name = str(
         data.get(
             "customer_name",
@@ -3033,19 +3029,6 @@ def create_order():
     ).strip()
 
 
-    # =====================================================
-    # SELECTED CART IDS
-    # =====================================================
-    #
-    # First preference:
-    # frontend sends cart_ids
-    #
-    # Second preference:
-    # checkout session
-    #
-    # NEVER use complete cart automatically.
-    # =====================================================
-
     cart_ids = data.get(
         "cart_ids",
         None
@@ -3059,10 +3042,6 @@ def create_order():
             []
         )
 
-
-    # =====================================================
-    # VALIDATION
-    # =====================================================
 
     if (
         not customer_name
@@ -3163,8 +3142,6 @@ def create_order():
     )
 
 
-    # Save exact selected items.
-
     session[
         "checkout_cart_ids"
     ] = cart_ids
@@ -3182,7 +3159,9 @@ def create_order():
         user = conn.execute(
             """
             SELECT id
+
             FROM users
+
             WHERE id = ?
             """,
             (user_id,)
@@ -3257,10 +3236,6 @@ def create_order():
         ).fetchall()
 
 
-        # =================================================
-        # EXACT SELECTION CHECK
-        # =================================================
-
         if len(cart_items) != len(cart_ids):
 
             return jsonify({
@@ -3304,7 +3279,7 @@ def create_order():
 
 
         # =================================================
-        # CALCULATE SELECTED TOTAL ONLY
+        # CALCULATE TOTAL
         # =================================================
 
         total = 0.0
@@ -3355,7 +3330,7 @@ def create_order():
 
 
         # =================================================
-        # INSERT ONLY SELECTED ORDER ITEMS
+        # INSERT SELECTED ORDER ITEMS
         # =================================================
 
         for item in cart_items:
@@ -3394,7 +3369,7 @@ def create_order():
 
 
             # =================================================
-            # REDUCE STOCK ONLY FOR SELECTED ITEM
+            # REDUCE STOCK
             # =================================================
 
             stock_update = conn.execute(
@@ -3423,7 +3398,7 @@ def create_order():
 
 
             # =================================================
-            # MARK ONLY SELECTED CART ITEM AS ORDERED
+            # MARK SELECTED CART ITEM AS ORDERED
             # =================================================
 
             cart_update = conn.execute(
@@ -3470,22 +3445,20 @@ def create_order():
 
 
         # =================================================
-        # GET CREATED ORDER
+        # RETURN CREATED ORDER
         # =================================================
 
         order = conn.execute(
             """
             SELECT *
+
             FROM orders
+
             WHERE id = ?
             """,
             (order_id,)
         ).fetchone()
 
-
-        # =================================================
-        # GET CREATED ORDER ITEMS
-        # =================================================
 
         created_items = conn.execute(
             """
