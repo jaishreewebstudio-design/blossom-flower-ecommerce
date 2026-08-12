@@ -9,7 +9,6 @@ from flask import (
 )
 
 from flask_cors import CORS
-from flasgger import Swagger
 
 import sqlite3
 import os
@@ -18,6 +17,18 @@ from werkzeug.security import (
     generate_password_hash,
     check_password_hash
 )
+
+
+# =========================================================
+# OPTIONAL SWAGGER
+# =========================================================
+
+try:
+    from flasgger import Swagger
+    FLASGGER_AVAILABLE = True
+except ImportError:
+    Swagger = None
+    FLASGGER_AVAILABLE = False
 
 
 # =========================================================
@@ -69,7 +80,6 @@ swagger_template = {
 
     "info": {
         "title": "Blossom Flower Shop API",
-
         "description": """
 Complete API documentation for Blossom Flower Shop.
 
@@ -85,8 +95,7 @@ Features:
 - Checkout
 - Orders
 - Health Check
-""",
-
+        """,
         "version": "4.0.0"
     },
 
@@ -108,50 +117,49 @@ Features:
     "tags": [
         {
             "name": "Authentication",
-            "description":
-                "Registration, login, logout and user session"
+            "description": "Registration, login, logout and user session"
         },
-
         {
             "name": "Flowers",
-            "description":
-                "Flower APIs"
+            "description": "Flower APIs"
         },
-
         {
             "name": "Cart",
-            "description":
-                "Shopping cart APIs"
+            "description": "Shopping cart APIs"
         },
-
         {
             "name": "Orders",
-            "description":
-                "Order and checkout APIs"
+            "description": "Order and checkout APIs"
         },
-
         {
             "name": "System",
-            "description":
-                "System and health APIs"
+            "description": "System and health APIs"
         }
     ]
 }
 
 
-swagger = Swagger(
-    app,
-    template=swagger_template
+if FLASGGER_AVAILABLE:
+    swagger = Swagger(
+        app,
+        template=swagger_template
+    )
+else:
+    swagger = None
+
+
+# =========================================================
+# BASE DIRECTORY
+# =========================================================
+
+BASE_DIR = os.path.dirname(
+    os.path.abspath(__file__)
 )
 
 
 # =========================================================
 # DATABASE
 # =========================================================
-
-BASE_DIR = os.path.dirname(
-    os.path.abspath(__file__)
-)
 
 DATABASE = os.path.join(
     BASE_DIR,
@@ -254,7 +262,7 @@ def init_db():
     """)
 
     # =====================================================
-    # CHECK CART STATUS COLUMN
+    # CHECK CART COLUMNS
     # =====================================================
 
     cart_columns = conn.execute(
@@ -421,7 +429,6 @@ def init_db():
         """, flowers)
 
     conn.commit()
-
     conn.close()
 
 
@@ -860,7 +867,6 @@ def register():
     user_id = cursor.lastrowid
 
     conn.commit()
-
     conn.close()
 
     return jsonify({
@@ -1066,19 +1072,13 @@ def get_current_user():
         "user": {
 
             "id":
-                session.get(
-                    "user_id"
-                ),
+                session.get("user_id"),
 
             "name":
-                session.get(
-                    "user_name"
-                ),
+                session.get("user_name"),
 
             "email":
-                session.get(
-                    "user_email"
-                )
+                session.get("user_email")
 
         }
 
@@ -1242,9 +1242,7 @@ def forgot_password():
         conn.execute(
             """
             UPDATE users
-
             SET password = ?
-
             WHERE id = ?
             """,
             (
@@ -1254,7 +1252,6 @@ def forgot_password():
         )
 
         conn.commit()
-
         conn.close()
 
         return jsonify({
@@ -1574,7 +1571,6 @@ def add_to_cart():
                 UPDATE cart
 
                 SET quantity = ?,
-
                     status = 'In Cart'
 
                 WHERE id = ?
@@ -1641,7 +1637,6 @@ def add_to_cart():
         )
 
     conn.commit()
-
     conn.close()
 
     return jsonify({
@@ -1693,9 +1688,7 @@ def get_cart(user_id):
         FROM cart
 
         JOIN flowers
-
-            ON cart.flower_id =
-               flowers.id
+            ON cart.flower_id = flowers.id
 
         WHERE cart.user_id = ?
 
@@ -1729,7 +1722,6 @@ def get_cart(user_id):
         if status != "Ordered":
 
             total += subtotal
-
             active_count += 1
 
         else:
@@ -1869,9 +1861,7 @@ def update_cart_quantity(cart_id):
         FROM cart
 
         JOIN flowers
-
-            ON cart.flower_id =
-               flowers.id
+            ON cart.flower_id = flowers.id
 
         WHERE cart.id = ?
         """,
@@ -1932,7 +1922,6 @@ def update_cart_quantity(cart_id):
     )
 
     conn.commit()
-
     conn.close()
 
     return jsonify({
@@ -1988,7 +1977,6 @@ def remove_cart_item(cart_id):
     )
 
     conn.commit()
-
     conn.close()
 
     return jsonify({
@@ -2022,7 +2010,6 @@ def clear_user_cart(user_id):
     )
 
     conn.commit()
-
     conn.close()
 
     return jsonify({
@@ -2210,9 +2197,7 @@ def create_order():
         FROM cart
 
         JOIN flowers
-
-            ON cart.flower_id =
-               flowers.id
+            ON cart.flower_id = flowers.id
 
         WHERE cart.user_id = ?
 
@@ -2356,8 +2341,7 @@ def create_order():
             """
             UPDATE flowers
 
-            SET stock =
-                stock - ?
+            SET stock = stock - ?
 
             WHERE id = ?
             """,
@@ -2772,7 +2756,6 @@ def delete_order(order_id):
     )
 
     conn.commit()
-
     conn.close()
 
     return jsonify({
@@ -2812,7 +2795,48 @@ def health_check():
 
 
 # =========================================================
-# ERROR HANDLER
+# SWAGGER STATUS
+# =========================================================
+
+@app.route(
+    "/swagger-status",
+    methods=["GET"]
+)
+def swagger_status():
+
+    if FLASGGER_AVAILABLE:
+
+        return jsonify({
+
+            "success": True,
+
+            "swagger": True,
+
+            "message":
+                "Swagger is available",
+
+            "url":
+                "/apidocs/"
+
+        })
+
+    return jsonify({
+
+        "success": True,
+
+        "swagger": False,
+
+        "message":
+            "Flasgger is not installed",
+
+        "install":
+            "python -m pip install flasgger"
+
+    })
+
+
+# =========================================================
+# ERROR HANDLER - 404
 # =========================================================
 
 @app.errorhandler(404)
@@ -2829,6 +2853,23 @@ def page_not_found(error):
 
 
 # =========================================================
+# ERROR HANDLER - 500
+# =========================================================
+
+@app.errorhandler(500)
+def internal_server_error(error):
+
+    return jsonify({
+
+        "success": False,
+
+        "message":
+            "Internal server error"
+
+    }), 500
+
+
+# =========================================================
 # START SERVER
 # =========================================================
 
@@ -2842,49 +2883,53 @@ if __name__ == "__main__":
     )
 
     print("")
-
-    print(
-        "=========================================="
-    )
-
-    print(
-        "🌸 BLOSSOM FLOWER SHOP"
-    )
-
-    print(
-        "=========================================="
-    )
-
+    print("==========================================")
+    print("🌸 BLOSSOM FLOWER SHOP")
+    print("==========================================")
     print("")
 
     print("Server:")
-
     print(
         f"http://127.0.0.1:{port}"
     )
 
     print("")
 
-    print("Swagger:")
-
+    print("Flowers API:")
     print(
-        f"http://127.0.0.1:{port}/apidocs/"
+        f"http://127.0.0.1:{port}/api/flowers"
     )
 
     print("")
 
-    print("API JSON:")
-
+    print("Health Check:")
     print(
-        f"http://127.0.0.1:{port}/apispec_1.json"
+        f"http://127.0.0.1:{port}/api/health"
     )
 
     print("")
 
-    print(
-        "=========================================="
-    )
+    if FLASGGER_AVAILABLE:
 
+        print("Swagger:")
+        print(
+            f"http://127.0.0.1:{port}/apidocs/"
+        )
+
+    else:
+
+        print("Swagger:")
+        print(
+            "Flasgger is not installed."
+        )
+
+        print(
+            "Run: python -m pip install flasgger"
+        )
+
+    print("")
+
+    print("==========================================")
     print("")
 
     app.run(
