@@ -10,15 +10,25 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Checkout | Blossom Flower Shop</title>
+    <title>Cart | Blossom Flower Shop</title>
+
 
     <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
+
+
+        /* =====================================================
+           BODY
+        ===================================================== */
 
         body {
 
@@ -27,13 +37,19 @@
                 Helvetica,
                 sans-serif;
 
-            background: #fff5f8;
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff5f8,
+                    #fffafd
+                );
 
             color: #333;
 
             min-height: 100vh;
 
         }
+
 
         /* =====================================================
            HEADER
@@ -47,21 +63,23 @@
 
             display: flex;
 
-            justify-content: space-between;
+            justify-content:
+                space-between;
 
             align-items: center;
 
             box-shadow:
-                0 3px 15px
+                0 3px 18px
                 rgba(0, 0, 0, 0.08);
 
             position: sticky;
 
             top: 0;
 
-            z-index: 100;
+            z-index: 1000;
 
         }
+
 
         .dashboard-header h1 {
 
@@ -69,7 +87,10 @@
 
             font-size: 27px;
 
+            white-space: nowrap;
+
         }
+
 
         nav {
 
@@ -79,7 +100,12 @@
 
             align-items: center;
 
+            flex-wrap: wrap;
+
+            justify-content: center;
+
         }
+
 
         nav a {
 
@@ -93,6 +119,7 @@
 
         }
 
+
         nav a:hover {
 
             color: #d63384;
@@ -101,28 +128,115 @@
 
 
         /* =====================================================
-           CHECKOUT SECTION
+           CART SECTION
         ===================================================== */
 
-        .checkout-section {
+        .cart-section {
 
             width: 100%;
 
-            padding: 50px 20px;
+            padding:
+                50px 20px 70px;
 
         }
 
-        .checkout-container {
 
-            max-width: 950px;
+        .cart-container {
+
+            max-width: 1100px;
 
             margin: auto;
 
+        }
+
+
+        /* =====================================================
+           PAGE TITLE
+        ===================================================== */
+
+        .page-title {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        .page-title h2 {
+
+            color: #c2185b;
+
+            font-size: 32px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .page-title p {
+
+            color: #777;
+
+            font-size: 15px;
+
+        }
+
+
+        /* =====================================================
+           MESSAGE
+        ===================================================== */
+
+        .message {
+
+            display: none;
+
+            padding: 15px 18px;
+
+            margin-bottom: 20px;
+
+            border-radius: 10px;
+
+            font-weight: 600;
+
+        }
+
+
+        .success-message {
+
+            background: #e8f7ed;
+
+            border:
+                1px solid #b7e4c7;
+
+            color: #218838;
+
+        }
+
+
+        .error-message {
+
+            background: #fff0f0;
+
+            border:
+                1px solid #f0b8b8;
+
+            color: #c62828;
+
+        }
+
+
+        /* =====================================================
+           CART CARD
+        ===================================================== */
+
+        .cart-box {
+
             background: white;
 
-            padding: 35px;
-
             border-radius: 18px;
+
+            padding: 25px;
 
             box-shadow:
                 0 8px 30px
@@ -132,120 +246,73 @@
 
 
         /* =====================================================
-           TITLE
+           CART HEADER
         ===================================================== */
 
-        .checkout-container h2 {
+        .cart-header {
 
-            color: #c2185b;
+            display: flex;
 
-            margin-bottom: 25px;
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding-bottom: 18px;
+
+            margin-bottom: 20px;
 
             border-bottom:
                 2px solid #f3c1d3;
 
-            padding-bottom: 12px;
-
         }
 
 
-        /* =====================================================
-           FORM
-        ===================================================== */
-
-        .form-group {
-
-            margin-bottom: 20px;
-
-        }
-
-        .form-group label {
-
-            display: block;
-
-            margin-bottom: 8px;
-
-            font-weight: bold;
-
-            color: #555;
-
-        }
-
-        input,
-        textarea,
-        select {
-
-            width: 100%;
-
-            padding: 13px 15px;
-
-            border:
-                1px solid #ddd;
-
-            border-radius: 9px;
-
-            font-size: 15px;
-
-            outline: none;
-
-            transition: 0.2s;
-
-        }
-
-        input:focus,
-        textarea:focus,
-        select:focus {
-
-            border-color: #d63384;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(214, 51, 132, 0.1);
-
-        }
-
-        textarea {
-
-            min-height: 110px;
-
-            resize: vertical;
-
-        }
-
-
-        /* =====================================================
-           FLOWERS TITLE
-        ===================================================== */
-
-        .summary-title {
-
-            margin-top: 30px;
-
-            margin-bottom: 15px;
+        .cart-header h3 {
 
             color: #c2185b;
 
+            font-size: 21px;
+
+        }
+
+
+        .cart-count {
+
+            background: #ffe0ea;
+
+            color: #c2185b;
+
+            padding:
+                7px 14px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
         }
 
 
         /* =====================================================
-           CHECKOUT ITEMS
+           CART ITEMS
         ===================================================== */
 
-        #checkoutItems {
+        #cartItems {
 
-            border:
-                1px solid #eee;
+            display: flex;
 
-            border-radius: 12px;
+            flex-direction: column;
 
-            overflow: hidden;
-
-            background: white;
+            gap: 15px;
 
         }
 
-        .checkout-item {
+
+        .cart-item {
 
             display: flex;
 
@@ -255,73 +322,274 @@
 
             padding: 18px;
 
-            border-bottom:
+            border:
                 1px solid #eee;
 
-        }
+            border-radius: 14px;
 
-        .checkout-item:last-child {
+            background: #fff;
 
-            border-bottom: none;
-
-        }
-
-        .checkout-item img {
-
-            width: 80px;
-
-            height: 80px;
-
-            object-fit: cover;
-
-            border-radius: 10px;
-
-            flex-shrink: 0;
+            transition: 0.2s;
 
         }
 
-        .checkout-item-info {
 
-            flex: 1;
+        .cart-item:hover {
 
-        }
+            border-color: #f0b3ca;
 
-        .checkout-item-info h4 {
-
-            color: #c2185b;
-
-            margin-bottom: 7px;
-
-            font-size: 18px;
-
-        }
-
-        .checkout-item-info p {
-
-            color: #666;
-
-            margin: 4px 0;
-
-            font-size: 14px;
-
-        }
-
-        .item-price {
-
-            font-weight: bold;
-
-            color: #d63384;
-
-            font-size: 18px;
-
-            white-space: nowrap;
+            box-shadow:
+                0 5px 18px
+                rgba(214, 51, 132, 0.08);
 
         }
 
 
         /* =====================================================
-           ORDERED BADGE
+           CHECKBOX
         ===================================================== */
+
+        .select-area {
+
+            width: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .select-checkbox {
+
+            width: 20px;
+
+            height: 20px;
+
+            cursor: pointer;
+
+            accent-color: #d63384;
+
+        }
+
+
+        .select-checkbox:disabled {
+
+            cursor: not-allowed;
+
+            opacity: 0.5;
+
+        }
+
+
+        /* =====================================================
+           FLOWER IMAGE
+        ===================================================== */
+
+        .cart-image {
+
+            width: 95px;
+
+            height: 95px;
+
+            object-fit: cover;
+
+            border-radius: 12px;
+
+            background: #fff5f8;
+
+            flex-shrink: 0;
+
+            border:
+                1px solid #f3d5df;
+
+        }
+
+
+        /* =====================================================
+           ITEM INFO
+        ===================================================== */
+
+        .cart-item-info {
+
+            flex: 1;
+
+            min-width: 180px;
+
+        }
+
+
+        .cart-item-info h4 {
+
+            color: #c2185b;
+
+            font-size: 19px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .cart-item-info p {
+
+            color: #666;
+
+            font-size: 14px;
+
+            margin:
+                5px 0;
+
+        }
+
+
+        .price-text {
+
+            color: #d63384;
+
+            font-weight: bold;
+
+        }
+
+
+        /* =====================================================
+           QUANTITY
+        ===================================================== */
+
+        .quantity-box {
+
+            display: flex;
+
+            align-items: center;
+
+            border:
+                1px solid #e3c1cf;
+
+            border-radius: 9px;
+
+            overflow: hidden;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .quantity-btn {
+
+            width: 34px;
+
+            height: 34px;
+
+            border: none;
+
+            background: #ffe8ef;
+
+            color: #c2185b;
+
+            font-size: 19px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+        }
+
+
+        .quantity-btn:hover {
+
+            background: #ffd3e1;
+
+        }
+
+
+        .quantity-value {
+
+            min-width: 38px;
+
+            text-align: center;
+
+            font-weight: bold;
+
+            color: #555;
+
+        }
+
+
+        /* =====================================================
+           SUBTOTAL
+        ===================================================== */
+
+        .item-subtotal {
+
+            min-width: 105px;
+
+            text-align: right;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: #d63384;
+
+            flex-shrink: 0;
+
+        }
+
+
+        /* =====================================================
+           REMOVE BUTTON
+        ===================================================== */
+
+        .remove-btn {
+
+            border: none;
+
+            background: #fff0f0;
+
+            color: #c62828;
+
+            padding:
+                9px 12px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .remove-btn:hover {
+
+            background: #ffdede;
+
+        }
+
+
+        /* =====================================================
+           ORDERED ITEM
+        ===================================================== */
+
+        .ordered-item {
+
+            background:
+                #f8fff9;
+
+            border-color:
+                #c8e8d1;
+
+        }
+
 
         .ordered-badge {
 
@@ -329,13 +597,17 @@
 
             margin-top: 8px;
 
-            padding: 5px 10px;
+            padding:
+                5px 10px;
 
-            background: #e8f7ed;
+            background:
+                #e8f7ed;
 
-            color: #218838;
+            color:
+                #218838;
 
-            border: 1px solid #b7e4c7;
+            border:
+                1px solid #b7e4c7;
 
             border-radius: 20px;
 
@@ -346,32 +618,102 @@
         }
 
 
+        .ordered-note {
+
+            color: #218838 !important;
+
+            font-size: 12px !important;
+
+            margin-top: 5px;
+
+        }
+
+
         /* =====================================================
-           ORDER SUMMARY
+           EMPTY CART
         ===================================================== */
 
-        .order-summary {
+        .empty-cart {
+
+            text-align: center;
+
+            padding:
+                70px 20px;
+
+        }
+
+
+        .empty-cart-icon {
+
+            font-size: 65px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .empty-cart h2 {
+
+            color: #d63384;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .empty-cart p {
+
+            color: #777;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        /* =====================================================
+           LOADING
+        ===================================================== */
+
+        .loading {
+
+            text-align: center;
+
+            padding: 50px;
+
+            color: #777;
+
+            font-size: 16px;
+
+        }
+
+
+        /* =====================================================
+           BOTTOM SUMMARY
+        ===================================================== */
+
+        .cart-bottom {
 
             margin-top: 25px;
 
-            padding: 22px;
+            padding: 23px;
 
-            background: #fff5f8;
+            background:
+                #fff5f8;
 
             border:
                 1px solid #f4c8d9;
 
-            border-radius: 12px;
+            border-radius: 14px;
 
         }
 
-        .order-summary h3 {
 
-            color: #c2185b;
+        .summary-row {
 
             display: flex;
 
-            justify-content: space-between;
+            justify-content:
+                space-between;
 
             align-items: center;
 
@@ -379,17 +721,51 @@
 
         }
 
-        #checkoutTotal {
+
+        .summary-label {
+
+            color: #555;
+
+            font-weight: bold;
+
+        }
+
+
+        .summary-value {
 
             color: #d63384;
 
-            font-size: 24px;
+            font-size: 25px;
+
+            font-weight: bold;
 
         }
 
 
         /* =====================================================
-           BUTTONS
+           SELECTED INFO
+        ===================================================== */
+
+        .selected-info {
+
+            margin-top: 12px;
+
+            color: #777;
+
+            font-size: 14px;
+
+        }
+
+
+        .selected-info strong {
+
+            color: #c2185b;
+
+        }
+
+
+        /* =====================================================
+           BUTTON ROW
         ===================================================== */
 
         .button-row {
@@ -398,9 +774,10 @@
 
             gap: 15px;
 
-            margin-top: 25px;
+            margin-top: 22px;
 
         }
+
 
         .btn {
 
@@ -426,6 +803,7 @@
 
         }
 
+
         .btn-primary {
 
             background: #d63384;
@@ -434,11 +812,13 @@
 
         }
 
+
         .btn-primary:hover {
 
             background: #ad1457;
 
         }
+
 
         .btn-primary:disabled {
 
@@ -448,6 +828,7 @@
 
         }
 
+
         .btn-secondary {
 
             background: #ffe0ea;
@@ -455,6 +836,7 @@
             color: #c2185b;
 
         }
+
 
         .btn-secondary:hover {
 
@@ -464,90 +846,20 @@
 
 
         /* =====================================================
-           EMPTY / MESSAGE
+           CART ITEM SELECTED STATE
         ===================================================== */
 
-        .empty-checkout {
+        .cart-item.selected {
 
-            text-align: center;
+            border:
+                2px solid #d63384;
 
-            padding: 40px 20px;
+            background:
+                #fff8fb;
 
-        }
-
-        .empty-checkout h2 {
-
-            color: #d63384;
-
-            margin-bottom: 10px;
-
-        }
-
-        .empty-checkout p {
-
-            color: #666;
-
-            margin-bottom: 20px;
-
-        }
-
-        .loading {
-
-            text-align: center;
-
-            padding: 30px;
-
-            color: #777;
-
-        }
-
-
-        /* =====================================================
-           SUCCESS MESSAGE
-        ===================================================== */
-
-        .success-message {
-
-            display: none;
-
-            margin-bottom: 20px;
-
-            padding: 15px 18px;
-
-            background: #e8f7ed;
-
-            border: 1px solid #b7e4c7;
-
-            color: #218838;
-
-            border-radius: 10px;
-
-            font-weight: bold;
-
-        }
-
-
-        /* =====================================================
-           ERROR MESSAGE
-        ===================================================== */
-
-        .error-message {
-
-            display: none;
-
-            margin-bottom: 20px;
-
-            padding: 15px 18px;
-
-            background: #fff0f0;
-
-            border: 1px solid #f0b8b8;
-
-            color: #c62828;
-
-            border-radius: 10px;
-
-            font-weight: bold;
+            box-shadow:
+                0 5px 20px
+                rgba(214, 51, 132, 0.10);
 
         }
 
@@ -555,6 +867,41 @@
         /* =====================================================
            RESPONSIVE
         ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .dashboard-header {
+
+                padding:
+                    18px 25px;
+
+            }
+
+
+            .cart-item {
+
+                flex-wrap: wrap;
+
+            }
+
+
+            .cart-item-info {
+
+                min-width:
+                    calc(100% - 150px);
+
+            }
+
+
+            .item-subtotal {
+
+                margin-left:
+                    auto;
+
+            }
+
+        }
+
 
         @media (max-width: 700px) {
 
@@ -568,37 +915,133 @@
 
             }
 
+
             nav {
-
-                flex-wrap: wrap;
-
-                justify-content: center;
 
                 gap: 15px;
 
             }
 
-            .checkout-container {
 
-                padding: 22px;
+            .cart-section {
 
-            }
-
-            .checkout-item {
-
-                align-items: flex-start;
+                padding:
+                    30px 12px 50px;
 
             }
 
-            .item-price {
 
-                font-size: 16px;
+            .cart-box {
+
+                padding: 18px;
 
             }
+
+
+            .page-title h2 {
+
+                font-size: 27px;
+
+            }
+
+
+            .cart-item {
+
+                align-items:
+                    flex-start;
+
+            }
+
+
+            .cart-image {
+
+                width: 75px;
+
+                height: 75px;
+
+            }
+
+
+            .cart-item-info h4 {
+
+                font-size: 17px;
+
+            }
+
+
+            .quantity-box {
+
+                margin-left:
+                    48px;
+
+            }
+
+
+            .item-subtotal {
+
+                width: 100%;
+
+                text-align:
+                    left;
+
+                margin-left:
+                    48px;
+
+            }
+
+
+            .remove-btn {
+
+                margin-left:
+                    48px;
+
+            }
+
 
             .button-row {
 
-                flex-direction: column;
+                flex-direction:
+                    column;
+
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .cart-header {
+
+                align-items:
+                    flex-start;
+
+                flex-direction:
+                    column;
+
+            }
+
+
+            .cart-item {
+
+                gap: 12px;
+
+                padding: 14px;
+
+            }
+
+
+            .select-area {
+
+                width: 24px;
+
+            }
+
+
+            .cart-image {
+
+                width: 65px;
+
+                height: 65px;
 
             }
 
@@ -619,8 +1062,9 @@
 <header class="dashboard-header">
 
     <h1>
-        💳 Checkout
+        🌸 Blossom Flower Shop
     </h1>
+
 
     <nav>
 
@@ -650,222 +1094,154 @@
 
 
 <!-- =========================================================
-     CHECKOUT
+     CART SECTION
 ========================================================= -->
 
-<section class="checkout-section">
+<section class="cart-section">
 
-    <div class="checkout-container">
-
-
-        <h2>
-            Customer Details
-        </h2>
+    <div class="cart-container">
 
 
-        <!-- SUCCESS -->
+        <!-- PAGE TITLE -->
+
+        <div class="page-title">
+
+            <h2>
+                🛒 My Shopping Cart
+            </h2>
+
+            <p>
+                Select the flowers you want to order.
+            </p>
+
+        </div>
+
+
+        <!-- SUCCESS MESSAGE -->
 
         <div
             id="successMessage"
-            class="success-message"
+            class="message success-message"
         >
-            🌸 Order placed successfully!
         </div>
 
 
-        <!-- ERROR -->
+        <!-- ERROR MESSAGE -->
 
         <div
             id="errorMessage"
-            class="error-message"
+            class="message error-message"
         >
-            Something went wrong.
         </div>
 
 
-        <!-- =================================================
-             FORM
-        ================================================== -->
+        <!-- CART BOX -->
 
-        <form id="checkoutForm">
+        <div class="cart-box">
 
 
-            <!-- NAME -->
+            <!-- CART HEADER -->
 
-            <div class="form-group">
+            <div class="cart-header">
 
-                <label for="customerName">
+                <h3>
+                    🌷 Your Flowers
+                </h3>
 
-                    Full Name
-
-                </label>
-
-                <input
-                    type="text"
-                    id="customerName"
-                    placeholder="Enter your full name"
-                    required
+                <span
+                    class="cart-count"
+                    id="cartCount"
                 >
+                    0 Items
+                </span>
 
             </div>
 
 
-            <!-- PHONE -->
+            <!-- CART ITEMS -->
 
-            <div class="form-group">
-
-                <label for="customerPhone">
-
-                    Mobile Number
-
-                </label>
-
-                <input
-                    type="tel"
-                    id="customerPhone"
-                    placeholder="Enter 10 digit mobile number"
-                    pattern="[0-9]{10}"
-                    maxlength="10"
-                    required
-                >
-
-            </div>
-
-
-            <!-- ADDRESS -->
-
-            <div class="form-group">
-
-                <label for="customerAddress">
-
-                    Delivery Address
-
-                </label>
-
-                <textarea
-                    id="customerAddress"
-                    placeholder="Enter complete delivery address"
-                    required
-                ></textarea>
-
-            </div>
-
-
-            <!-- PAYMENT -->
-
-            <div class="form-group">
-
-                <label for="paymentMethod">
-
-                    Payment Method
-
-                </label>
-
-                <select
-                    id="paymentMethod"
-                    required
-                >
-
-                    <option value="Cash On Delivery">
-                        Cash On Delivery
-                    </option>
-
-                    <option value="UPI">
-                        UPI
-                    </option>
-
-                    <option value="Credit Card">
-                        Credit Card
-                    </option>
-
-                    <option value="Debit Card">
-                        Debit Card
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- =================================================
-                 SELECTED FLOWERS
-            ================================================== -->
-
-            <h3 class="summary-title">
-
-                🌸 Selected Flowers
-
-            </h3>
-
-
-            <div id="checkoutItems">
+            <div id="cartItems">
 
                 <div class="loading">
 
-                    Loading selected flowers...
+                    🌸 Loading your flowers...
 
                 </div>
 
             </div>
 
 
-            <!-- =================================================
-                 TOTAL
-            ================================================== -->
+            <!-- BOTTOM SUMMARY -->
 
-            <div class="order-summary">
+            <div
+                class="cart-bottom"
+                id="cartBottom"
+                style="display: none;"
+            >
 
-                <h3>
+                <div class="summary-row">
 
-                    <span>
-                        Grand Total
+                    <span class="summary-label">
+
+                        Selected Total
+
                     </span>
 
-                    <span>
 
-                        ₹<span id="checkoutTotal">
+                    <span class="summary-value">
+
+                        ₹<span id="cartTotal">
                             0.00
                         </span>
 
                     </span>
 
-                </h3>
+                </div>
+
+
+                <div class="selected-info">
+
+                    <strong id="selectedCount">
+                        0
+                    </strong>
+
+                    flower(s) selected for checkout.
+
+                </div>
+
+
+                <!-- BUTTONS -->
+
+                <div class="button-row">
+
+
+                    <a
+                        href="{{ url_for('flowers_page') }}"
+                        class="btn btn-secondary"
+                    >
+
+                        🌸 Continue Shopping
+
+                    </a>
+
+
+                    <button
+                        type="button"
+                        id="checkoutButton"
+                        class="btn btn-primary"
+                        disabled
+                    >
+
+                        💳 Proceed to Checkout
+
+                    </button>
+
+                </div>
 
             </div>
 
 
-            <!-- =================================================
-                 BUTTONS
-            ================================================== -->
-
-            <div class="button-row">
-
-
-                <a
-                    href="{{ url_for('cart_page') }}"
-                    class="btn btn-secondary"
-                >
-
-                    ← Back to Cart
-
-                </a>
-
-
-                <button
-                    type="submit"
-                    class="btn btn-primary"
-                    id="placeOrderButton"
-                >
-
-                    🌸 Place Order
-
-                </button>
-
-
-            </div>
-
-
-        </form>
+        </div>
 
     </div>
 
@@ -891,8 +1267,6 @@ let cart = [];
 
 let selectedCartIds = [];
 
-let total = 0;
-
 
 /* =========================================================
    GET CURRENT USER
@@ -905,11 +1279,13 @@ function getCurrentUser() {
             "currentUser"
         );
 
+
     if (!userData) {
 
         return null;
 
     }
+
 
     try {
 
@@ -932,15 +1308,16 @@ function getCurrentUser() {
 
 
 /* =========================================================
-   GET SELECTED CART IDS
+   GET SAVED SELECTED IDS
 ========================================================= */
 
-function getSelectedIds() {
+function getSavedSelectedIds() {
 
     const stored =
         sessionStorage.getItem(
             "selectedCartIds"
         );
+
 
     if (!stored) {
 
@@ -948,10 +1325,12 @@ function getSelectedIds() {
 
     }
 
+
     try {
 
         const ids =
             JSON.parse(stored);
+
 
         if (!Array.isArray(ids)) {
 
@@ -959,22 +1338,74 @@ function getSelectedIds() {
 
         }
 
+
         return ids
             .map(Number)
             .filter(
-                id => !isNaN(id)
+                id =>
+                    Number.isFinite(id)
             );
+
 
     } catch (error) {
 
         console.error(
-            "Selected cart IDs error:",
+            "Selected IDs error:",
             error
         );
 
         return [];
 
     }
+
+}
+
+
+/* =========================================================
+   SAVE SELECTED IDS
+========================================================= */
+
+function saveSelectedIds() {
+
+    sessionStorage.setItem(
+        "selectedCartIds",
+        JSON.stringify(
+            selectedCartIds
+        )
+    );
+
+}
+
+
+/* =========================================================
+   SHOW SUCCESS
+========================================================= */
+
+function showSuccess(message) {
+
+    const box =
+        document.getElementById(
+            "successMessage"
+        );
+
+
+    box.textContent =
+        "✓ " + message;
+
+
+    box.style.display =
+        "block";
+
+
+    setTimeout(
+        function() {
+
+            box.style.display =
+                "none";
+
+        },
+        3000
+    );
 
 }
 
@@ -990,8 +1421,10 @@ function showError(message) {
             "errorMessage"
         );
 
+
     box.textContent =
         "❌ " + message;
+
 
     box.style.display =
         "block";
@@ -1014,46 +1447,88 @@ function hideError() {
 
 
 /* =========================================================
-   SHOW SUCCESS
+   ESCAPE HTML
 ========================================================= */
 
-function showSuccess(message) {
+function escapeHtml(value) {
 
-    const box =
-        document.getElementById(
-            "successMessage"
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
         );
-
-    box.textContent =
-        "🌸 " + message;
-
-    box.style.display =
-        "block";
 
 }
 
 
 /* =========================================================
-   LOAD CHECKOUT CART
+   IMAGE FALLBACK
 ========================================================= */
 
-async function loadCheckoutCart() {
+function safeImage(image) {
+
+    if (!image) {
+
+        return "";
+
+    }
+
+
+    return String(image);
+
+}
+
+
+/* =========================================================
+   LOAD CART
+========================================================= */
+
+async function loadCart() {
+
+    const container =
+        document.getElementById(
+            "cartItems"
+        );
+
 
     const user =
         getCurrentUser();
 
-    const container =
-        document.getElementById(
-            "checkoutItems"
-        );
 
-    selectedCartIds =
-        getSelectedIds();
-
-
-    /* -------------------------------------------------------
-       USER CHECK
-    ------------------------------------------------------- */
+    /* -----------------------------------------------------
+       LOGIN CHECK
+    ----------------------------------------------------- */
 
     if (
         !user ||
@@ -1062,14 +1537,18 @@ async function loadCheckoutCart() {
 
         container.innerHTML = `
 
-            <div class="empty-checkout">
+            <div class="empty-cart">
+
+                <div class="empty-cart-icon">
+                    🔐
+                </div>
 
                 <h2>
-                    🌸 Please Login
+                    Please Login
                 </h2>
 
                 <p>
-                    Please login before checkout.
+                    Please login to view your shopping cart.
                 </p>
 
                 <a
@@ -1083,45 +1562,12 @@ async function loadCheckoutCart() {
 
         `;
 
-        disableOrderButton();
 
-        return;
+        document.getElementById(
+            "cartBottom"
+        ).style.display =
+            "none";
 
-    }
-
-
-    /* -------------------------------------------------------
-       SELECTED ITEMS CHECK
-    ------------------------------------------------------- */
-
-    if (
-        selectedCartIds.length === 0
-    ) {
-
-        container.innerHTML = `
-
-            <div class="empty-checkout">
-
-                <h2>
-                    🛒 No Flowers Selected
-                </h2>
-
-                <p>
-                    Please go back to cart and select flowers.
-                </p>
-
-                <a
-                    href="{{ url_for('cart_page') }}"
-                    class="btn btn-primary"
-                >
-                    ← Go To Cart
-                </a>
-
-            </div>
-
-        `;
-
-        disableOrderButton();
 
         return;
 
@@ -1129,10 +1575,6 @@ async function loadCheckoutCart() {
 
 
     try {
-
-        /* ---------------------------------------------------
-           GET USER CART
-        --------------------------------------------------- */
 
         const response =
             await fetch(
@@ -1151,86 +1593,99 @@ async function loadCheckoutCart() {
 
             throw new Error(
                 data.message ||
-                "Unable to load cart"
+                "Unable to load cart."
             );
 
         }
 
 
-        const allCart =
-            data.cart || [];
-
-
-        /* ---------------------------------------------------
-           ONLY SELECTED ITEMS
-        --------------------------------------------------- */
-
         cart =
-            allCart.filter(
-                function(item) {
+            Array.isArray(data.cart)
+                ? data.cart
+                : [];
 
-                    return selectedCartIds.includes(
-                        Number(item.id)
+
+        /* -------------------------------------------------
+           LOAD PREVIOUS SELECTION
+        ------------------------------------------------- */
+
+        const savedIds =
+            getSavedSelectedIds();
+
+
+        /*
+         * Keep only IDs that still exist
+         * in the current cart.
+         */
+
+        selectedCartIds =
+            savedIds.filter(
+                function(id) {
+
+                    return cart.some(
+                        function(item) {
+
+                            return (
+                                Number(item.id) === id &&
+                                !isOrdered(item)
+                            );
+
+                        }
                     );
 
                 }
             );
 
 
-        /* ---------------------------------------------------
-           CALCULATE TOTAL
-        --------------------------------------------------- */
-
-        total = 0;
+        saveSelectedIds();
 
 
-        cart.forEach(
-            function(item) {
-
-                total +=
-                    Number(
-                        item.subtotal
-                    );
-
-            }
-        );
-
-
-        displayCheckoutCart();
+        displayCart();
 
 
     } catch (error) {
 
         console.error(
-            "Checkout loading error:",
+            "Cart loading error:",
             error
         );
 
 
         container.innerHTML = `
 
-            <div class="empty-checkout">
+            <div class="empty-cart">
+
+                <div class="empty-cart-icon">
+                    ❌
+                </div>
 
                 <h2>
-                    ❌ Unable to Load Flowers
+                    Unable to Load Cart
                 </h2>
 
                 <p>
-                    ${error.message}
+                    ${escapeHtml(
+                        error.message
+                    )}
                 </p>
 
-                <a
-                    href="{{ url_for('cart_page') }}"
+                <button
+                    type="button"
                     class="btn btn-primary"
+                    onclick="loadCart()"
                 >
-                    ← Back To Cart
-                </a>
+                    🔄 Try Again
+                </button>
 
             </div>
 
         `;
 
-        disableOrderButton();
+
+        document.getElementById(
+            "cartBottom"
+        ).style.display =
+            "none";
 
     }
 
@@ -1238,22 +1693,124 @@ async function loadCheckoutCart() {
 
 
 /* =========================================================
-   DISPLAY CHECKOUT CART
+   CHECK WHETHER ITEM IS ORDERED
 ========================================================= */
 
-function displayCheckoutCart() {
+function isOrdered(item) {
+
+    /*
+     * Support backend ordered/status fields
+     * if available.
+     */
+
+    const status =
+        String(
+            item.status ||
+            item.order_status ||
+            ""
+        ).toLowerCase();
+
+
+    if (
+        status === "ordered" ||
+        status === "completed" ||
+        status === "delivered"
+    ) {
+
+        return true;
+
+    }
+
+
+    /*
+     * Also check localStorage.
+     */
+
+    const orderedIds =
+        getOrderedIds();
+
+
+    return orderedIds.includes(
+        Number(item.id)
+    );
+
+}
+
+
+/* =========================================================
+   GET ORDERED IDS
+========================================================= */
+
+function getOrderedIds() {
+
+    try {
+
+        const stored =
+            localStorage.getItem(
+                "orderedCartIds"
+            );
+
+
+        if (!stored) {
+
+            return [];
+
+        }
+
+
+        const ids =
+            JSON.parse(stored);
+
+
+        if (!Array.isArray(ids)) {
+
+            return [];
+
+        }
+
+
+        return ids
+            .map(Number)
+            .filter(
+                id =>
+                    Number.isFinite(id)
+            );
+
+
+    } catch (error) {
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================================
+   DISPLAY CART
+========================================================= */
+
+function displayCart() {
 
     const container =
         document.getElementById(
-            "checkoutItems"
+            "cartItems"
         );
 
 
     document.getElementById(
-        "checkoutTotal"
+        "cartCount"
     ).textContent =
-        total.toFixed(2);
+        `${cart.length} ${
+            cart.length === 1
+                ? "Item"
+                : "Items"
+        }`;
 
+
+    /* -----------------------------------------------------
+       EMPTY CART
+    ----------------------------------------------------- */
 
     if (
         cart.length === 0
@@ -1261,32 +1818,71 @@ function displayCheckoutCart() {
 
         container.innerHTML = `
 
-            <div class="empty-checkout">
+            <div class="empty-cart">
+
+                <div class="empty-cart-icon">
+                    🌸
+                </div>
 
                 <h2>
-                    🛒 Selected Flowers Not Found
+                    Your Cart Is Empty
                 </h2>
 
                 <p>
-                    Please return to cart and select again.
+                    Add some beautiful flowers to your cart.
                 </p>
+
+                <a
+                    href="{{ url_for('flowers_page') }}"
+                    class="btn btn-primary"
+                >
+                    🌷 Browse Flowers
+                </a>
 
             </div>
 
         `;
 
-        disableOrderButton();
+
+        document.getElementById(
+            "cartBottom"
+        ).style.display =
+            "none";
+
 
         return;
 
     }
 
 
+    document.getElementById(
+        "cartBottom"
+    ).style.display =
+        "block";
+
+
     container.innerHTML = "";
 
 
+    /* -----------------------------------------------------
+       CREATE EACH ITEM
+    ----------------------------------------------------- */
+
     cart.forEach(
         function(item) {
+
+            const itemId =
+                Number(item.id);
+
+
+            const ordered =
+                isOrdered(item);
+
+
+            const selected =
+                selectedCartIds.includes(
+                    itemId
+                );
 
 
             const card =
@@ -1296,33 +1892,116 @@ function displayCheckoutCart() {
 
 
             card.className =
-                "checkout-item";
+                "cart-item";
+
+
+            if (selected) {
+
+                card.classList.add(
+                    "selected"
+                );
+
+            }
+
+
+            if (ordered) {
+
+                card.classList.add(
+                    "ordered-item"
+                );
+
+            }
+
+
+            const quantity =
+                Math.max(
+                    1,
+                    Number(
+                        item.quantity
+                    ) || 1
+                );
+
+
+            const price =
+                Number(
+                    item.price
+                ) || 0;
+
+
+            const subtotal =
+                Number(
+                    item.subtotal
+                ) ||
+                price * quantity;
 
 
             card.innerHTML = `
 
+                <!-- CHECKBOX -->
+
+                <div class="select-area">
+
+                    <input
+                        type="checkbox"
+                        class="select-checkbox"
+                        data-id="${itemId}"
+                        ${
+                            selected
+                                ? "checked"
+                                : ""
+                        }
+                        ${
+                            ordered
+                                ? "disabled"
+                                : ""
+                        }
+                        aria-label="Select ${
+                            escapeHtml(
+                                item.name
+                            )
+                        }"
+                    >
+
+                </div>
+
+
+                <!-- IMAGE -->
+
                 <img
-                    src="${item.image || ''}"
-                    alt="${escapeHtml(item.name)}"
+                    class="cart-image"
+                    src="${safeImage(
+                        item.image
+                    )}"
+                    alt="${escapeHtml(
+                        item.name
+                    )}"
+                    onerror="
+                        this.style.display='none';
+                    "
                 >
 
 
-                <div class="checkout-item-info">
+                <!-- INFO -->
+
+                <div class="cart-item-info">
 
                     <h4>
-
                         🌸
-                        ${escapeHtml(item.name)}
-
+                        ${escapeHtml(
+                            item.name ||
+                            "Flower"
+                        )}
                     </h4>
 
 
                     <p>
 
                         Price:
-                        ₹${Number(
-                            item.price
-                        ).toFixed(2)}
+                        <span class="price-text">
+
+                            ₹${price.toFixed(2)}
+
+                        </span>
 
                     </p>
 
@@ -1330,27 +2009,105 @@ function displayCheckoutCart() {
                     <p>
 
                         Quantity:
-                        ${item.quantity}
+                        ${quantity}
 
                     </p>
 
 
-                    <span class="ordered-badge">
+                    ${
+                        ordered
+                            ? `
+                                <span
+                                    class="ordered-badge"
+                                >
+                                    ✓ Ordered
+                                </span>
 
-                        ✓ Ready To Order
+                                <p class="ordered-note">
+                                    This flower has already been ordered.
+                                </p>
+                              `
+                            : ""
+                    }
+
+                </div>
+
+
+                <!-- QUANTITY -->
+
+                <div class="quantity-box">
+
+                    <button
+                        type="button"
+                        class="quantity-btn"
+                        onclick="
+                            changeQuantity(
+                                ${itemId},
+                                -1
+                            )
+                        "
+                        ${
+                            ordered
+                                ? "disabled"
+                                : ""
+                        }
+                    >
+                        −
+                    </button>
+
+
+                    <span class="quantity-value">
+
+                        ${quantity}
 
                     </span>
 
+
+                    <button
+                        type="button"
+                        class="quantity-btn"
+                        onclick="
+                            changeQuantity(
+                                ${itemId},
+                                1
+                            )
+                        "
+                        ${
+                            ordered
+                                ? "disabled"
+                                : ""
+                        }
+                    >
+                        +
+                    </button>
+
                 </div>
 
 
-                <div class="item-price">
+                <!-- SUBTOTAL -->
 
-                    ₹${Number(
-                        item.subtotal
-                    ).toFixed(2)}
+                <div class="item-subtotal">
+
+                    ₹${subtotal.toFixed(2)}
 
                 </div>
+
+
+                <!-- REMOVE -->
+
+                <button
+                    type="button"
+                    class="remove-btn"
+                    onclick="
+                        removeCartItem(
+                            ${itemId}
+                        )
+                    "
+                >
+
+                    🗑 Remove
+
+                </button>
 
             `;
 
@@ -1359,100 +2116,560 @@ function displayCheckoutCart() {
                 card
             );
 
+
+            /* -------------------------------------------------
+               CHECKBOX EVENT
+            ------------------------------------------------- */
+
+            const checkbox =
+                card.querySelector(
+                    ".select-checkbox"
+                );
+
+
+            if (checkbox) {
+
+                checkbox.addEventListener(
+                    "change",
+                    function() {
+
+                        toggleSelection(
+                            itemId,
+                            checkbox.checked,
+                            card
+                        );
+
+                    }
+                );
+
+            }
+
         }
     );
 
+
+    updateSummary();
+
 }
 
 
 /* =========================================================
-   ESCAPE HTML
+   TOGGLE SELECTION
 ========================================================= */
 
-function escapeHtml(value) {
+function toggleSelection(
+    itemId,
+    checked,
+    card
+) {
 
-    if (
-        value === null ||
-        value === undefined
-    ) {
+    itemId =
+        Number(itemId);
 
-        return "";
+
+    if (checked) {
+
+        if (
+            !selectedCartIds.includes(
+                itemId
+            )
+        ) {
+
+            selectedCartIds.push(
+                itemId
+            );
+
+        }
+
+
+        if (card) {
+
+            card.classList.add(
+                "selected"
+            );
+
+        }
+
+    } else {
+
+        selectedCartIds =
+            selectedCartIds.filter(
+                function(id) {
+
+                    return id !== itemId;
+
+                }
+            );
+
+
+        if (card) {
+
+            card.classList.remove(
+                "selected"
+            );
+
+        }
 
     }
 
-    return String(value)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+
+    saveSelectedIds();
+
+
+    updateSummary();
 
 }
 
 
 /* =========================================================
-   PLACE ORDER
+   UPDATE SUMMARY
+========================================================= */
+
+function updateSummary() {
+
+    let selectedTotal = 0;
+
+    let selectedCount = 0;
+
+
+    cart.forEach(
+        function(item) {
+
+            const itemId =
+                Number(item.id);
+
+
+            if (
+                selectedCartIds.includes(
+                    itemId
+                ) &&
+                !isOrdered(item)
+            ) {
+
+                const subtotal =
+                    Number(
+                        item.subtotal
+                    );
+
+
+                selectedTotal +=
+                    Number.isFinite(
+                        subtotal
+                    )
+                        ? subtotal
+                        : (
+                            Number(item.price) *
+                            Number(item.quantity)
+                        );
+
+
+                selectedCount++;
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "cartTotal"
+    ).textContent =
+        selectedTotal.toFixed(2);
+
+
+    document.getElementById(
+        "selectedCount"
+    ).textContent =
+        selectedCount;
+
+
+    const checkoutButton =
+        document.getElementById(
+            "checkoutButton"
+        );
+
+
+    checkoutButton.disabled =
+        selectedCount === 0;
+
+
+    if (
+        selectedCount === 0
+    ) {
+
+        checkoutButton.textContent =
+            "💳 Select Flowers First";
+
+    } else {
+
+        checkoutButton.textContent =
+            `💳 Checkout (${selectedCount})`;
+
+    }
+
+}
+
+
+/* =========================================================
+   CHANGE QUANTITY
+========================================================= */
+
+async function changeQuantity(
+    itemId,
+    change
+) {
+
+    hideError();
+
+
+    const user =
+        getCurrentUser();
+
+
+    if (
+        !user ||
+        !user.id
+    ) {
+
+        showError(
+            "Please login first."
+        );
+
+        return;
+
+    }
+
+
+    const item =
+        cart.find(
+            function(product) {
+
+                return Number(
+                    product.id
+                ) === Number(itemId);
+
+            }
+        );
+
+
+    if (!item) {
+
+        showError(
+            "Cart item not found."
+        );
+
+        return;
+
+    }
+
+
+    if (isOrdered(item)) {
+
+        showError(
+            "Ordered items cannot be changed."
+        );
+
+        return;
+
+    }
+
+
+    const currentQuantity =
+        Math.max(
+            1,
+            Number(
+                item.quantity
+            ) || 1
+        );
+
+
+    const newQuantity =
+        currentQuantity +
+        Number(change);
+
+
+    if (
+        newQuantity < 1
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        /*
+         * IMPORTANT:
+         * This expects the backend API:
+         *
+         * PUT /api/cart/<cart_id>
+         *
+         * with:
+         * { quantity: newQuantity }
+         */
+
+        const response =
+            await fetch(
+                `${API_URL}/api/cart/${itemId}`,
+                {
+
+                    method: "PUT",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            quantity:
+                                newQuantity
+
+                        })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Unable to update quantity."
+            );
+
+        }
+
+
+        await loadCart();
+
+
+        showSuccess(
+            "Quantity updated successfully."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Quantity update error:",
+            error
+        );
+
+
+        showError(
+            error.message ||
+            "Unable to update quantity."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   REMOVE CART ITEM
+========================================================= */
+
+async function removeCartItem(
+    itemId
+) {
+
+    hideError();
+
+
+    const user =
+        getCurrentUser();
+
+
+    if (
+        !user ||
+        !user.id
+    ) {
+
+        showError(
+            "Please login first."
+        );
+
+        return;
+
+    }
+
+
+    const item =
+        cart.find(
+            function(product) {
+
+                return Number(
+                    product.id
+                ) === Number(itemId);
+
+            }
+        );
+
+
+    if (!item) {
+
+        showError(
+            "Cart item not found."
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            `Are you sure you want to remove "${item.name}" from your cart?`
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    try {
+
+        /*
+         * Expected backend:
+         *
+         * DELETE /api/cart/<cart_id>
+         */
+
+        const response =
+            await fetch(
+                `${API_URL}/api/cart/${itemId}`,
+                {
+
+                    method:
+                        "DELETE"
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Unable to remove item."
+            );
+
+        }
+
+
+        /* -------------------------------------------------
+           REMOVE FROM SELECTED IDS
+        ------------------------------------------------- */
+
+        selectedCartIds =
+            selectedCartIds.filter(
+                function(id) {
+
+                    return (
+                        id !==
+                        Number(itemId)
+                    );
+
+                }
+            );
+
+
+        saveSelectedIds();
+
+
+        await loadCart();
+
+
+        showSuccess(
+            "Flower removed from cart."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Remove cart error:",
+            error
+        );
+
+
+        showError(
+            error.message ||
+            "Unable to remove item."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CHECKOUT
 ========================================================= */
 
 document
     .getElementById(
-        "checkoutForm"
+        "checkoutButton"
     )
     .addEventListener(
-        "submit",
-        async function(event) {
-
-
-            event.preventDefault();
-
+        "click",
+        function() {
 
             hideError();
 
 
-            const user =
-                getCurrentUser();
+            /*
+             * Remove invalid / ordered IDs
+             */
 
+            selectedCartIds =
+                selectedCartIds.filter(
+                    function(id) {
 
-            /* ------------------------------------------------
-               USER CHECK
-            ------------------------------------------------ */
+                        return cart.some(
+                            function(item) {
 
-            if (
-                !user ||
-                !user.id
-            ) {
+                                return (
+                                    Number(item.id) ===
+                                        Number(id) &&
+                                    !isOrdered(item)
+                                );
 
-                showError(
-                    "Please login first."
+                            }
+                        );
+
+                    }
                 );
 
-                return;
 
-            }
+            saveSelectedIds();
 
-
-            /* ------------------------------------------------
-               SELECTED ITEMS CHECK
-            ------------------------------------------------ */
 
             if (
-                selectedCartIds.length === 0 ||
-                cart.length === 0
+                selectedCartIds.length === 0
             ) {
 
                 showError(
@@ -1464,346 +2681,39 @@ document
             }
 
 
-            /* ------------------------------------------------
-               GET BUTTON
-            ------------------------------------------------ */
-
-            const button =
-                document.getElementById(
-                    "placeOrderButton"
-                );
-
-
-            button.disabled =
-                true;
-
-
-            button.textContent =
-                "Placing Order...";
-
-
-            /* ------------------------------------------------
-               CUSTOMER DETAILS
-            ------------------------------------------------ */
-
-            const customerName =
-                document
-                    .getElementById(
-                        "customerName"
-                    )
-                    .value
-                    .trim();
-
-
-            const customerPhone =
-                document
-                    .getElementById(
-                        "customerPhone"
-                    )
-                    .value
-                    .trim();
-
-
-            const customerAddress =
-                document
-                    .getElementById(
-                        "customerAddress"
-                    )
-                    .value
-                    .trim();
-
-
-            const paymentMethod =
-                document
-                    .getElementById(
-                        "paymentMethod"
-                    )
-                    .value;
-
-
-            /* ------------------------------------------------
-               PHONE VALIDATION
-            ------------------------------------------------ */
-
-            if (
-                !/^[0-9]{10}$/.test(
-                    customerPhone
-                )
-            ) {
-
-                showError(
-                    "Please enter a valid 10 digit mobile number."
-                );
-
-                button.disabled =
-                    false;
-
-                button.textContent =
-                    "🌸 Place Order";
-
-                return;
-
-            }
-
-
-            try {
-
-
-                /* =============================================
-                   IMPORTANT
-
-                   The backend currently creates an order
-                   from the user's COMPLETE CART.
-
-                   Therefore we first check that selected
-                   items exist in the cart.
-                ============================================= */
-
-
-                const response =
-                    await fetch(
-                        `${API_URL}/api/orders`,
-                        {
-
-                            method: "POST",
-
-                            headers: {
-
-                                "Content-Type":
-                                    "application/json"
-
-                            },
-
-                            body:
-                                JSON.stringify({
-
-                                    user_id:
-                                        user.id,
-
-                                    customer_name:
-                                        customerName,
-
-                                    phone:
-                                        customerPhone,
-
-                                    address:
-                                        customerAddress,
-
-                                    payment:
-                                        paymentMethod,
-
-                                    cart_ids:
-                                        selectedCartIds
-
-                                })
-
-                        }
-                    );
-
-
-                const data =
-                    await response.json();
-
-
-                if (
-                    !response.ok ||
-                    !data.success
-                ) {
-
-                    throw new Error(
-                        data.message ||
-                        "Unable to place order"
-                    );
-
-                }
-
-
-                /* =================================================
-                   ORDER SUCCESS
-                   
-                   IMPORTANT:
-                   We DO NOT delete the selected IDs permanently
-                   from cart UI.
-
-                   Backend should mark/process the order while
-                   cart remains available according to your
-                   requested design.
-                ================================================== */
-
-
-                /* -------------------------------------------------
-                   Save last order information
-                ------------------------------------------------- */
-
-                if (data.order) {
-
-                    localStorage.setItem(
-                        "lastOrder",
-                        JSON.stringify(
-                            data.order
-                        )
-                    );
-
-                }
-
-
-                /* -------------------------------------------------
-                   Notify cart page
-                ------------------------------------------------- */
-
-                localStorage.setItem(
-                    "cartUpdated",
-                    Date.now().toString()
-                );
-
-
-                /* -------------------------------------------------
-                   Save ordered cart IDs
-                ------------------------------------------------- */
-
-                const oldOrdered =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "orderedCartIds"
-                        ) || "[]"
-                    );
-
-
-                const updatedOrdered =
-                    [
-                        ...new Set(
-                            [
-                                ...oldOrdered,
-                                ...selectedCartIds
-                            ]
-                        )
-                    ];
-
-
-                localStorage.setItem(
-                    "orderedCartIds",
-                    JSON.stringify(
-                        updatedOrdered
-                    )
-                );
-
-
-                /* -------------------------------------------------
-                   Clear ONLY checkout selection
-
-                   Cart itself is NOT cleared.
-                ------------------------------------------------- */
-
-                sessionStorage.removeItem(
-                    "selectedCartIds"
-                );
-
-
-                /* -------------------------------------------------
-                   Success message
-                ------------------------------------------------- */
-
-                showSuccess(
-                    "Order placed successfully! Your flower will remain visible in Cart as Ordered."
-                );
-
-
-                button.textContent =
-                    "✓ Order Placed";
-
-
-                button.disabled =
-                    true;
-
-
-                /* -------------------------------------------------
-                   Redirect to orders after short delay
-                ------------------------------------------------- */
-
-                setTimeout(
-                    function() {
-
-                        window.location.href =
-                            "{{ url_for('orders_page') }}";
-
-                    },
-                    1500
-                );
-
-
-            } catch (error) {
-
-
-                console.error(
-                    "Order Error:",
-                    error
-                );
-
-
-                button.disabled =
-                    false;
-
-
-                button.textContent =
-                    "🌸 Place Order";
-
-
-                showError(
-                    error.message ||
-                    "Unable to place order."
-                );
-
-            }
+            /*
+             * Checkout page reads:
+             *
+             * sessionStorage:
+             * selectedCartIds
+             */
+
+            window.location.href =
+                "{{ url_for('checkout_page') }}";
 
         }
     );
 
 
 /* =========================================================
-   DISABLE ORDER BUTTON
+   CART UPDATE EVENT
 ========================================================= */
 
-function disableOrderButton() {
+window.addEventListener(
+    "storage",
+    function(event) {
 
-    const button =
-        document.getElementById(
-            "placeOrderButton"
-        );
+        if (
+            event.key ===
+            "cartUpdated"
+        ) {
 
+            loadCart();
 
-    if (button) {
-
-        button.disabled =
-            true;
-
-    }
-
-}
-
-
-/* =========================================================
-   PREFILL USER
-========================================================= */
-
-function prefillUser() {
-
-    const user =
-        getCurrentUser();
-
-
-    if (
-        user &&
-        user.name
-    ) {
-
-        document.getElementById(
-            "customerName"
-        ).value =
-            user.name;
+        }
 
     }
-
-}
+);
 
 
 /* =========================================================
@@ -1814,9 +2724,7 @@ document.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        prefillUser();
-
-        loadCheckoutCart();
+        loadCart();
 
     }
 );

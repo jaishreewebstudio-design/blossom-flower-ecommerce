@@ -12,6 +12,7 @@
 
     <title>Cart | Blossom Flower Shop</title>
 
+
     <style>
 
         * {
@@ -19,6 +20,7 @@
             margin: 0;
             padding: 0;
         }
+
 
         body {
 
@@ -33,6 +35,7 @@
 
             min-height: 100vh;
         }
+
 
         /* =====================================================
            NAVBAR
@@ -61,6 +64,7 @@
             z-index: 100;
         }
 
+
         .logo {
 
             color: #d63384;
@@ -70,6 +74,7 @@
             font-weight: bold;
         }
 
+
         nav ul {
 
             list-style: none;
@@ -78,6 +83,7 @@
 
             gap: 25px;
         }
+
 
         nav ul li a {
 
@@ -90,10 +96,12 @@
             transition: 0.3s;
         }
 
+
         nav ul li a:hover {
 
             color: #d63384;
         }
+
 
         /* =====================================================
            MAIN
@@ -107,6 +115,7 @@
 
             padding: 0 20px;
         }
+
 
         .page-title {
 
@@ -123,6 +132,7 @@
                 rgba(0, 0, 0, 0.07);
         }
 
+
         .page-title h2 {
 
             color: #c2185b;
@@ -130,10 +140,12 @@
             margin-bottom: 7px;
         }
 
+
         .page-title p {
 
             color: #777;
         }
+
 
         /* =====================================================
            CART LAYOUT
@@ -150,6 +162,7 @@
 
             align-items: start;
         }
+
 
         /* =====================================================
            CART CARD
@@ -168,6 +181,7 @@
                 rgba(0, 0, 0, 0.08);
         }
 
+
         .cart-item {
 
             display: flex;
@@ -180,12 +194,78 @@
 
             border-bottom:
                 1px solid #eee;
+
+            transition: 0.2s;
         }
+
 
         .cart-item:last-child {
 
             border-bottom: none;
         }
+
+
+        .cart-item.selected-item {
+
+            background: #fff7fa;
+
+            border-radius: 12px;
+
+            padding-left: 12px;
+
+            padding-right: 12px;
+
+            margin-bottom: 3px;
+        }
+
+
+        /* =====================================================
+           ITEM SELECT CHECKBOX
+        ===================================================== */
+
+        .select-area {
+
+            width: 32px;
+
+            min-width: 32px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+
+        .item-checkbox {
+
+            width: 21px;
+
+            height: 21px;
+
+            cursor: pointer;
+
+            accent-color: #d63384;
+        }
+
+
+        .item-checkbox:hover {
+
+            transform: scale(1.08);
+        }
+
+
+        .item-checkbox:disabled {
+
+            cursor: not-allowed;
+
+            opacity: 0.5;
+        }
+
+
+        /* =====================================================
+           PRODUCT IMAGE
+        ===================================================== */
 
         .product-image {
 
@@ -203,10 +283,12 @@
             background: #fff5f8;
         }
 
+
         .product-info {
 
             flex: 1;
         }
+
 
         .product-name {
 
@@ -219,6 +301,7 @@
             margin-bottom: 5px;
         }
 
+
         .product-price {
 
             color: #555;
@@ -228,6 +311,7 @@
             margin-bottom: 12px;
         }
 
+
         .stock-text {
 
             color: #777;
@@ -236,6 +320,7 @@
 
             margin-top: 7px;
         }
+
 
         /* =====================================================
            QUANTITY
@@ -249,6 +334,7 @@
 
             gap: 7px;
         }
+
 
         .quantity-btn {
 
@@ -273,10 +359,20 @@
             transition: 0.2s;
         }
 
+
         .quantity-btn:hover {
 
             background: #f8c5d4;
         }
+
+
+        .quantity-btn:disabled {
+
+            opacity: 0.5;
+
+            cursor: not-allowed;
+        }
+
 
         .quantity-number {
 
@@ -289,6 +385,7 @@
             color: #444;
         }
 
+
         /* =====================================================
            ITEM RIGHT SIDE
         ===================================================== */
@@ -300,6 +397,7 @@
             text-align: right;
         }
 
+
         .item-subtotal {
 
             color: #d63384;
@@ -310,6 +408,7 @@
 
             margin-bottom: 10px;
         }
+
 
         .remove-btn {
 
@@ -328,10 +427,12 @@
             font-weight: bold;
         }
 
+
         .remove-btn:hover {
 
             background: #ffe0e8;
         }
+
 
         /* =====================================================
            ORDERED ITEM
@@ -356,6 +457,7 @@
             margin-top: 8px;
         }
 
+
         /* =====================================================
            SUMMARY
         ===================================================== */
@@ -377,6 +479,7 @@
             top: 100px;
         }
 
+
         .summary-card h3 {
 
             color: #c2185b;
@@ -385,6 +488,7 @@
 
             font-size: 20px;
         }
+
 
         .summary-row {
 
@@ -400,6 +504,7 @@
             color: #555;
         }
 
+
         .summary-row.total {
 
             border-bottom: none;
@@ -412,6 +517,58 @@
 
             color: #c2185b;
         }
+
+
+        /* =====================================================
+           SELECTED SUMMARY
+        ===================================================== */
+
+        .selected-summary {
+
+            background: #fff0f5;
+
+            border:
+                1px solid #f5c2d5;
+
+            border-radius: 10px;
+
+            padding: 13px;
+
+            margin-top: 15px;
+
+            color: #c2185b;
+
+            font-size: 14px;
+        }
+
+
+        .selected-summary-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .selected-summary-row + .selected-summary-row {
+
+            margin-top: 8px;
+        }
+
+
+        .selected-summary strong {
+
+            color: #a3154e;
+
+            font-size: 15px;
+        }
+
+
+        /* =====================================================
+           CHECKOUT BUTTON
+        ===================================================== */
 
         .checkout-btn {
 
@@ -438,23 +595,29 @@
             transition: 0.3s;
         }
 
+
         .checkout-btn:hover {
 
             background: #c2185b;
         }
 
+
         .checkout-btn:disabled {
 
             background: #ccc;
 
+            color: #777;
+
             cursor: not-allowed;
         }
+
 
         .clear-btn {
 
             width: 100%;
 
-            border: 1px solid #d63384;
+            border:
+                1px solid #d63384;
 
             background: white;
 
@@ -471,10 +634,12 @@
             margin-top: 10px;
         }
 
+
         .clear-btn:hover {
 
             background: #fff0f3;
         }
+
 
         /* =====================================================
            EMPTY
@@ -495,6 +660,7 @@
                 rgba(0, 0, 0, 0.08);
         }
 
+
         .empty-cart h2 {
 
             color: #d63384;
@@ -502,12 +668,14 @@
             margin-bottom: 10px;
         }
 
+
         .empty-cart p {
 
             color: #777;
 
             margin-bottom: 20px;
         }
+
 
         .shop-btn {
 
@@ -526,6 +694,13 @@
             font-weight: bold;
         }
 
+
+        .shop-btn:hover {
+
+            background: #c2185b;
+        }
+
+
         /* =====================================================
            LOADING
         ===================================================== */
@@ -543,6 +718,7 @@
             color: #777;
         }
 
+
         .error-box {
 
             text-align: center;
@@ -556,6 +732,7 @@
             color: #c2185b;
         }
 
+
         /* =====================================================
            RESPONSIVE
         ===================================================== */
@@ -567,11 +744,13 @@
                 grid-template-columns: 1fr;
             }
 
+
             .summary-card {
 
                 position: static;
             }
         }
+
 
         @media (max-width: 700px) {
 
@@ -584,6 +763,7 @@
                 padding: 20px;
             }
 
+
             nav ul {
 
                 flex-wrap: wrap;
@@ -593,23 +773,79 @@
                 gap: 15px;
             }
 
+
             .cart-item {
 
                 flex-wrap: wrap;
             }
+
 
             .item-right {
 
                 width: 100%;
 
                 text-align: left;
+
+                padding-left: 50px;
             }
+
 
             .product-image {
 
                 width: 80px;
 
                 height: 80px;
+            }
+        }
+
+
+        @media (max-width: 450px) {
+
+            .cart-section {
+
+                padding: 0 12px;
+
+                margin-top: 25px;
+            }
+
+
+            .cart-card {
+
+                padding: 12px;
+            }
+
+
+            .cart-item {
+
+                gap: 10px;
+            }
+
+
+            .select-area {
+
+                width: 25px;
+
+                min-width: 25px;
+            }
+
+
+            .product-image {
+
+                width: 70px;
+
+                height: 70px;
+            }
+
+
+            .product-name {
+
+                font-size: 16px;
+            }
+
+
+            .product-price {
+
+                font-size: 14px;
             }
         }
 
@@ -631,6 +867,7 @@
         🌸 Blossom Flower Shop
     </div>
 
+
     <nav>
 
         <ul>
@@ -641,11 +878,13 @@
                 </a>
             </li>
 
+
             <li>
                 <a href="{{ url_for('home_page') }}">
                     Home
                 </a>
             </li>
+
 
             <li>
                 <a href="{{ url_for('flowers_page') }}">
@@ -653,11 +892,13 @@
                 </a>
             </li>
 
+
             <li>
                 <a href="{{ url_for('cart_page') }}">
                     Cart
                 </a>
             </li>
+
 
             <li>
                 <a href="{{ url_for('orders_page') }}">
@@ -686,7 +927,7 @@
         </h2>
 
         <p>
-            Review your selected flowers before checkout.
+            Select the flowers you want to order.
         </p>
 
     </div>
@@ -706,6 +947,7 @@
 
 <script>
 
+
 /* =========================================================
    API
 ========================================================= */
@@ -722,10 +964,12 @@ function getCurrentUser() {
     const userData =
         localStorage.getItem("currentUser");
 
+
     if (!userData) {
 
         return null;
     }
+
 
     try {
 
@@ -748,6 +992,7 @@ async function loadCart() {
 
     const container =
         document.getElementById("cartContainer");
+
 
     const user =
         getCurrentUser();
@@ -789,6 +1034,7 @@ async function loadCart() {
                 `${API_URL}/api/cart/${user.id}`,
                 {
                     method: "GET",
+
                     credentials: "include"
                 }
             );
@@ -916,6 +1162,30 @@ function displayCart(data) {
                     data-id="${item.id}"
                 >
 
+
+                    ${
+                        !isOrdered
+                        ?
+                        `
+                            <div class="select-area">
+
+                                <input
+                                    type="checkbox"
+                                    class="item-checkbox"
+                                    value="${item.id}"
+                                    onchange="updateSelectedItems()"
+                                >
+
+                            </div>
+                        `
+                        :
+                        `
+                            <div class="select-area">
+                            </div>
+                        `
+                    }
+
+
                     <img
                         class="product-image"
                         src="${escapeHtml(item.image || '')}"
@@ -925,6 +1195,7 @@ function displayCart(data) {
 
 
                     <div class="product-info">
+
 
                         <div class="product-name">
 
@@ -950,12 +1221,15 @@ function displayCart(data) {
                             ?
                             `
                                 <span class="ordered-label">
+
                                     ✓ Already Ordered
+
                                 </span>
                             `
                             :
                             `
                                 <div class="quantity-area">
+
 
                                     <button
                                         class="quantity-btn"
@@ -965,7 +1239,9 @@ function displayCart(data) {
                                         )"
                                         ${item.quantity <= 1 ? "disabled" : ""}
                                     >
+
                                         −
+
                                     </button>
 
 
@@ -988,8 +1264,11 @@ function displayCart(data) {
                                             : ""
                                         }
                                     >
+
                                         +
+
                                     </button>
+
 
                                 </div>
 
@@ -1007,6 +1286,7 @@ function displayCart(data) {
 
 
                     <div class="item-right">
+
 
                         <div class="item-subtotal">
 
@@ -1026,7 +1306,9 @@ function displayCart(data) {
 
                         </button>
 
+
                     </div>
+
 
                 </div>
 
@@ -1048,6 +1330,7 @@ function displayCart(data) {
 
 
             <div class="summary-card">
+
 
                 <h3>
                     🧾 Cart Summary
@@ -1080,10 +1363,44 @@ function displayCart(data) {
                 </div>
 
 
+                <!-- SELECTED ITEMS SUMMARY -->
+
+                <div class="selected-summary">
+
+
+                    <div class="selected-summary-row">
+
+                        <span>
+                            Selected Items
+                        </span>
+
+                        <strong id="selectedCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="selected-summary-row">
+
+                        <span>
+                            Selected Total
+                        </span>
+
+                        <strong id="selectedTotal">
+                            ₹0.00
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
                 <div class="summary-row total">
 
                     <span>
-                        Total
+                        Cart Total
                     </span>
 
                     <span>
@@ -1098,9 +1415,10 @@ function displayCart(data) {
 
 
                 <button
+                    id="checkoutButton"
                     class="checkout-btn"
                     onclick="goToCheckout()"
-                    ${activeItems.length === 0 ? "disabled" : ""}
+                    disabled
                 >
 
                     🛍 Proceed to Checkout
@@ -1117,11 +1435,230 @@ function displayCart(data) {
 
                 </button>
 
+
             </div>
+
 
         </div>
 
     `;
+
+
+    /*
+       Restore previously selected items
+       if they still exist in cart.
+    */
+
+    restoreSelectedItems();
+
+
+    updateSelectedItems();
+
+}
+
+
+/* =========================================================
+   RESTORE SELECTED ITEMS
+========================================================= */
+
+function restoreSelectedItems() {
+
+    const saved =
+        localStorage.getItem(
+            "selectedCartItems"
+        );
+
+
+    if (!saved) {
+
+        return;
+    }
+
+
+    let selectedIds = [];
+
+
+    try {
+
+        selectedIds =
+            JSON.parse(saved);
+
+    } catch (error) {
+
+        selectedIds = [];
+    }
+
+
+    if (!Array.isArray(selectedIds)) {
+
+        return;
+    }
+
+
+    document
+        .querySelectorAll(".item-checkbox")
+        .forEach(
+            function(checkbox) {
+
+                const itemId =
+                    Number(checkbox.value);
+
+
+                if (
+                    selectedIds.includes(itemId)
+                ) {
+
+                    checkbox.checked = true;
+                }
+
+            }
+        );
+}
+
+
+/* =========================================================
+   UPDATE SELECTED ITEMS
+========================================================= */
+
+function updateSelectedItems() {
+
+    const checkboxes =
+        document.querySelectorAll(
+            ".item-checkbox:checked"
+        );
+
+
+    const selectedIds = [];
+
+
+    let selectedTotal = 0;
+
+
+    checkboxes.forEach(
+        function(checkbox) {
+
+
+            const cartItem =
+                checkbox.closest(".cart-item");
+
+
+            if (!cartItem) {
+
+                return;
+            }
+
+
+            const subtotalElement =
+                cartItem.querySelector(
+                    ".item-subtotal"
+                );
+
+
+            const subtotalText =
+                subtotalElement
+                    ? subtotalElement.innerText
+                    : "₹0";
+
+
+            const subtotal =
+                parseFloat(
+                    subtotalText
+                        .replace("₹", "")
+                        .replace(/,/g, "")
+                ) || 0;
+
+
+            selectedIds.push(
+                Number(checkbox.value)
+            );
+
+
+            selectedTotal +=
+                subtotal;
+
+
+            cartItem.classList.add(
+                "selected-item"
+            );
+
+        }
+    );
+
+
+    document
+        .querySelectorAll(".item-checkbox")
+        .forEach(
+            function(checkbox) {
+
+
+                if (!checkbox.checked) {
+
+
+                    const cartItem =
+                        checkbox.closest(".cart-item");
+
+
+                    if (cartItem) {
+
+                        cartItem.classList.remove(
+                            "selected-item"
+                        );
+                    }
+
+                }
+
+            }
+        );
+
+
+    const selectedCount =
+        document.getElementById(
+            "selectedCount"
+        );
+
+
+    const selectedTotalElement =
+        document.getElementById(
+            "selectedTotal"
+        );
+
+
+    const checkoutButton =
+        document.getElementById(
+            "checkoutButton"
+        );
+
+
+    if (selectedCount) {
+
+        selectedCount.innerText =
+            selectedIds.length;
+    }
+
+
+    if (selectedTotalElement) {
+
+        selectedTotalElement.innerText =
+            "₹" +
+            selectedTotal.toFixed(2);
+    }
+
+
+    if (checkoutButton) {
+
+        checkoutButton.disabled =
+            selectedIds.length === 0;
+    }
+
+
+    /*
+       Save selected cart IDs.
+    */
+
+    localStorage.setItem(
+        "selectedCartItems",
+        JSON.stringify(selectedIds)
+    );
 }
 
 
@@ -1133,6 +1670,7 @@ async function changeQuantity(
     cartId,
     quantity
 ) {
+
 
     if (quantity < 1) {
 
@@ -1146,18 +1684,25 @@ async function changeQuantity(
             await fetch(
                 `${API_URL}/api/cart/${cartId}`,
                 {
+
                     method: "PUT",
 
                     headers: {
+
                         "Content-Type":
                             "application/json"
+
                     },
 
                     credentials: "include",
 
                     body: JSON.stringify({
-                        quantity: quantity
+
+                        quantity:
+                            quantity
+
                     })
+
                 }
             );
 
@@ -1186,6 +1731,7 @@ async function changeQuantity(
 
         console.error(error);
 
+
         alert(
             "Unable to update cart quantity."
         );
@@ -1200,6 +1746,7 @@ async function changeQuantity(
 async function removeCartItem(
     cartId
 ) {
+
 
     const confirmDelete =
         confirm(
@@ -1219,9 +1766,11 @@ async function removeCartItem(
             await fetch(
                 `${API_URL}/api/cart/${cartId}`,
                 {
+
                     method: "DELETE",
 
                     credentials: "include"
+
                 }
             );
 
@@ -1244,11 +1793,49 @@ async function removeCartItem(
         }
 
 
+        /*
+           Remove deleted item
+           from selected items.
+        */
+
+        let selectedIds = [];
+
+
+        try {
+
+            selectedIds =
+                JSON.parse(
+                    localStorage.getItem(
+                        "selectedCartItems"
+                    )
+                ) || [];
+
+        } catch (error) {
+
+            selectedIds = [];
+        }
+
+
+        selectedIds =
+            selectedIds.filter(
+                id =>
+                    Number(id) !==
+                    Number(cartId)
+            );
+
+
+        localStorage.setItem(
+            "selectedCartItems",
+            JSON.stringify(selectedIds)
+        );
+
+
         loadCart();
 
     } catch (error) {
 
         console.error(error);
+
 
         alert(
             "Unable to remove item."
@@ -1262,6 +1849,7 @@ async function removeCartItem(
 ========================================================= */
 
 async function clearCart() {
+
 
     const user =
         getCurrentUser();
@@ -1291,9 +1879,11 @@ async function clearCart() {
             await fetch(
                 `${API_URL}/api/cart/user/${user.id}`,
                 {
+
                     method: "DELETE",
 
                     credentials: "include"
+
                 }
             );
 
@@ -1316,6 +1906,15 @@ async function clearCart() {
         }
 
 
+        /*
+           Clear selected items too.
+        */
+
+        localStorage.removeItem(
+            "selectedCartItems"
+        );
+
+
         alert(
             "Cart cleared successfully."
         );
@@ -1327,6 +1926,7 @@ async function clearCart() {
 
         console.error(error);
 
+
         alert(
             "Unable to clear cart."
         );
@@ -1335,13 +1935,67 @@ async function clearCart() {
 
 
 /* =========================================================
-   CHECKOUT
+   CHECKOUT SELECTED ITEMS ONLY
 ========================================================= */
 
 function goToCheckout() {
 
+
+    const checkboxes =
+        document.querySelectorAll(
+            ".item-checkbox:checked"
+        );
+
+
+    const selectedIds = [];
+
+
+    checkboxes.forEach(
+        function(checkbox) {
+
+            selectedIds.push(
+                Number(checkbox.value)
+            );
+
+        }
+    );
+
+
+    if (selectedIds.length === 0) {
+
+        alert(
+            "Please select at least one flower to checkout."
+        );
+
+        return;
+    }
+
+
+    /*
+       Save selected cart IDs
+    */
+
+    localStorage.setItem(
+        "selectedCartItems",
+        JSON.stringify(selectedIds)
+    );
+
+
+    /*
+       Send selected IDs
+       to checkout page.
+    */
+
+    const selectedParam =
+        selectedIds.join(",");
+
+
     window.location.href =
-        "{{ url_for('checkout_page') }}";
+        "{{ url_for('checkout_page') }}" +
+        "?selected=" +
+        encodeURIComponent(
+            selectedParam
+        );
 }
 
 
@@ -1350,6 +2004,7 @@ function goToCheckout() {
 ========================================================= */
 
 function escapeHtml(text) {
+
 
     if (
         text === null ||
