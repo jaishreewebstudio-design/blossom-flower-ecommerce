@@ -16,7 +16,6 @@
     <style>
 
         * {
-
             box-sizing: border-box;
 
             margin: 0;
@@ -151,6 +150,30 @@
 
 
         /* =====================================================
+           ORDER COUNT
+        ===================================================== */
+
+        .order-count {
+
+            margin-top: 15px;
+
+            display: inline-block;
+
+            background: #ffe0eb;
+
+            color: #c2185b;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
            ORDER CARD
         ===================================================== */
 
@@ -172,6 +195,10 @@
                 5px solid #d63384;
         }
 
+
+        /* =====================================================
+           ORDER HEADER
+        ===================================================== */
 
         .order-header {
 
@@ -202,6 +229,20 @@
         }
 
 
+        .order-date {
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-top: 5px;
+        }
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
         .status-btn {
 
             border: none;
@@ -215,11 +256,37 @@
             border-radius: 20px;
 
             font-weight: bold;
+
+            white-space: nowrap;
+        }
+
+
+        .status-processing {
+
+            background: #fff0c2;
+
+            color: #946200;
+        }
+
+
+        .status-completed {
+
+            background: #dff6e7;
+
+            color: #237a45;
+        }
+
+
+        .status-cancelled {
+
+            background: #ffe0e0;
+
+            color: #b42323;
         }
 
 
         /* =====================================================
-           DETAILS
+           ORDER DETAILS
         ===================================================== */
 
         .order-details {
@@ -231,7 +298,7 @@
 
             gap: 12px;
 
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
 
@@ -245,12 +312,27 @@
             padding: 13px;
 
             border-radius: 9px;
+
+            line-height: 1.5;
+
+            word-break: break-word;
         }
 
 
         .detail-box strong {
 
             color: #c2185b;
+
+            display: inline-block;
+
+            margin-bottom: 3px;
+        }
+
+
+        .address-box {
+
+            grid-column:
+                1 / -1;
         }
 
 
@@ -276,6 +358,8 @@
             border-radius: 10px;
 
             overflow: hidden;
+
+            margin-bottom: 20px;
         }
 
 
@@ -287,7 +371,7 @@
 
             align-items: center;
 
-            padding: 14px;
+            padding: 15px;
 
             border-bottom:
                 1px solid #eee;
@@ -302,11 +386,49 @@
         }
 
 
+        .product-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            min-width: 0;
+        }
+
+
+        .flower-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: #fff0f5;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            flex-shrink: 0;
+
+            font-size: 20px;
+        }
+
+
         .product-name {
 
             font-weight: bold;
 
             color: #555;
+
+            margin-bottom: 5px;
+
+            word-break: break-word;
         }
 
 
@@ -315,8 +437,6 @@
             color: #777;
 
             font-size: 14px;
-
-            margin-top: 5px;
         }
 
 
@@ -325,11 +445,15 @@
             font-weight: bold;
 
             color: #d63384;
+
+            white-space: nowrap;
+
+            font-size: 16px;
         }
 
 
         /* =====================================================
-           FOOTER
+           ORDER FOOTER
         ===================================================== */
 
         .order-footer {
@@ -384,6 +508,14 @@
         .delete-btn:hover {
 
             background: #f8c5d4;
+        }
+
+
+        .delete-btn:disabled {
+
+            opacity: 0.6;
+
+            cursor: not-allowed;
         }
 
 
@@ -442,6 +574,14 @@
             border: none;
 
             cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .shop-btn:hover {
+
+            background: #c2185b;
         }
 
 
@@ -460,8 +600,16 @@
             border-radius: 15px;
 
             color: #777;
+
+            box-shadow:
+                0 6px 25px
+                rgba(0, 0, 0, 0.08);
         }
 
+
+        /* =====================================================
+           ERROR
+        ===================================================== */
 
         .error-box {
 
@@ -474,6 +622,24 @@
             border-radius: 15px;
 
             color: #c2185b;
+
+            box-shadow:
+                0 6px 25px
+                rgba(0, 0, 0, 0.08);
+        }
+
+
+        .error-box h2 {
+
+            margin-bottom: 10px;
+        }
+
+
+        .error-box p {
+
+            color: #777;
+
+            margin-bottom: 20px;
         }
 
 
@@ -503,17 +669,33 @@
             }
 
 
+            .orders-section {
+
+                margin-top: 25px;
+            }
+
+
             .order-details {
 
                 grid-template-columns: 1fr;
             }
 
 
+            .address-box {
+
+                grid-column: auto;
+            }
+
+
             .product-item {
 
-                flex-direction: column;
-
                 align-items: flex-start;
+            }
+
+
+            .product-price {
+
+                font-size: 15px;
             }
 
 
@@ -532,6 +714,40 @@
 
         }
 
+
+        @media (max-width: 450px) {
+
+            .order-card {
+
+                padding: 18px;
+            }
+
+
+            .page-title {
+
+                padding: 20px;
+            }
+
+
+            .product-item {
+
+                flex-direction: column;
+            }
+
+
+            .product-left {
+
+                width: 100%;
+            }
+
+
+            .product-price {
+
+                align-self: flex-end;
+            }
+
+        }
+
     </style>
 
 </head>
@@ -545,7 +761,6 @@
 ========================================================= -->
 
 <header class="navbar">
-
 
     <div class="logo">
         🌸 Blossom Flower Shop
@@ -615,13 +830,29 @@
             View all your previously placed orders.
         </p>
 
+
+        <span
+            id="orderCount"
+            class="order-count"
+        >
+            Orders: 0
+        </span>
+
     </div>
 
 
     <div id="ordersContainer">
 
         <div class="loading">
-            Loading orders...
+
+            <h3>
+                Loading orders...
+            </h3>
+
+            <p>
+                Please wait.
+            </p>
+
         </div>
 
     </div>
@@ -631,7 +862,6 @@
 
 
 <script>
-
 
 /* =========================================================
    API
@@ -658,11 +888,16 @@ function getCurrentUser() {
 
     try {
 
-        return JSON.parse(userData);
+        return JSON.parse(
+            userData
+        );
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Current User Error:",
+            error
+        );
 
         return null;
     }
@@ -681,11 +916,28 @@ async function loadOrders() {
         );
 
 
+    const countElement =
+        document.getElementById(
+            "orderCount"
+        );
+
+
     const user =
         getCurrentUser();
 
 
-    if (!user || !user.id) {
+    /*
+     * User login check
+     */
+
+    if (
+        !user ||
+        !user.id
+    ) {
+
+        countElement.textContent =
+            "Orders: 0";
+
 
         container.innerHTML = `
 
@@ -695,11 +947,9 @@ async function loadOrders() {
                     🌸 Please Login
                 </h2>
 
-
                 <p>
-                    Login to view your orders.
+                    Login to view your order history.
                 </p>
-
 
                 <a
                     href="{{ url_for('login_page') }}"
@@ -718,14 +968,11 @@ async function loadOrders() {
 
     try {
 
-
         /*
-         * IMPORTANT:
+         * Existing backend API:
          *
-         * Backend route:
-         *
+         * GET
          * /api/orders/user/<user_id>
-         *
          */
 
         const response =
@@ -734,7 +981,12 @@ async function loadOrders() {
                 {
                     method: "GET",
 
-                    credentials: "include"
+                    credentials: "include",
+
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    }
                 }
             );
 
@@ -755,8 +1007,16 @@ async function loadOrders() {
         }
 
 
+        const orders =
+            Array.isArray(
+                data.orders
+            )
+                ? data.orders
+                : [];
+
+
         displayOrders(
-            data.orders || []
+            orders
         );
 
 
@@ -768,6 +1028,10 @@ async function loadOrders() {
         );
 
 
+        countElement.textContent =
+            "Orders: 0";
+
+
         container.innerHTML = `
 
             <div class="error-box">
@@ -776,14 +1040,12 @@ async function loadOrders() {
                     ❌ Unable to Load Orders
                 </h2>
 
-
                 <p>
-                    Please make sure Flask server is running.
+                    ${escapeHtml(
+                        error.message ||
+                        "Something went wrong."
+                    )}
                 </p>
-
-
-                <br>
-
 
                 <button
                     class="shop-btn"
@@ -795,7 +1057,9 @@ async function loadOrders() {
             </div>
 
         `;
+
     }
+
 }
 
 
@@ -813,8 +1077,26 @@ function displayOrders(
         );
 
 
+    const countElement =
+        document.getElementById(
+            "orderCount"
+        );
+
+
+    /*
+     * Update count
+     */
+
+    countElement.textContent =
+        `Orders: ${orders.length}`;
+
+
     container.innerHTML = "";
 
+
+    /*
+     * No orders
+     */
 
     if (
         !orders ||
@@ -829,11 +1111,9 @@ function displayOrders(
                     📦 No Orders Found
                 </h2>
 
-
                 <p>
                     Your placed orders will appear here.
                 </p>
-
 
                 <a
                     href="{{ url_for('flowers_page') }}"
@@ -850,244 +1130,395 @@ function displayOrders(
     }
 
 
+    /*
+     * Display every order
+     */
+
     orders.forEach(
         function(order) {
 
-
-            let productsHTML = "";
-
-
-            if (
-                order.items &&
-                order.items.length > 0
-            ) {
-
-
-                order.items.forEach(
-                    function(item) {
-
-
-                        productsHTML += `
-
-                            <div class="product-item">
-
-
-                                <div>
-
-                                    <div class="product-name">
-
-                                        🌸
-
-                                        ${escapeHtml(
-                                            item.name
-                                        )}
-
-                                    </div>
-
-
-                                    <div class="product-quantity">
-
-                                        Quantity:
-                                        ${item.quantity}
-
-                                        &nbsp; × &nbsp;
-
-                                        ₹${Number(
-                                            item.price || 0
-                                        ).toFixed(2)}
-
-                                    </div>
-
-                                </div>
-
-
-                                <div class="product-price">
-
-                                    ₹${Number(
-                                        item.subtotal || 0
-                                    ).toFixed(2)}
-
-                                </div>
-
-
-                            </div>
-
-                        `;
-                    }
-                );
-
-            }
-
-
-            const date =
-                formatDate(
-                    order.created_at
+            const orderCard =
+                createOrderCard(
+                    order
                 );
 
 
-            container.innerHTML += `
-
-                <div
-                    class="order-card"
-                    data-order-id="${order.id}"
-                >
-
-
-                    <div class="order-header">
-
-
-                        <h3>
-
-                            📦 Order ID :
-                            ${order.id}
-
-                        </h3>
-
-
-                        <button
-                            class="status-btn"
-                            type="button"
-                        >
-
-                            ${escapeHtml(
-                                order.status ||
-                                "Processing"
-                            )}
-
-                        </button>
-
-
-                    </div>
-
-
-                    <div class="order-details">
-
-
-                        <div class="detail-box">
-
-                            <strong>
-                                Customer
-                            </strong>
-
-                            <br>
-
-                            ${escapeHtml(
-                                order.customer_name
-                            )}
-
-                        </div>
-
-
-                        <div class="detail-box">
-
-                            <strong>
-                                Phone
-                            </strong>
-
-                            <br>
-
-                            ${escapeHtml(
-                                order.phone
-                            )}
-
-                        </div>
-
-
-                        <div class="detail-box">
-
-                            <strong>
-                                Payment
-                            </strong>
-
-                            <br>
-
-                            ${escapeHtml(
-                                order.payment
-                            )}
-
-                        </div>
-
-
-                        <div class="detail-box">
-
-                            <strong>
-                                Date
-                            </strong>
-
-                            <br>
-
-                            ${date}
-
-                        </div>
-
-
-                        <div
-                            class="detail-box"
-                            style="grid-column: 1 / -1;"
-                        >
-
-                            <strong>
-                                Delivery Address
-                            </strong>
-
-                            <br>
-
-                            ${escapeHtml(
-                                order.address
-                            )}
-
-                        </div>
-
-
-                    </div>
-
-
-                    <h3 class="products-title">
-
-                        🌸 Ordered Products
-
-                    </h3>
-
-
-                    <div class="product-list">
-
-                        ${productsHTML}
-
-                    </div>
-
-
-                    <div class="order-footer">
-
-
-                        <div class="order-total">
-
-                            Total :
-                            ₹${Number(
-                                order.total || 0
-                            ).toFixed(2)}
-
-                        </div>
-
-
-                        <button
-                            class="delete-btn"
-                            onclick="deleteOrder(${order.id})"
-                        >
-
-                            🗑 Delete Order
-
-                        </button>
-
-
-                    </div>
-
-
-                </div>
-
-            `;
+            container.appendChild(
+                orderCard
+            );
 
         }
     );
+
+}
+
+
+/* =========================================================
+   CREATE ORDER CARD
+========================================================= */
+
+function createOrderCard(
+    order
+) {
+
+    const card =
+        document.createElement(
+            "div"
+        );
+
+
+    card.className =
+        "order-card";
+
+
+    card.setAttribute(
+        "data-order-id",
+        order.id
+    );
+
+
+    /*
+     * Status
+     */
+
+    const status =
+        order.status ||
+        "Processing";
+
+
+    const statusClass =
+        getStatusClass(
+            status
+        );
+
+
+    /*
+     * Date
+     */
+
+    const date =
+        formatDate(
+            order.created_at
+        );
+
+
+    /*
+     * Products HTML
+     */
+
+    let productsHTML = "";
+
+
+    const items =
+        Array.isArray(
+            order.items
+        )
+            ? order.items
+            : [];
+
+
+    if (
+        items.length > 0
+    ) {
+
+        items.forEach(
+            function(item) {
+
+                const price =
+                    Number(
+                        item.price || 0
+                    );
+
+
+                const quantity =
+                    Number(
+                        item.quantity || 0
+                    );
+
+
+                const subtotal =
+                    Number(
+                        item.subtotal ||
+                        price * quantity
+                    );
+
+
+                productsHTML += `
+
+                    <div class="product-item">
+
+                        <div class="product-left">
+
+                            <div class="flower-icon">
+                                🌸
+                            </div>
+
+                            <div>
+
+                                <div class="product-name">
+
+                                    ${escapeHtml(
+                                        item.name
+                                    )}
+
+                                </div>
+
+                                <div class="product-quantity">
+
+                                    Quantity:
+                                    ${quantity}
+
+                                    &nbsp; × &nbsp;
+
+                                    ₹${price.toFixed(2)}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="product-price">
+
+                            ₹${subtotal.toFixed(2)}
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+    } else {
+
+        productsHTML = `
+
+            <div class="product-item">
+
+                <div class="product-name">
+                    No product details available.
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /*
+     * Create complete card
+     */
+
+    card.innerHTML = `
+
+        <div class="order-header">
+
+            <div>
+
+                <h3>
+
+                    📦 Order ID:
+                    ${escapeHtml(
+                        order.id
+                    )}
+
+                </h3>
+
+                <div class="order-date">
+
+                    🕒 ${escapeHtml(
+                        date
+                    )}
+
+                </div>
+
+            </div>
+
+
+            <span
+                class="status-btn ${statusClass}"
+            >
+
+                ${escapeHtml(
+                    status
+                )}
+
+            </span>
+
+        </div>
+
+
+        <div class="order-details">
+
+
+            <div class="detail-box">
+
+                <strong>
+                    Customer
+                </strong>
+
+                <br>
+
+                ${escapeHtml(
+                    order.customer_name
+                )}
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <strong>
+                    Phone
+                </strong>
+
+                <br>
+
+                ${escapeHtml(
+                    order.phone
+                )}
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <strong>
+                    Payment
+                </strong>
+
+                <br>
+
+                ${escapeHtml(
+                    order.payment
+                )}
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <strong>
+                    User ID
+                </strong>
+
+                <br>
+
+                ${escapeHtml(
+                    order.user_id
+                )}
+
+            </div>
+
+
+            <div class="detail-box address-box">
+
+                <strong>
+                    Delivery Address
+                </strong>
+
+                <br>
+
+                ${escapeHtml(
+                    order.address
+                )}
+
+            </div>
+
+
+        </div>
+
+
+        <h3 class="products-title">
+
+            🌸 Ordered Products
+
+        </h3>
+
+
+        <div class="product-list">
+
+            ${productsHTML}
+
+        </div>
+
+
+        <div class="order-footer">
+
+
+            <div class="order-total">
+
+                Total:
+                ₹${Number(
+                    order.total || 0
+                ).toFixed(2)}
+
+            </div>
+
+
+            <button
+                type="button"
+                class="delete-btn"
+                onclick="deleteOrder(${Number(order.id)})"
+            >
+
+                🗑 Delete Order
+
+            </button>
+
+
+        </div>
+
+    `;
+
+
+    return card;
+
+}
+
+
+/* =========================================================
+   STATUS CLASS
+========================================================= */
+
+function getStatusClass(
+    status
+) {
+
+    const normalized =
+        String(
+            status || ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    if (
+        normalized === "completed" ||
+        normalized === "delivered"
+    ) {
+
+        return "status-completed";
+
+    }
+
+
+    if (
+        normalized === "cancelled" ||
+        normalized === "canceled"
+    ) {
+
+        return "status-cancelled";
+
+    }
+
+
+    return "status-processing";
+
 }
 
 
@@ -1099,6 +1530,9 @@ async function deleteOrder(
     orderId
 ) {
 
+    /*
+     * Confirm before deletion
+     */
 
     const confirmDelete =
         confirm(
@@ -1112,8 +1546,41 @@ async function deleteOrder(
     }
 
 
+    /*
+     * Find button
+     */
+
+    const card =
+        document.querySelector(
+            `[data-order-id="${orderId}"]`
+        );
+
+
+    const button =
+        card
+            ? card.querySelector(
+                ".delete-btn"
+            )
+            : null;
+
+
+    if (button) {
+
+        button.disabled = true;
+
+        button.textContent =
+            "⏳ Deleting...";
+    }
+
+
     try {
 
+        /*
+         * Existing backend API:
+         *
+         * DELETE
+         * /api/orders/<order_id>
+         */
 
         const response =
             await fetch(
@@ -1121,7 +1588,12 @@ async function deleteOrder(
                 {
                     method: "DELETE",
 
-                    credentials: "include"
+                    credentials: "include",
+
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    }
                 }
             );
 
@@ -1139,15 +1611,24 @@ async function deleteOrder(
                 data.message ||
                 "Unable to delete order"
             );
+
         }
 
 
+        /*
+         * Success
+         */
+
         alert(
-            "Order deleted successfully."
+            "Order deleted successfully. 🌸"
         );
 
 
-        loadOrders();
+        /*
+         * Reload order list
+         */
+
+        await loadOrders();
 
 
     } catch (error) {
@@ -1162,7 +1643,19 @@ async function deleteOrder(
             error.message ||
             "Unable to delete order."
         );
+
+
+        if (button) {
+
+            button.disabled = false;
+
+            button.textContent =
+                "🗑 Delete Order";
+
+        }
+
     }
+
 }
 
 
@@ -1173,7 +1666,6 @@ async function deleteOrder(
 function formatDate(
     dateString
 ) {
-
 
     if (!dateString) {
 
@@ -1186,17 +1678,34 @@ function formatDate(
 
     try {
 
+        /*
+         * SQLite usually returns:
+         *
+         * YYYY-MM-DD HH:MM:SS
+         *
+         * Convert it to ISO-like format.
+         */
+
+        const normalized =
+            String(
+                dateString
+            ).replace(
+                " ",
+                "T"
+            );
+
+
         date =
             new Date(
-                dateString.replace(
-                    " ",
-                    "T"
-                )
+                normalized
             );
 
     } catch (error) {
 
-        return dateString;
+        return String(
+            dateString
+        );
+
     }
 
 
@@ -1206,7 +1715,10 @@ function formatDate(
         )
     ) {
 
-        return dateString;
+        return String(
+            dateString
+        );
+
     }
 
 
@@ -1214,18 +1726,24 @@ function formatDate(
         "en-IN",
         {
 
-            day: "2-digit",
+            day:
+                "2-digit",
 
-            month: "short",
+            month:
+                "short",
 
-            year: "numeric",
+            year:
+                "numeric",
 
-            hour: "2-digit",
+            hour:
+                "2-digit",
 
-            minute: "2-digit"
+            minute:
+                "2-digit"
 
         }
     );
+
 }
 
 
@@ -1236,7 +1754,6 @@ function formatDate(
 function escapeHtml(
     text
 ) {
-
 
     if (
         text === null ||
@@ -1273,6 +1790,7 @@ function escapeHtml(
             /'/g,
             "&#039;"
         );
+
 }
 
 

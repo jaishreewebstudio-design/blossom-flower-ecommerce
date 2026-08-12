@@ -109,7 +109,7 @@
 
         .cart-section {
 
-            max-width: 1100px;
+            max-width: 1150px;
 
             margin: 45px auto;
 
@@ -174,7 +174,7 @@
 
             border-radius: 16px;
 
-            padding: 20px;
+            padding: 22px;
 
             box-shadow:
                 0 6px 25px
@@ -182,20 +182,83 @@
         }
 
 
-        .cart-item {
+        .cart-card-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding-bottom: 18px;
+
+            margin-bottom: 18px;
+
+            border-bottom:
+                1px solid #eee;
+
+            flex-wrap: wrap;
+        }
+
+
+        .cart-card-header h3 {
+
+            color: #c2185b;
+        }
+
+
+        .select-all-box {
 
             display: flex;
 
             align-items: center;
 
-            gap: 18px;
+            gap: 8px;
+
+            color: #555;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        .select-all-box input {
+
+            width: 17px;
+
+            height: 17px;
+
+            accent-color: #d63384;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           CART ITEM
+        ===================================================== */
+
+        .cart-item {
+
+            display: grid;
+
+            grid-template-columns:
+                30px
+                90px
+                1fr
+                auto;
+
+            gap: 15px;
+
+            align-items: center;
 
             padding: 18px 0;
 
             border-bottom:
                 1px solid #eee;
-
-            transition: 0.2s;
         }
 
 
@@ -205,126 +268,64 @@
         }
 
 
-        .cart-item.selected-item {
+        .cart-checkbox {
 
-            background: #fff7fa;
+            width: 18px;
 
-            border-radius: 12px;
-
-            padding-left: 12px;
-
-            padding-right: 12px;
-
-            margin-bottom: 3px;
-        }
-
-
-        /* =====================================================
-           ITEM SELECT CHECKBOX
-        ===================================================== */
-
-        .select-area {
-
-            width: 32px;
-
-            min-width: 32px;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-        }
-
-
-        .item-checkbox {
-
-            width: 21px;
-
-            height: 21px;
-
-            cursor: pointer;
+            height: 18px;
 
             accent-color: #d63384;
+
+            cursor: pointer;
         }
 
 
-        .item-checkbox:hover {
+        .flower-image {
 
-            transform: scale(1.08);
-        }
+            width: 90px;
 
-
-        .item-checkbox:disabled {
-
-            cursor: not-allowed;
-
-            opacity: 0.5;
-        }
-
-
-        /* =====================================================
-           PRODUCT IMAGE
-        ===================================================== */
-
-        .product-image {
-
-            width: 100px;
-
-            height: 100px;
+            height: 90px;
 
             object-fit: cover;
 
             border-radius: 12px;
 
             border:
-                1px solid #f2d4df;
+                1px solid #f0d8e1;
 
             background: #fff5f8;
         }
 
 
-        .product-info {
-
-            flex: 1;
-        }
-
-
-        .product-name {
-
-            color: #c2185b;
-
-            font-size: 18px;
-
-            font-weight: bold;
-
-            margin-bottom: 5px;
-        }
-
-
-        .product-price {
+        .item-info h4 {
 
             color: #555;
 
-            font-size: 15px;
+            font-size: 17px;
 
-            margin-bottom: 12px;
+            margin-bottom: 6px;
         }
 
 
-        .stock-text {
+        .item-category {
 
-            color: #777;
+            color: #999;
 
             font-size: 13px;
 
-            margin-top: 7px;
+            margin-bottom: 8px;
         }
 
 
-        /* =====================================================
-           QUANTITY
-        ===================================================== */
+        .item-price {
+
+            color: #d63384;
+
+            font-weight: bold;
+
+            font-size: 16px;
+        }
+
 
         .quantity-area {
 
@@ -332,15 +333,17 @@
 
             align-items: center;
 
-            gap: 7px;
+            gap: 8px;
+
+            margin-top: 10px;
         }
 
 
         .quantity-btn {
 
-            width: 34px;
+            width: 30px;
 
-            height: 34px;
+            height: 30px;
 
             border: none;
 
@@ -366,17 +369,9 @@
         }
 
 
-        .quantity-btn:disabled {
+        .quantity-value {
 
-            opacity: 0.5;
-
-            cursor: not-allowed;
-        }
-
-
-        .quantity-number {
-
-            min-width: 35px;
+            min-width: 28px;
 
             text-align: center;
 
@@ -386,25 +381,21 @@
         }
 
 
-        /* =====================================================
-           ITEM RIGHT SIDE
-        ===================================================== */
-
         .item-right {
 
-            min-width: 130px;
-
             text-align: right;
+
+            min-width: 120px;
         }
 
 
         .item-subtotal {
 
-            color: #d63384;
-
-            font-size: 17px;
+            color: #c2185b;
 
             font-weight: bold;
+
+            font-size: 17px;
 
             margin-bottom: 10px;
         }
@@ -414,23 +405,21 @@
 
             border: none;
 
-            background: #fff0f3;
+            background: transparent;
 
-            color: #c2185b;
-
-            padding: 8px 12px;
-
-            border-radius: 7px;
+            color: #d63384;
 
             cursor: pointer;
 
             font-weight: bold;
+
+            font-size: 13px;
         }
 
 
         .remove-btn:hover {
 
-            background: #ffe0e8;
+            text-decoration: underline;
         }
 
 
@@ -438,13 +427,32 @@
            ORDERED ITEM
         ===================================================== */
 
-        .ordered-label {
+        .cart-item.ordered {
+
+            opacity: 0.75;
+
+            background: #fafafa;
+
+            padding-left: 12px;
+
+            padding-right: 12px;
+
+            border-radius: 10px;
+
+            margin-bottom: 10px;
+
+            border:
+                1px solid #eee;
+        }
+
+
+        .ordered-badge {
 
             display: inline-block;
 
-            background: #e8f5e9;
+            background: #fff0c2;
 
-            color: #2e7d32;
+            color: #946200;
 
             padding: 5px 10px;
 
@@ -454,7 +462,7 @@
 
             font-weight: bold;
 
-            margin-top: 8px;
+            margin-top: 7px;
         }
 
 
@@ -476,7 +484,7 @@
 
             position: sticky;
 
-            top: 100px;
+            top: 105px;
         }
 
 
@@ -486,7 +494,10 @@
 
             margin-bottom: 20px;
 
-            font-size: 20px;
+            padding-bottom: 15px;
+
+            border-bottom:
+                1px solid #eee;
         }
 
 
@@ -496,79 +507,42 @@
 
             justify-content: space-between;
 
-            padding: 11px 0;
+            gap: 15px;
 
-            border-bottom:
-                1px solid #eee;
+            margin-bottom: 14px;
 
-            color: #555;
+            color: #666;
         }
 
 
-        .summary-row.total {
+        .summary-row strong {
 
-            border-bottom: none;
-
-            margin-top: 10px;
-
-            font-size: 21px;
-
-            font-weight: bold;
-
-            color: #c2185b;
+            color: #444;
         }
 
 
-        /* =====================================================
-           SELECTED SUMMARY
-        ===================================================== */
-
-        .selected-summary {
-
-            background: #fff0f5;
-
-            border:
-                1px solid #f5c2d5;
-
-            border-radius: 10px;
-
-            padding: 13px;
-
-            margin-top: 15px;
-
-            color: #c2185b;
-
-            font-size: 14px;
-        }
-
-
-        .selected-summary-row {
+        .summary-total {
 
             display: flex;
 
             justify-content: space-between;
 
             align-items: center;
+
+            padding-top: 18px;
+
+            margin-top: 15px;
+
+            border-top:
+                1px solid #eee;
+
+            color: #c2185b;
+
+            font-size: 21px;
+
+            font-weight: bold;
         }
 
-
-        .selected-summary-row + .selected-summary-row {
-
-            margin-top: 8px;
-        }
-
-
-        .selected-summary strong {
-
-            color: #a3154e;
-
-            font-size: 15px;
-        }
-
-
-        /* =====================================================
-           CHECKOUT BUTTON
-        ===================================================== */
 
         .checkout-btn {
 
@@ -580,9 +554,11 @@
 
             color: white;
 
-            padding: 14px;
+            padding: 13px 18px;
 
             border-radius: 9px;
+
+            margin-top: 20px;
 
             font-size: 16px;
 
@@ -590,9 +566,7 @@
 
             cursor: pointer;
 
-            margin-top: 20px;
-
-            transition: 0.3s;
+            transition: 0.2s;
         }
 
 
@@ -606,8 +580,6 @@
 
             background: #ccc;
 
-            color: #777;
-
             cursor: not-allowed;
         }
 
@@ -616,28 +588,27 @@
 
             width: 100%;
 
-            border:
-                1px solid #d63384;
+            border: 1px solid #f1b9c9;
 
-            background: white;
+            background: #fff5f8;
 
             color: #c2185b;
 
-            padding: 12px;
+            padding: 11px 18px;
 
             border-radius: 9px;
+
+            margin-top: 10px;
 
             font-weight: bold;
 
             cursor: pointer;
-
-            margin-top: 10px;
         }
 
 
         .clear-btn:hover {
 
-            background: #fff0f3;
+            background: #ffe0e8;
         }
 
 
@@ -651,7 +622,7 @@
 
             text-align: center;
 
-            padding: 70px 25px;
+            padding: 65px 25px;
 
             border-radius: 16px;
 
@@ -695,25 +666,19 @@
         }
 
 
-        .shop-btn:hover {
-
-            background: #c2185b;
-        }
-
-
         /* =====================================================
-           LOADING
+           LOADING / ERROR
         ===================================================== */
 
         .loading {
 
-            text-align: center;
-
             background: white;
 
-            padding: 50px;
+            padding: 45px;
 
-            border-radius: 15px;
+            text-align: center;
+
+            border-radius: 16px;
 
             color: #777;
         }
@@ -721,38 +686,23 @@
 
         .error-box {
 
-            text-align: center;
-
             background: white;
 
-            padding: 50px;
+            padding: 45px;
 
-            border-radius: 15px;
+            text-align: center;
+
+            border-radius: 16px;
 
             color: #c2185b;
         }
 
 
         /* =====================================================
-           RESPONSIVE
+           MOBILE
         ===================================================== */
 
         @media (max-width: 850px) {
-
-            .cart-layout {
-
-                grid-template-columns: 1fr;
-            }
-
-
-            .summary-card {
-
-                position: static;
-            }
-        }
-
-
-        @media (max-width: 700px) {
 
             .navbar {
 
@@ -774,62 +724,33 @@
             }
 
 
-            .cart-item {
+            .cart-layout {
 
-                flex-wrap: wrap;
+                grid-template-columns: 1fr;
             }
 
 
-            .item-right {
+            .summary-card {
 
-                width: 100%;
-
-                text-align: left;
-
-                padding-left: 50px;
-            }
-
-
-            .product-image {
-
-                width: 80px;
-
-                height: 80px;
+                position: static;
             }
         }
 
 
-        @media (max-width: 450px) {
-
-            .cart-section {
-
-                padding: 0 12px;
-
-                margin-top: 25px;
-            }
-
-
-            .cart-card {
-
-                padding: 12px;
-            }
-
+        @media (max-width: 600px) {
 
             .cart-item {
+
+                grid-template-columns:
+                    25px
+                    70px
+                    1fr;
 
                 gap: 10px;
             }
 
 
-            .select-area {
-
-                width: 25px;
-
-                min-width: 25px;
-            }
-
-
-            .product-image {
+            .flower-image {
 
                 width: 70px;
 
@@ -837,15 +758,13 @@
             }
 
 
-            .product-name {
+            .item-right {
 
-                font-size: 16px;
-            }
+                grid-column: 2 / -1;
 
+                text-align: left;
 
-            .product-price {
-
-                font-size: 14px;
+                min-width: auto;
             }
         }
 
@@ -878,13 +797,11 @@
                 </a>
             </li>
 
-
             <li>
                 <a href="{{ url_for('home_page') }}">
                     Home
                 </a>
             </li>
-
 
             <li>
                 <a href="{{ url_for('flowers_page') }}">
@@ -892,13 +809,11 @@
                 </a>
             </li>
 
-
             <li>
                 <a href="{{ url_for('cart_page') }}">
                     Cart
                 </a>
             </li>
-
 
             <li>
                 <a href="{{ url_for('orders_page') }}">
@@ -914,7 +829,7 @@
 
 
 <!-- =========================================================
-     CART SECTION
+     CART
 ========================================================= -->
 
 <section class="cart-section">
@@ -927,7 +842,7 @@
         </h2>
 
         <p>
-            Select the flowers you want to order.
+            Review your flowers before proceeding to checkout.
         </p>
 
     </div>
@@ -946,7 +861,6 @@
 
 
 <script>
-
 
 /* =========================================================
    API
@@ -977,7 +891,10 @@ function getCurrentUser() {
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Current User Error:",
+            error
+        );
 
         return null;
     }
@@ -991,7 +908,9 @@ function getCurrentUser() {
 async function loadCart() {
 
     const container =
-        document.getElementById("cartContainer");
+        document.getElementById(
+            "cartContainer"
+        );
 
 
     const user =
@@ -1056,7 +975,10 @@ async function loadCart() {
         }
 
 
-        displayCart(data);
+        displayCart(
+            data.cart || []
+        );
+
 
     } catch (error) {
 
@@ -1075,7 +997,10 @@ async function loadCart() {
                 </h2>
 
                 <p>
-                    Please make sure Flask server is running.
+                    ${escapeHtml(
+                        error.message ||
+                        "Please make sure Flask server is running."
+                    )}
                 </p>
 
                 <br>
@@ -1098,24 +1023,18 @@ async function loadCart() {
    DISPLAY CART
 ========================================================= */
 
-function displayCart(data) {
+function displayCart(cart) {
 
     const container =
-        document.getElementById("cartContainer");
-
-
-    const cart =
-        data.cart || [];
-
-
-    const activeItems =
-        cart.filter(
-            item =>
-                item.status !== "Ordered"
+        document.getElementById(
+            "cartContainer"
         );
 
 
-    if (cart.length === 0) {
+    if (
+        !cart ||
+        cart.length === 0
+    ) {
 
         container.innerHTML = `
 
@@ -1144,177 +1063,67 @@ function displayCart(data) {
     }
 
 
+    const activeItems =
+        cart.filter(
+            function(item) {
+
+                return (
+                    item.status !== "Ordered"
+                );
+            }
+        );
+
+
+    const orderedItems =
+        cart.filter(
+            function(item) {
+
+                return (
+                    item.status === "Ordered"
+                );
+            }
+        );
+
+
     let itemsHTML = "";
 
 
-    cart.forEach(
+    activeItems.forEach(
         function(item) {
 
-
-            const isOrdered =
-                item.status === "Ordered";
-
-
-            itemsHTML += `
-
-                <div
-                    class="cart-item"
-                    data-id="${item.id}"
-                >
-
-
-                    ${
-                        !isOrdered
-                        ?
-                        `
-                            <div class="select-area">
-
-                                <input
-                                    type="checkbox"
-                                    class="item-checkbox"
-                                    value="${item.id}"
-                                    onchange="updateSelectedItems()"
-                                >
-
-                            </div>
-                        `
-                        :
-                        `
-                            <div class="select-area">
-                            </div>
-                        `
-                    }
-
-
-                    <img
-                        class="product-image"
-                        src="${escapeHtml(item.image || '')}"
-                        alt="${escapeHtml(item.name)}"
-                        onerror="this.src='https://via.placeholder.com/100x100?text=Flower'"
-                    >
-
-
-                    <div class="product-info">
-
-
-                        <div class="product-name">
-
-                            🌸
-                            ${escapeHtml(item.name)}
-
-                        </div>
-
-
-                        <div class="product-price">
-
-                            ₹${Number(
-                                item.price || 0
-                            ).toFixed(2)}
-
-                            per item
-
-                        </div>
-
-
-                        ${
-                            isOrdered
-                            ?
-                            `
-                                <span class="ordered-label">
-
-                                    ✓ Already Ordered
-
-                                </span>
-                            `
-                            :
-                            `
-                                <div class="quantity-area">
-
-
-                                    <button
-                                        class="quantity-btn"
-                                        onclick="changeQuantity(
-                                            ${item.id},
-                                            ${item.quantity - 1}
-                                        )"
-                                        ${item.quantity <= 1 ? "disabled" : ""}
-                                    >
-
-                                        −
-
-                                    </button>
-
-
-                                    <span class="quantity-number">
-
-                                        ${item.quantity}
-
-                                    </span>
-
-
-                                    <button
-                                        class="quantity-btn"
-                                        onclick="changeQuantity(
-                                            ${item.id},
-                                            ${item.quantity + 1}
-                                        )"
-                                        ${
-                                            item.quantity >= item.stock
-                                            ? "disabled"
-                                            : ""
-                                        }
-                                    >
-
-                                        +
-
-                                    </button>
-
-
-                                </div>
-
-
-                                <div class="stock-text">
-
-                                    Available stock:
-                                    ${item.stock}
-
-                                </div>
-                            `
-                        }
-
-                    </div>
-
-
-                    <div class="item-right">
-
-
-                        <div class="item-subtotal">
-
-                            ₹${Number(
-                                item.subtotal || 0
-                            ).toFixed(2)}
-
-                        </div>
-
-
-                        <button
-                            class="remove-btn"
-                            onclick="removeCartItem(${item.id})"
-                        >
-
-                            🗑 Remove
-
-                        </button>
-
-
-                    </div>
-
-
-                </div>
-
-            `;
+            itemsHTML += createCartItem(
+                item,
+                false
+            );
         }
     );
+
+
+    orderedItems.forEach(
+        function(item) {
+
+            itemsHTML += createCartItem(
+                item,
+                true
+            );
+        }
+    );
+
+
+    const activeTotal =
+        activeItems.reduce(
+            function(total, item) {
+
+                return (
+                    total +
+                    Number(
+                        item.subtotal || 0
+                    )
+                );
+
+            },
+            0
+        );
 
 
     container.innerHTML = `
@@ -1324,7 +1133,61 @@ function displayCart(data) {
 
             <div class="cart-card">
 
-                ${itemsHTML}
+
+                <div class="cart-card-header">
+
+                    <h3>
+                        🌸 Cart Items
+                    </h3>
+
+
+                    ${
+                        activeItems.length > 0
+                        ?
+                        `
+                        <label class="select-all-box">
+
+                            <input
+                                type="checkbox"
+                                id="selectAll"
+                                onchange="toggleSelectAll(this)"
+                            >
+
+                            Select All
+
+                        </label>
+                        `
+                        :
+                        ""
+                    }
+
+                </div>
+
+
+                ${
+                    itemsHTML ||
+                    `
+                    <div class="empty-cart">
+
+                        <h2>
+                            🛒 No Active Items
+                        </h2>
+
+                        <p>
+                            Your cart does not have any items ready for checkout.
+                        </p>
+
+                        <a
+                            href="{{ url_for('flowers_page') }}"
+                            class="shop-btn"
+                        >
+                            🌸 Shop Flowers
+                        </a>
+
+                    </div>
+                    `
+                }
+
 
             </div>
 
@@ -1343,8 +1206,8 @@ function displayCart(data) {
                         Active Items
                     </span>
 
-                    <strong>
-                        ${data.active_count || 0}
+                    <strong id="activeItemsCount">
+                        ${activeItems.length}
                     </strong>
 
                 </div>
@@ -1353,87 +1216,55 @@ function displayCart(data) {
                 <div class="summary-row">
 
                     <span>
-                        Ordered Items
+                        Selected Items
                     </span>
 
-                    <strong>
-                        ${data.ordered_count || 0}
+                    <strong id="selectedItemsCount">
+                        0
                     </strong>
 
                 </div>
 
 
-                <!-- SELECTED ITEMS SUMMARY -->
-
-                <div class="selected-summary">
-
-
-                    <div class="selected-summary-row">
-
-                        <span>
-                            Selected Items
-                        </span>
-
-                        <strong id="selectedCount">
-                            0
-                        </strong>
-
-                    </div>
-
-
-                    <div class="selected-summary-row">
-
-                        <span>
-                            Selected Total
-                        </span>
-
-                        <strong id="selectedTotal">
-                            ₹0.00
-                        </strong>
-
-                    </div>
-
-
-                </div>
-
-
-                <div class="summary-row total">
+                <div class="summary-total">
 
                     <span>
-                        Cart Total
+                        Total
                     </span>
 
-                    <span>
-
-                        ₹${Number(
-                            data.total || 0
-                        ).toFixed(2)}
-
+                    <span id="cartTotal">
+                        ₹0.00
                     </span>
 
                 </div>
 
 
                 <button
-                    id="checkoutButton"
+                    type="button"
                     class="checkout-btn"
+                    id="checkoutBtn"
                     onclick="goToCheckout()"
                     disabled
                 >
-
-                    🛍 Proceed to Checkout
-
+                    Proceed to Checkout
                 </button>
 
 
-                <button
-                    class="clear-btn"
-                    onclick="clearCart()"
-                >
-
-                    🗑 Clear Cart
-
-                </button>
+                ${
+                    activeItems.length > 0
+                    ?
+                    `
+                    <button
+                        type="button"
+                        class="clear-btn"
+                        onclick="clearCart()"
+                    >
+                        🗑 Clear Active Cart
+                    </button>
+                    `
+                    :
+                    ""
+                }
 
 
             </div>
@@ -1444,221 +1275,340 @@ function displayCart(data) {
     `;
 
 
-    /*
-       Restore previously selected items
-       if they still exist in cart.
-    */
-
-    restoreSelectedItems();
-
-
-    updateSelectedItems();
-
+    updateSummary();
 }
 
 
 /* =========================================================
-   RESTORE SELECTED ITEMS
+   CREATE CART ITEM
 ========================================================= */
 
-function restoreSelectedItems() {
+function createCartItem(
+    item,
+    isOrdered
+) {
 
-    const saved =
-        localStorage.getItem(
-            "selectedCartItems"
+    const image =
+        item.image ||
+        "https://via.placeholder.com/90x90?text=Flower";
+
+
+    const subtotal =
+        Number(
+            item.subtotal || 0
         );
 
 
-    if (!saved) {
-
-        return;
-    }
-
-
-    let selectedIds = [];
-
-
-    try {
-
-        selectedIds =
-            JSON.parse(saved);
-
-    } catch (error) {
-
-        selectedIds = [];
-    }
-
-
-    if (!Array.isArray(selectedIds)) {
-
-        return;
-    }
-
-
-    document
-        .querySelectorAll(".item-checkbox")
-        .forEach(
-            function(checkbox) {
-
-                const itemId =
-                    Number(checkbox.value);
-
-
-                if (
-                    selectedIds.includes(itemId)
-                ) {
-
-                    checkbox.checked = true;
-                }
-
-            }
+    const price =
+        Number(
+            item.price || 0
         );
+
+
+    const quantity =
+        Number(
+            item.quantity || 1
+        );
+
+
+    if (isOrdered) {
+
+        return `
+
+            <div class="cart-item ordered">
+
+
+                <div></div>
+
+
+                <img
+                    src="${escapeHtml(image)}"
+                    alt="${escapeHtml(item.name)}"
+                    class="flower-image"
+                    onerror="this.src='https://via.placeholder.com/90x90?text=Flower'"
+                >
+
+
+                <div class="item-info">
+
+                    <h4>
+                        🌸 ${escapeHtml(item.name)}
+                    </h4>
+
+                    <div class="item-category">
+                        Previously purchased item
+                    </div>
+
+                    <div class="item-price">
+                        ₹${price.toFixed(2)}
+                    </div>
+
+                    <span class="ordered-badge">
+                        ✓ Ordered
+                    </span>
+
+                </div>
+
+
+                <div class="item-right">
+
+                    <div class="item-subtotal">
+                        ₹${subtotal.toFixed(2)}
+                    </div>
+
+                    <div>
+                        Quantity:
+                        ${quantity}
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        `;
+    }
+
+
+    return `
+
+        <div
+            class="cart-item"
+            data-cart-id="${item.id}"
+        >
+
+
+            <input
+                type="checkbox"
+                class="cart-checkbox item-checkbox"
+                data-cart-id="${item.id}"
+                data-subtotal="${subtotal}"
+                onchange="updateSummary()"
+            >
+
+
+            <img
+                src="${escapeHtml(image)}"
+                alt="${escapeHtml(item.name)}"
+                class="flower-image"
+                onerror="this.src='https://via.placeholder.com/90x90?text=Flower'"
+            >
+
+
+            <div class="item-info">
+
+                <h4>
+                    🌸 ${escapeHtml(item.name)}
+                </h4>
+
+
+                <div class="item-category">
+
+                    ${escapeHtml(
+                        item.category ||
+                        "Fresh Flower"
+                    )}
+
+                </div>
+
+
+                <div class="item-price">
+
+                    ₹${price.toFixed(2)}
+
+                </div>
+
+
+                <div class="quantity-area">
+
+
+                    <button
+                        type="button"
+                        class="quantity-btn"
+                        onclick="changeQuantity(
+                            ${item.id},
+                            ${quantity - 1}
+                        )"
+                        ${quantity <= 1 ? "disabled" : ""}
+                    >
+                        −
+                    </button>
+
+
+                    <span class="quantity-value">
+                        ${quantity}
+                    </span>
+
+
+                    <button
+                        type="button"
+                        class="quantity-btn"
+                        onclick="changeQuantity(
+                            ${item.id},
+                            ${quantity + 1}
+                        )"
+                        ${
+                            item.stock &&
+                            quantity >= item.stock
+                            ?
+                            "disabled"
+                            :
+                            ""
+                        }
+                    >
+                        +
+                    </button>
+
+
+                </div>
+
+            </div>
+
+
+            <div class="item-right">
+
+
+                <div class="item-subtotal">
+
+                    ₹${subtotal.toFixed(2)}
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="remove-btn"
+                    onclick="removeCartItem(${item.id})"
+                >
+                    🗑 Remove
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+    `;
 }
 
 
 /* =========================================================
-   UPDATE SELECTED ITEMS
+   SELECT ALL
 ========================================================= */
 
-function updateSelectedItems() {
+function toggleSelectAll(
+    checkbox
+) {
 
     const checkboxes =
+        document.querySelectorAll(
+            ".item-checkbox"
+        );
+
+
+    checkboxes.forEach(
+        function(item) {
+
+            item.checked =
+                checkbox.checked;
+
+        }
+    );
+
+
+    updateSummary();
+}
+
+
+/* =========================================================
+   UPDATE SUMMARY
+========================================================= */
+
+function updateSummary() {
+
+    const selected =
         document.querySelectorAll(
             ".item-checkbox:checked"
         );
 
 
-    const selectedIds = [];
+    let total = 0;
 
 
-    let selectedTotal = 0;
-
-
-    checkboxes.forEach(
+    selected.forEach(
         function(checkbox) {
 
-
-            const cartItem =
-                checkbox.closest(".cart-item");
-
-
-            if (!cartItem) {
-
-                return;
-            }
-
-
-            const subtotalElement =
-                cartItem.querySelector(
-                    ".item-subtotal"
-                );
-
-
-            const subtotalText =
-                subtotalElement
-                    ? subtotalElement.innerText
-                    : "₹0";
-
-
-            const subtotal =
-                parseFloat(
-                    subtotalText
-                        .replace("₹", "")
-                        .replace(/,/g, "")
-                ) || 0;
-
-
-            selectedIds.push(
-                Number(checkbox.value)
-            );
-
-
-            selectedTotal +=
-                subtotal;
-
-
-            cartItem.classList.add(
-                "selected-item"
+            total += Number(
+                checkbox.dataset.subtotal || 0
             );
 
         }
     );
 
 
-    document
-        .querySelectorAll(".item-checkbox")
-        .forEach(
-            function(checkbox) {
-
-
-                if (!checkbox.checked) {
-
-
-                    const cartItem =
-                        checkbox.closest(".cart-item");
-
-
-                    if (cartItem) {
-
-                        cartItem.classList.remove(
-                            "selected-item"
-                        );
-                    }
-
-                }
-
-            }
-        );
-
-
     const selectedCount =
         document.getElementById(
-            "selectedCount"
+            "selectedItemsCount"
         );
 
 
-    const selectedTotalElement =
+    const totalElement =
         document.getElementById(
-            "selectedTotal"
+            "cartTotal"
         );
 
 
-    const checkoutButton =
+    const checkoutBtn =
         document.getElementById(
-            "checkoutButton"
+            "checkoutBtn"
         );
 
 
     if (selectedCount) {
 
-        selectedCount.innerText =
-            selectedIds.length;
+        selectedCount.textContent =
+            selected.length;
     }
 
 
-    if (selectedTotalElement) {
+    if (totalElement) {
 
-        selectedTotalElement.innerText =
-            "₹" +
-            selectedTotal.toFixed(2);
+        totalElement.textContent =
+            `₹${total.toFixed(2)}`;
     }
 
 
-    if (checkoutButton) {
+    if (checkoutBtn) {
 
-        checkoutButton.disabled =
-            selectedIds.length === 0;
+        checkoutBtn.disabled =
+            selected.length === 0;
     }
 
 
-    /*
-       Save selected cart IDs.
-    */
+    const allCheckboxes =
+        document.querySelectorAll(
+            ".item-checkbox"
+        );
 
-    localStorage.setItem(
-        "selectedCartItems",
-        JSON.stringify(selectedIds)
-    );
+
+    const selectAll =
+        document.getElementById(
+            "selectAll"
+        );
+
+
+    if (
+        selectAll &&
+        allCheckboxes.length > 0
+    ) {
+
+        selectAll.checked =
+            (
+                selected.length ===
+                allCheckboxes.length
+            );
+    }
 }
 
 
@@ -1670,7 +1620,6 @@ async function changeQuantity(
     cartId,
     quantity
 ) {
-
 
     if (quantity < 1) {
 
@@ -1688,10 +1637,8 @@ async function changeQuantity(
                     method: "PUT",
 
                     headers: {
-
                         "Content-Type":
                             "application/json"
-
                     },
 
                     credentials: "include",
@@ -1702,7 +1649,6 @@ async function changeQuantity(
                             quantity
 
                     })
-
                 }
             );
 
@@ -1716,45 +1662,47 @@ async function changeQuantity(
             !data.success
         ) {
 
-            alert(
+            throw new Error(
                 data.message ||
                 "Unable to update quantity"
             );
-
-            return;
         }
 
 
-        loadCart();
+        await loadCart();
+
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Quantity Update Error:",
+            error
+        );
 
 
         alert(
-            "Unable to update cart quantity."
+            error.message ||
+            "Unable to update quantity."
         );
     }
 }
 
 
 /* =========================================================
-   REMOVE ITEM
+   REMOVE CART ITEM
 ========================================================= */
 
 async function removeCartItem(
     cartId
 ) {
 
-
-    const confirmDelete =
+    const confirmed =
         confirm(
-            "Are you sure you want to remove this flower from cart?"
+            "Are you sure you want to remove this flower from your cart?"
         );
 
 
-    if (!confirmDelete) {
+    if (!confirmed) {
 
         return;
     }
@@ -1770,7 +1718,6 @@ async function removeCartItem(
                     method: "DELETE",
 
                     credentials: "include"
-
                 }
             );
 
@@ -1784,60 +1731,26 @@ async function removeCartItem(
             !data.success
         ) {
 
-            alert(
+            throw new Error(
                 data.message ||
                 "Unable to remove item"
             );
-
-            return;
         }
 
 
-        /*
-           Remove deleted item
-           from selected items.
-        */
+        await loadCart();
 
-        let selectedIds = [];
-
-
-        try {
-
-            selectedIds =
-                JSON.parse(
-                    localStorage.getItem(
-                        "selectedCartItems"
-                    )
-                ) || [];
-
-        } catch (error) {
-
-            selectedIds = [];
-        }
-
-
-        selectedIds =
-            selectedIds.filter(
-                id =>
-                    Number(id) !==
-                    Number(cartId)
-            );
-
-
-        localStorage.setItem(
-            "selectedCartItems",
-            JSON.stringify(selectedIds)
-        );
-
-
-        loadCart();
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Remove Cart Error:",
+            error
+        );
 
 
         alert(
+            error.message ||
             "Unable to remove item."
         );
     }
@@ -1845,11 +1758,10 @@ async function removeCartItem(
 
 
 /* =========================================================
-   CLEAR CART
+   CLEAR ACTIVE CART
 ========================================================= */
 
 async function clearCart() {
-
 
     const user =
         getCurrentUser();
@@ -1857,17 +1769,21 @@ async function clearCart() {
 
     if (!user || !user.id) {
 
+        alert(
+            "Please login first."
+        );
+
         return;
     }
 
 
-    const confirmClear =
+    const confirmed =
         confirm(
-            "Are you sure you want to clear your cart?"
+            "Are you sure you want to clear all active cart items?"
         );
 
 
-    if (!confirmClear) {
+    if (!confirmed) {
 
         return;
     }
@@ -1883,7 +1799,6 @@ async function clearCart() {
                     method: "DELETE",
 
                     credentials: "include"
-
                 }
             );
 
@@ -1897,37 +1812,26 @@ async function clearCart() {
             !data.success
         ) {
 
-            alert(
+            throw new Error(
                 data.message ||
                 "Unable to clear cart"
             );
-
-            return;
         }
 
 
-        /*
-           Clear selected items too.
-        */
+        await loadCart();
 
-        localStorage.removeItem(
-            "selectedCartItems"
-        );
-
-
-        alert(
-            "Cart cleared successfully."
-        );
-
-
-        loadCart();
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Clear Cart Error:",
+            error
+        );
 
 
         alert(
+            error.message ||
             "Unable to clear cart."
         );
     }
@@ -1935,67 +1839,62 @@ async function clearCart() {
 
 
 /* =========================================================
-   CHECKOUT SELECTED ITEMS ONLY
+   GO TO CHECKOUT
 ========================================================= */
 
 function goToCheckout() {
 
-
-    const checkboxes =
+    const selected =
         document.querySelectorAll(
             ".item-checkbox:checked"
         );
 
 
-    const selectedIds = [];
-
-
-    checkboxes.forEach(
-        function(checkbox) {
-
-            selectedIds.push(
-                Number(checkbox.value)
-            );
-
-        }
-    );
-
-
-    if (selectedIds.length === 0) {
+    if (
+        !selected ||
+        selected.length === 0
+    ) {
 
         alert(
-            "Please select at least one flower to checkout."
+            "Please select at least one flower for checkout."
         );
 
         return;
     }
 
 
-    /*
-       Save selected cart IDs
-    */
+    const cartIds = [];
 
-    localStorage.setItem(
-        "selectedCartItems",
-        JSON.stringify(selectedIds)
+
+    selected.forEach(
+        function(checkbox) {
+
+            cartIds.push(
+                Number(
+                    checkbox.dataset.cartId
+                )
+            );
+
+        }
     );
 
 
     /*
-       Send selected IDs
-       to checkout page.
-    */
+     * Store selected cart IDs temporarily.
+     *
+     * checkout.html will read these IDs
+     * and load the selected cart items
+     * from the backend.
+     */
 
-    const selectedParam =
-        selectedIds.join(",");
+    sessionStorage.setItem(
+        "checkoutCartIds",
+        JSON.stringify(cartIds)
+    );
 
 
     window.location.href =
-        "{{ url_for('checkout_page') }}" +
-        "?selected=" +
-        encodeURIComponent(
-            selectedParam
-        );
+        "{{ url_for('checkout_page') }}";
 }
 
 
@@ -2003,8 +1902,9 @@ function goToCheckout() {
    ESCAPE HTML
 ========================================================= */
 
-function escapeHtml(text) {
-
+function escapeHtml(
+    text
+) {
 
     if (
         text === null ||

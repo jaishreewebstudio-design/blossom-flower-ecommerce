@@ -1034,7 +1034,6 @@ def login():
 
     session.clear()
 
-
     session["user_id"] = user["id"]
 
     session["user_name"] = user["name"]
@@ -1578,9 +1577,11 @@ def add_to_cart():
 
     try:
 
-        quantity = int(
-            quantity
-        )
+        user_id = int(user_id)
+
+        flower_id = int(flower_id)
+
+        quantity = int(quantity)
 
     except (
         TypeError,
@@ -1592,7 +1593,7 @@ def add_to_cart():
             "success": False,
 
             "message":
-                "Quantity must be a number"
+                "Invalid user, flower or quantity"
 
         }), 400
 
@@ -1660,7 +1661,21 @@ def add_to_cart():
         }), 404
 
 
-    if flower["stock"] < quantity:
+    if flower["stock"] <= 0:
+
+        conn.close()
+
+        return jsonify({
+
+            "success": False,
+
+            "message":
+                "This flower is out of stock"
+
+        }), 400
+
+
+    if quantity > flower["stock"]:
 
         conn.close()
 
@@ -2223,7 +2238,7 @@ def clear_user_cart(user_id):
 )
 def create_order():
     """
-    Create order
+    Create order / checkout
     ---
     tags:
       - Orders
@@ -2246,10 +2261,79 @@ def create_order():
         }), 400
 
 
-    user_id = data.get(
+    # =====================================================
+    # USER
+    # =====================================================
+
+    session_user_id = session.get(
         "user_id"
     )
 
+
+    requested_user_id = data.get(
+        "user_id"
+    )
+
+
+    if not session_user_id:
+
+        return jsonify({
+
+            "success": False,
+
+            "message":
+                "Please login before placing an order"
+
+        }), 401
+
+
+    try:
+
+        session_user_id = int(
+            session_user_id
+        )
+
+        requested_user_id = int(
+            requested_user_id
+        )
+
+    except (
+        TypeError,
+        ValueError
+    ):
+
+        return jsonify({
+
+            "success": False,
+
+            "message":
+                "Invalid user ID"
+
+        }), 400
+
+
+    # =====================================================
+    # SECURITY CHECK
+    # =====================================================
+
+    if session_user_id != requested_user_id:
+
+        return jsonify({
+
+            "success": False,
+
+            "message":
+                "You can place an order only for your own account"
+
+        }), 403
+
+
+    user_id = session_user_id
+
+
+    # =====================================================
+    # CUSTOMER DETAILS
+    # =====================================================
 
     customer_name = str(
         data.get(
@@ -2289,9 +2373,12 @@ def create_order():
     )
 
 
+    # =====================================================
+    # VALIDATION
+    # =====================================================
+
     if (
-        not user_id
-        or not customer_name
+        not customer_name
         or not phone
         or not address
         or not payment
@@ -2303,6 +2390,30 @@ def create_order():
 
             "message":
                 "All customer details are required"
+
+        }), 400
+
+
+    if len(customer_name) < 2:
+
+        return jsonify({
+
+            "success": False,
+
+            "message":
+                "Please enter a valid customer name"
+
+        }), 400
+
+
+    if len(phone) < 10:
+
+        return jsonify({
+
+            "success": False,
+
+            "message":
+                "Please enter a valid phone number"
 
         }), 400
 
@@ -2334,6 +2445,10 @@ def create_order():
         }), 400
 
 
+    # =====================================================
+    # CONVERT CART IDS
+    # =====================================================
+
     try:
 
         cart_ids = [
@@ -2356,307 +2471,403 @@ def create_order():
         }), 400
 
 
-    conn = get_db()
+    # Remove duplicate IDs
 
-
-    user = conn.execute(
-        """
-        SELECT id
-        FROM users
-        WHERE id = ?
-        """,
-        (user_id,)
-    ).fetchone()
-
-
-    if not user:
-
-        conn.close()
-
-        return jsonify({
-
-            "success": False,
-
-            "message":
-                "User not found"
-
-        }), 404
-
-
-    placeholders = ",".join(
-        ["?"] * len(cart_ids)
+    cart_ids = list(
+        dict.fromkeys(
+            cart_ids
+        )
     )
 
 
-    query = f"""
-        SELECT
-
-            cart.id AS cart_id,
-
-            cart.user_id,
-
-            cart.flower_id,
-
-            cart.quantity,
-
-            cart.status,
-
-            flowers.name,
-
-            flowers.price,
-
-            flowers.stock
-
-        FROM cart
-
-        JOIN flowers
-
-            ON cart.flower_id =
-               flowers.id
-
-        WHERE cart.user_id = ?
-
-        AND cart.id IN ({placeholders})
-
-        AND cart.status != 'Ordered'
-
-        ORDER BY cart.id ASC
-    """
+    conn = get_db()
 
 
-    params = [
-        user_id
-    ] + cart_ids
+    try:
+
+        # =================================================
+        # CHECK USER
+        # =================================================
+
+        user = conn.execute(
+            """
+            SELECT id
+            FROM users
+            WHERE id = ?
+            """,
+            (user_id,)
+        ).fetchone()
 
 
-    cart_items = conn.execute(
-        query,
-        params
-    ).fetchall()
+        if not user:
 
-
-    if not cart_items:
-
-        conn.close()
-
-        return jsonify({
-
-            "success": False,
-
-            "message":
-                "Selected cart items are not available for checkout"
-
-        }), 400
-
-
-    found_ids = {
-        item["cart_id"]
-        for item in cart_items
-    }
-
-
-    missing_ids = [
-
-        cart_id
-
-        for cart_id in cart_ids
-
-        if cart_id not in found_ids
-    ]
-
-
-    if missing_ids:
-
-        conn.close()
-
-        return jsonify({
-
-            "success": False,
-
-            "message":
-                "One or more selected items are already ordered or unavailable"
-
-        }), 400
-
-
-    for item in cart_items:
-
-        if item["quantity"] > item["stock"]:
-
-            conn.close()
+            conn.rollback()
 
             return jsonify({
 
                 "success": False,
 
                 "message":
-                    f"Not enough stock for {item['name']}"
+                    "User not found"
+
+            }), 404
+
+
+        # =================================================
+        # GET SELECTED CART ITEMS
+        # =================================================
+
+        placeholders = ",".join(
+            ["?"] * len(cart_ids)
+        )
+
+
+        query = f"""
+            SELECT
+
+                cart.id AS cart_id,
+
+                cart.user_id,
+
+                cart.flower_id,
+
+                cart.quantity,
+
+                cart.status,
+
+                flowers.name,
+
+                flowers.price,
+
+                flowers.stock
+
+            FROM cart
+
+            JOIN flowers
+
+                ON cart.flower_id =
+                   flowers.id
+
+            WHERE cart.user_id = ?
+
+            AND cart.id IN ({placeholders})
+
+            AND cart.status != 'Ordered'
+
+            ORDER BY cart.id ASC
+        """
+
+
+        params = [
+            user_id
+        ] + cart_ids
+
+
+        cart_items = conn.execute(
+            query,
+            params
+        ).fetchall()
+
+
+        # =================================================
+        # CHECK ITEMS
+        # =================================================
+
+        if not cart_items:
+
+            conn.rollback()
+
+            return jsonify({
+
+                "success": False,
+
+                "message":
+                    "Selected cart items are not available for checkout"
 
             }), 400
 
 
-    total = 0
+        found_ids = {
 
+            item["cart_id"]
 
-    for item in cart_items:
-
-        total += (
-            item["price"]
-            * item["quantity"]
-        )
-
-
-    cursor = conn.execute(
-        """
-        INSERT INTO orders
-        (
-            user_id,
-            customer_name,
-            phone,
-            address,
-            payment,
-            total,
-            status
-        )
-
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-        """,
-        (
-            user_id,
-            customer_name,
-            phone,
-            address,
-            payment,
-            total,
-            "Processing"
-        )
-    )
-
-
-    order_id = cursor.lastrowid
-
-
-    for item in cart_items:
-
-        subtotal = (
-            item["price"]
-            * item["quantity"]
-        )
-
-
-        conn.execute(
-            """
-            INSERT INTO order_items
-            (
-                order_id,
-                flower_id,
-                flower_name,
-                price,
-                quantity,
-                subtotal
-            )
-
-            VALUES (?, ?, ?, ?, ?, ?)
-            """,
-            (
-                order_id,
-                item["flower_id"],
-                item["name"],
-                item["price"],
-                item["quantity"],
-                subtotal
-            )
-        )
-
-
-        conn.execute(
-            """
-            UPDATE flowers
-
-            SET stock =
-                stock - ?
-
-            WHERE id = ?
-            """,
-            (
-                item["quantity"],
-                item["flower_id"]
-            )
-        )
-
-
-        conn.execute(
-            """
-            UPDATE cart
-
-            SET status = 'Ordered'
-
-            WHERE id = ?
-
-            AND user_id = ?
-            """,
-            (
-                item["cart_id"],
-                user_id
-            )
-        )
-
-
-    conn.commit()
-
-
-    order = conn.execute(
-        """
-        SELECT *
-        FROM orders
-        WHERE id = ?
-        """,
-        (order_id,)
-    ).fetchone()
-
-
-    conn.close()
-
-
-    return jsonify({
-
-        "success": True,
-
-        "message":
-            "Order placed successfully",
-
-        "order": {
-
-            "id":
-                order["id"],
-
-            "user_id":
-                order["user_id"],
-
-            "customer_name":
-                order["customer_name"],
-
-            "phone":
-                order["phone"],
-
-            "address":
-                order["address"],
-
-            "payment":
-                order["payment"],
-
-            "total":
-                order["total"],
-
-            "status":
-                order["status"],
-
-            "created_at":
-                order["created_at"]
-
+            for item in cart_items
         }
 
-    }), 201
+
+        missing_ids = [
+
+            cart_id
+
+            for cart_id in cart_ids
+
+            if cart_id not in found_ids
+        ]
+
+
+        if missing_ids:
+
+            conn.rollback()
+
+            return jsonify({
+
+                "success": False,
+
+                "message":
+                    "One or more selected items are already ordered or unavailable"
+
+            }), 400
+
+
+        # =================================================
+        # CHECK STOCK
+        # =================================================
+
+        for item in cart_items:
+
+            if item["stock"] <= 0:
+
+                conn.rollback()
+
+                return jsonify({
+
+                    "success": False,
+
+                    "message":
+                        f"{item['name']} is out of stock"
+
+                }), 400
+
+
+            if item["quantity"] > item["stock"]:
+
+                conn.rollback()
+
+                return jsonify({
+
+                    "success": False,
+
+                    "message":
+                        f"Not enough stock for {item['name']}"
+
+                }), 400
+
+
+        # =================================================
+        # CALCULATE TOTAL
+        # =================================================
+
+        total = 0
+
+
+        for item in cart_items:
+
+            total += (
+                float(item["price"])
+                * int(item["quantity"])
+            )
+
+
+        # =================================================
+        # CREATE ORDER
+        # =================================================
+
+        cursor = conn.execute(
+            """
+            INSERT INTO orders
+            (
+                user_id,
+                customer_name,
+                phone,
+                address,
+                payment,
+                total,
+                status
+            )
+
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                user_id,
+                customer_name,
+                phone,
+                address,
+                payment,
+                total,
+                "Processing"
+            )
+        )
+
+
+        order_id = cursor.lastrowid
+
+
+        # =================================================
+        # INSERT ORDER ITEMS
+        # =================================================
+
+        for item in cart_items:
+
+            subtotal = (
+                float(item["price"])
+                * int(item["quantity"])
+            )
+
+
+            conn.execute(
+                """
+                INSERT INTO order_items
+                (
+                    order_id,
+                    flower_id,
+                    flower_name,
+                    price,
+                    quantity,
+                    subtotal
+                )
+
+                VALUES (?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    order_id,
+                    item["flower_id"],
+                    item["name"],
+                    item["price"],
+                    item["quantity"],
+                    subtotal
+                )
+            )
+
+
+            # =============================================
+            # REDUCE FLOWER STOCK
+            # =============================================
+
+            conn.execute(
+                """
+                UPDATE flowers
+
+                SET stock =
+                    stock - ?
+
+                WHERE id = ?
+
+                AND stock >= ?
+                """,
+                (
+                    item["quantity"],
+                    item["flower_id"],
+                    item["quantity"]
+                )
+            )
+
+
+            # =============================================
+            # MARK CART ITEM ORDERED
+            # =============================================
+
+            conn.execute(
+                """
+                UPDATE cart
+
+                SET status = 'Ordered'
+
+                WHERE id = ?
+
+                AND user_id = ?
+                """,
+                (
+                    item["cart_id"],
+                    user_id
+                )
+            )
+
+
+        # =================================================
+        # COMMIT EVERYTHING
+        # =================================================
+
+        conn.commit()
+
+
+        # =================================================
+        # GET CREATED ORDER
+        # =================================================
+
+        order = conn.execute(
+            """
+            SELECT *
+            FROM orders
+            WHERE id = ?
+            """,
+            (order_id,)
+        ).fetchone()
+
+
+        return jsonify({
+
+            "success": True,
+
+            "message":
+                "Order placed successfully",
+
+            "order": {
+
+                "id":
+                    order["id"],
+
+                "user_id":
+                    order["user_id"],
+
+                "customer_name":
+                    order["customer_name"],
+
+                "phone":
+                    order["phone"],
+
+                "address":
+                    order["address"],
+
+                "payment":
+                    order["payment"],
+
+                "total":
+                    order["total"],
+
+                "status":
+                    order["status"],
+
+                "created_at":
+                    order["created_at"]
+
+            }
+
+        }), 201
+
+
+    except Exception as error:
+
+        conn.rollback()
+
+        print(
+            "Create Order Error:",
+            error
+        )
+
+
+        return jsonify({
+
+            "success": False,
+
+            "message":
+                "Unable to place order. Please try again."
+
+        }), 500
+
+
+    finally:
+
+        conn.close()
 
 
 # =========================================================
@@ -2674,6 +2885,64 @@ def get_user_orders(user_id):
     tags:
       - Orders
     """
+
+    # =====================================================
+    # LOGIN CHECK
+    # =====================================================
+
+    logged_user_id = session.get(
+        "user_id"
+    )
+
+
+    if not logged_user_id:
+
+        return jsonify({
+
+            "success": False,
+
+            "message":
+                "Please login to view orders"
+
+        }), 401
+
+
+    try:
+
+        logged_user_id = int(
+            logged_user_id
+        )
+
+    except (
+        TypeError,
+        ValueError
+    ):
+
+        return jsonify({
+
+            "success": False,
+
+            "message":
+                "Invalid session"
+
+        }), 401
+
+
+    # =====================================================
+    # USER CAN SEE ONLY OWN ORDERS
+    # =====================================================
+
+    if logged_user_id != int(user_id):
+
+        return jsonify({
+
+            "success": False,
+
+            "message":
+                "You can view only your own orders"
+
+        }), 403
+
 
     conn = get_db()
 
@@ -2954,35 +3223,8 @@ def delete_order(order_id):
       - Orders
     """
 
-    conn = get_db()
-
-
-    order = conn.execute(
-        """
-        SELECT *
-        FROM orders
-        WHERE id = ?
-        """,
-        (order_id,)
-    ).fetchone()
-
-
-    if not order:
-
-        conn.close()
-
-        return jsonify({
-
-            "success": False,
-
-            "message":
-                "Order not found"
-
-        }), 404
-
-
     # =====================================================
-    # CHECK LOGGED-IN USER
+    # LOGIN CHECK
     # =====================================================
 
     logged_user_id = session.get(
@@ -2990,13 +3232,52 @@ def delete_order(order_id):
     )
 
 
-    if logged_user_id:
+    if not logged_user_id:
+
+        return jsonify({
+
+            "success": False,
+
+            "message":
+                "Please login before deleting an order"
+
+        }), 401
+
+
+    conn = get_db()
+
+
+    try:
+
+        order = conn.execute(
+            """
+            SELECT *
+            FROM orders
+            WHERE id = ?
+            """,
+            (order_id,)
+        ).fetchone()
+
+
+        if not order:
+
+            return jsonify({
+
+                "success": False,
+
+                "message":
+                    "Order not found"
+
+            }), 404
+
+
+        # =================================================
+        # ONLY OWNER CAN DELETE
+        # =================================================
 
         if int(logged_user_id) != int(
             order["user_id"]
         ):
-
-            conn.close()
 
             return jsonify({
 
@@ -3008,47 +3289,70 @@ def delete_order(order_id):
             }), 403
 
 
-    # =====================================================
-    # DELETE ORDER ITEMS
-    # =====================================================
+        # =================================================
+        # DELETE ORDER ITEMS
+        # =================================================
 
-    conn.execute(
-        """
-        DELETE FROM order_items
+        conn.execute(
+            """
+            DELETE FROM order_items
 
-        WHERE order_id = ?
-        """,
-        (order_id,)
-    )
-
-
-    # =====================================================
-    # DELETE ORDER
-    # =====================================================
-
-    conn.execute(
-        """
-        DELETE FROM orders
-
-        WHERE id = ?
-        """,
-        (order_id,)
-    )
+            WHERE order_id = ?
+            """,
+            (order_id,)
+        )
 
 
-    conn.commit()
+        # =================================================
+        # DELETE ORDER
+        # =================================================
 
-    conn.close()
+        conn.execute(
+            """
+            DELETE FROM orders
+
+            WHERE id = ?
+            """,
+            (order_id,)
+        )
 
 
-    return jsonify({
+        conn.commit()
 
-        "success": True,
 
-        "message":
-            "Order deleted successfully"
+        return jsonify({
 
-    }), 200
+            "success": True,
+
+            "message":
+                "Order deleted successfully"
+
+        }), 200
+
+
+    except Exception as error:
+
+        conn.rollback()
+
+        print(
+            "Delete Order Error:",
+            error
+        )
+
+
+        return jsonify({
+
+            "success": False,
+
+            "message":
+                "Unable to delete order"
+
+        }), 500
+
+
+    finally:
+
+        conn.close()
 
 
 # =========================================================
@@ -3131,6 +3435,27 @@ if __name__ == "__main__":
     print("Flower API:")
     print(
         f"http://127.0.0.1:{port}/api/flowers"
+    )
+
+    print("")
+
+    print("Cart API:")
+    print(
+        f"http://127.0.0.1:{port}/api/cart/<user_id>"
+    )
+
+    print("")
+
+    print("Checkout API:")
+    print(
+        f"http://127.0.0.1:{port}/api/orders"
+    )
+
+    print("")
+
+    print("Orders:")
+    print(
+        f"http://127.0.0.1:{port}/orders"
     )
 
     print("")
