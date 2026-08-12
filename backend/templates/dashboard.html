@@ -676,311 +676,225 @@
 
 
 
-<!-- =========================================
-     JAVASCRIPT
-========================================= -->
+/* =========================================================
+       GET ELEMENTS
+    ========================================================= */
 
-<script>
-
-    // =========================================
-    // LOGIN PROTECTION
-    // =========================================
-
-    if (localStorage.getItem("loggedIn") !== "true") {
-
-        alert("Please Login First!");
-
-        window.location.href = "index.html";
-
-    }
-
-
-    // =========================================
-    // CURRENT USER
-    // =========================================
-
-    let currentUser = null;
-
-    try {
-
-        currentUser = JSON.parse(
-            localStorage.getItem("currentUser")
+    const flowersCount =
+        document.getElementById(
+            "flowersCount"
         );
 
-    } catch (error) {
 
-        console.error("User data error:", error);
-
-    }
-
-
-    // =========================================
-    // SHOW USER NAME
-    // =========================================
-
-    if (currentUser) {
-
-        const welcomeUser =
-            document.getElementById("welcomeUser");
-
-        const accountName =
-            document.getElementById("accountName");
+    const cartCount =
+        document.getElementById(
+            "cartCount"
+        );
 
 
-        if (welcomeUser) {
-
-            welcomeUser.innerHTML =
-                "Welcome, " +
-                (currentUser.name || "User") +
-                " 🌸";
-
-        }
+    const ordersCount =
+        document.getElementById(
+            "ordersCount"
+        );
 
 
-        if (accountName) {
+    /* =========================================================
+       LOAD DASHBOARD COUNTS
+    ========================================================= */
 
-            accountName.innerHTML =
-                currentUser.name || "User";
-
-        }
-
-    }
-
-
-    // =========================================
-    // API URL
-    // =========================================
-
-    const API_URL = "http://127.0.0.1:5000";
-
-
-    // =========================================
-    // CART COUNT FROM DATABASE
-    // =========================================
-
-    async function updateCartCount() {
-
-        const cartCount =
-            document.getElementById("cartCount");
-
-
-        if (!cartCount) {
-            return;
-        }
-
-
-        if (!currentUser || !currentUser.id) {
-
-            cartCount.innerHTML = "0";
-
-            return;
-
-        }
-
+    async function loadDashboardCounts() {
 
         try {
+
+            /* ---------------------------------------------
+               Show loading
+            --------------------------------------------- */
+
+            flowersCount.classList.add(
+                "loading"
+            );
+
+            cartCount.classList.add(
+                "loading"
+            );
+
+            ordersCount.classList.add(
+                "loading"
+            );
+
+
+            /* ---------------------------------------------
+               API REQUEST
+            --------------------------------------------- */
 
             const response = await fetch(
-                `${API_URL}/api/cart/${currentUser.id}`
+                "/api/dashboard",
+                {
+                    method: "GET",
+
+                    credentials: "include",
+
+                    cache: "no-store",
+
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    }
+                }
             );
 
 
-            const data = await response.json();
-
-
-            console.log("Dashboard Cart Data:", data);
-
-
-            if (!response.ok || !data.success) {
-
-                cartCount.innerHTML = "0";
-
-                return;
-
-            }
-
-
-            // Your backend may return items
-            // or cart
-
-            const items =
-                data.items ||
-                data.cart ||
-                [];
-
-
-            // Count total quantity
-
-            let totalItems = 0;
-
-
-            items.forEach(function(item) {
-
-                totalItems += Number(
-                    item.quantity || 1
-                );
-
-            });
-
-
-            cartCount.innerHTML =
-                totalItems;
-
-
-        } catch (error) {
-
-            console.error(
-                "Dashboard Cart Error:",
-                error
-            );
-
-            cartCount.innerHTML = "0";
-
-        }
-
-    }
-
-
-    // =========================================
-    // ORDER COUNT
-    // =========================================
-
-    async function updateOrderCount() {
-
-        const orderCount =
-            document.getElementById("orderCount");
-
-
-        if (!orderCount) {
-            return;
-        }
-
-
-        if (!currentUser || !currentUser.id) {
-
-            orderCount.innerHTML = "0";
-
-            return;
-
-        }
-
-
-        try {
-
-            /*
-             * If your backend has:
-             *
-             * /api/orders/<user_id>
-             *
-             * this will load the real order count.
-             */
-
-            const response = await fetch(
-                `${API_URL}/api/orders/${currentUser.id}`
-            );
-
-
-            const data = await response.json();
-
-
-            console.log(
-                "Dashboard Order Data:",
-                data
-            );
-
-
-            if (!response.ok || !data.success) {
-
-                orderCount.innerHTML = "0";
-
-                return;
-
-            }
-
-
-            const orders =
-                data.orders ||
-                data.items ||
-                [];
-
-
-            orderCount.innerHTML =
-                orders.length;
-
-
-        } catch (error) {
-
-            console.error(
-                "Dashboard Order Error:",
-                error
-            );
-
-
-            // Fallback to localStorage
-
-            const localOrders =
-                JSON.parse(
-                    localStorage.getItem("orders")
-                ) || [];
-
-
-            orderCount.innerHTML =
-                localOrders.length;
-
-        }
-
-    }
-
-
-    // =========================================
-    // FLOWER COUNT
-    // =========================================
-
-    async function updateFlowerCount() {
-
-        const flowerCount =
-            document.getElementById(
-                "flowerCount"
-            );
-
-
-        if (!flowerCount) {
-            return;
-        }
-
-
-        try {
-
-            const response =
-                await fetch(
-                    `${API_URL}/api/flowers`
-                );
-
+            /* ---------------------------------------------
+               RESPONSE JSON
+            --------------------------------------------- */
 
             const data =
                 await response.json();
 
 
+            console.log(
+                "Dashboard API:",
+                data
+            );
+
+
+            /* ---------------------------------------------
+               LOGIN CHECK
+            --------------------------------------------- */
+
             if (
-                response.ok &&
-                data.success
+                response.status === 401
             ) {
 
-                const flowers =
-                    data.flowers || [];
+                window.location.href =
+                    "/login";
 
-
-                flowerCount.innerHTML =
-                    flowers.length + "+";
+                return;
 
             }
 
 
-        } catch (error) {
+            /* ---------------------------------------------
+               API ERROR
+            --------------------------------------------- */
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to load dashboard"
+                );
+
+            }
+
+
+            /* =================================================
+               COUNTS
+            ================================================= */
+
+            const counts =
+                data.counts || {};
+
+
+            /* =================================================
+               FLOWERS COUNT
+            ================================================= */
+
+            flowersCount.textContent =
+                Number(
+                    counts.flowers || 0
+                );
+
+
+            flowersCount.classList.remove(
+                "loading"
+            );
+
+
+            /* =================================================
+               CART COUNT
+               
+               IMPORTANT:
+               This is TOTAL QUANTITY in cart,
+               not number of cart rows.
+               
+               Example:
+               Rose x 2
+               Lily x 3
+               Dashboard = 5
+            ================================================= */
+
+            cartCount.textContent =
+                Number(
+                    counts.cart || 0
+                );
+
+
+            cartCount.classList.remove(
+                "loading"
+            );
+
+
+            /* =================================================
+               ORDERS COUNT
+               
+               IMPORTANT:
+               This is TOTAL ORDERED QUANTITY,
+               not number of orders.
+               
+               Example:
+               Order 1 = Rose x 2
+               Order 2 = Lily x 3
+               Dashboard = 5
+            ================================================= */
+
+            ordersCount.textContent =
+                Number(
+                    counts.orders || 0
+                );
+
+
+            ordersCount.classList.remove(
+                "loading"
+            );
+
+
+        }
+        catch (error) {
 
             console.error(
-                "Flower count error:",
+                "Dashboard Error:",
                 error
+            );
+
+
+            /* ---------------------------------------------
+               Error display
+            --------------------------------------------- */
+
+            flowersCount.textContent =
+                "0";
+
+            cartCount.textContent =
+                "0";
+
+            ordersCount.textContent =
+                "0";
+
+
+            flowersCount.classList.remove(
+                "loading"
+            );
+
+            cartCount.classList.remove(
+                "loading"
+            );
+
+            ordersCount.classList.remove(
+                "loading"
             );
 
         }
@@ -988,57 +902,65 @@
     }
 
 
-    // =========================================
-    // LOGOUT
-    // =========================================
+    /* =========================================================
+       FIRST LOAD
+    ========================================================= */
 
-    function logout() {
-
-        localStorage.removeItem(
-            "loggedIn"
-        );
+    loadDashboardCounts();
 
 
-        localStorage.removeItem(
-            "currentUser"
-        );
+    /* =========================================================
+       REFRESH WHEN USER RETURNS TO TAB
+    ========================================================= */
+
+    window.addEventListener(
+        "focus",
+        function () {
+
+            loadDashboardCounts();
+
+        }
+    );
 
 
-        alert(
-            "Logged Out Successfully!"
-        );
+    /* =========================================================
+       REFRESH WHEN PAGE BECOMES VISIBLE
+    ========================================================= */
+
+    document.addEventListener(
+        "visibilitychange",
+        function () {
+
+            if (
+                document.visibilityState ===
+                "visible"
+            ) {
+
+                loadDashboardCounts();
+
+            }
+
+        }
+    );
 
 
-        window.location.href = "/login";
-    }
+    /* =========================================================
+       REFRESH WHEN BROWSER BACK/FORWARD
+    ========================================================= */
 
+    window.addEventListener(
+        "pageshow",
+        function () {
 
-    // =========================================
-    // INITIAL LOAD
-    // =========================================
+            loadDashboardCounts();
 
-    updateCartCount();
-
-    updateOrderCount();
-
-    updateFlowerCount();
-
-
-    // =========================================
-    // REFRESH CART COUNT
-    // =========================================
-
-    /*
-     * Every 2 seconds dashboard checks
-     * the database again.
-     *
-     * So if cart changes, count updates.
-     */
-
-    setInterval(
-        updateCartCount,
-        2000
+        }
     );
 
 
 </script>
+
+
+</body>
+
+</html>
