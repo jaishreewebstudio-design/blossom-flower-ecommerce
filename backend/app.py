@@ -427,7 +427,78 @@ def init_db():
 # =========================================================
 
 init_db()
+# =========================================================
+# INITIALIZE DATABASE
+# =========================================================
 
+init_db()
+
+
+# =========================================================
+# UPDATE FLOWER IMAGES
+# =========================================================
+
+def update_flower_images():
+
+    conn = get_db()
+
+    try:
+
+        image_updates = {
+
+            "Red Rose":
+                "YOUR_RED_ROSE_URL",
+
+            "White Lily":
+                "YOUR_WHITE_LILY_URL",
+
+            "Pink Tulip":
+                "YOUR_PINK_TULIP_URL",
+
+            "Yellow Sunflower":
+                "YOUR_SUNFLOWER_URL",
+
+            "Pink Rose":
+                "YOUR_PINK_ROSE_URL",
+
+            "Orange Lily":
+                "https://www.thespruce.com/thmb/Am7_uxE6gU8CIj3UiGONPM5Top4=/4200x0/filters:no_upscale():max_bytes(150000):strip_icc()/orange-lily-growing-guide-5209359-hero-d918f048c3424f1499bf54268a36952c.jpg",
+        }
+
+        for flower_name, image_url in image_updates.items():
+
+            conn.execute(
+                """
+                UPDATE flowers
+                SET image = ?
+                WHERE name = ?
+                """,
+                (
+                    image_url,
+                    flower_name,
+                ),
+            )
+
+        conn.commit()
+
+        print("Flower images updated successfully.")
+
+    except Exception as error:
+
+        conn.rollback()
+
+        print(
+            "Image Update Error:",
+            error
+        )
+
+    finally:
+
+        conn.close()
+
+
+# RUN IMAGE UPDATE
+update_flower_images()
 
 # =========================================================
 # FRONTEND PAGE ROUTES
