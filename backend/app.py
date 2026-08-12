@@ -386,7 +386,9 @@ def init_db():
         "https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?auto=format&fit=crop&w=900&q=85",
         20,
     ),
+
 ]
+
 
         conn.executemany(
                 """
