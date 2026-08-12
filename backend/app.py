@@ -86,9 +86,9 @@ Features:
 - Selective Checkout
 - Orders
 - Health Check
-""",
+        """,
 
-        "version": "5.0.0"
+        "version": "6.0.0"
     },
 
     "basePath": "/",
@@ -271,6 +271,7 @@ def init_db():
     cart_columns = conn.execute(
         "PRAGMA table_info(cart)"
     ).fetchall()
+
 
     cart_column_names = [
         column["name"]
@@ -618,6 +619,74 @@ def cart_html():
 @app.route("/checkout")
 def checkout_page():
 
+    # -----------------------------------------------------
+    # GET SELECTED CART IDS FROM URL
+    #
+    # Example:
+    # /checkout?cart_ids=4,7
+    #
+    # Only cart item 4 and 7 will be used.
+    # -----------------------------------------------------
+
+    cart_ids_text = request.args.get(
+        "cart_ids",
+        ""
+    ).strip()
+
+
+    if cart_ids_text:
+
+        try:
+
+            selected_ids = [
+
+                int(value.strip())
+
+                for value in cart_ids_text.split(",")
+
+                if value.strip()
+            ]
+
+
+            selected_ids = list(
+                dict.fromkeys(
+                    selected_ids
+                )
+            )
+
+
+            if selected_ids:
+
+                session[
+                    "checkout_cart_ids"
+                ] = selected_ids
+
+            else:
+
+                session.pop(
+                    "checkout_cart_ids",
+                    None
+                )
+
+
+        except ValueError:
+
+            session.pop(
+                "checkout_cart_ids",
+                None
+            )
+
+    else:
+
+        # No new selection
+        # Do not automatically take complete cart.
+
+        session.pop(
+            "checkout_cart_ids",
+            None
+        )
+
+
     return render_template(
         "checkout.html"
     )
@@ -626,9 +695,7 @@ def checkout_page():
 @app.route("/checkout.html")
 def checkout_html():
 
-    return render_template(
-        "checkout.html"
-    )
+    return checkout_page()
 
 
 # =========================================================
@@ -1037,6 +1104,8 @@ def login():
     session["user_name"] = user["name"]
 
     session["user_email"] = user["email"]
+
+    session["checkout_cart_ids"] = []
 
     session.permanent = True
 
@@ -1547,10 +1616,6 @@ def add_to_cart():
         }), 400
 
 
-    # -----------------------------------------------------
-    # USER
-    # -----------------------------------------------------
-
     session_user_id = session.get(
         "user_id"
     )
@@ -1698,6 +1763,7 @@ def add_to_cart():
 
                 new_quantity = quantity
 
+
                 conn.execute(
                     """
                     UPDATE cart
@@ -1804,6 +1870,7 @@ def add_to_cart():
     except Exception as error:
 
         conn.rollback()
+
 
         print(
             "Add Cart Error:",
@@ -2236,6 +2303,7 @@ def update_cart_quantity(cart_id):
 
         conn.rollback()
 
+
         print(
             "Update Cart Error:",
             error
@@ -2339,6 +2407,26 @@ def remove_cart_item(cart_id):
         )
 
 
+        # Remove deleted cart item
+        # from pending checkout selection.
+
+        selected_ids = session.get(
+            "checkout_cart_ids",
+            []
+        )
+
+
+        if cart_id in selected_ids:
+
+            selected_ids.remove(
+                cart_id
+            )
+
+            session[
+                "checkout_cart_ids"
+            ] = selected_ids
+
+
         conn.commit()
 
 
@@ -2355,6 +2443,7 @@ def remove_cart_item(cart_id):
     except Exception as error:
 
         conn.rollback()
+
 
         print(
             "Remove Cart Error:",
@@ -2442,6 +2531,11 @@ def clear_user_cart(user_id):
         conn.commit()
 
 
+        session[
+            "checkout_cart_ids"
+        ] = []
+
+
         return jsonify({
 
             "success": True,
@@ -2455,6 +2549,7 @@ def clear_user_cart(user_id):
     except Exception as error:
 
         conn.rollback()
+
 
         print(
             "Clear Cart Error:",
@@ -2483,33 +2578,22 @@ def clear_user_cart(user_id):
 
 @app.route(
     "/api/checkout/selected",
-    methods=["POST"]
+    methods=["GET", "POST"]
 )
 def checkout_selected():
     """
     Get ONLY selected cart items for checkout.
-    No other cart item is included.
+
+    IMPORTANT:
+    This endpoint NEVER automatically uses the complete cart.
+
+    Selected cart IDs come from:
+    1. POST body cart_ids
+    2. checkout session
     ---
     tags:
       - Cart
     """
-
-    data = request.get_json(
-        silent=True
-    )
-
-
-    if not data:
-
-        return jsonify({
-
-            "success": False,
-
-            "message":
-                "Request body is required"
-
-        }), 400
-
 
     user_id = session.get(
         "user_id"
@@ -2528,25 +2612,67 @@ def checkout_selected():
         }), 401
 
 
-    cart_ids = data.get(
-        "cart_ids",
-        []
-    )
+    # =====================================================
+    # GET / POST SELECTION
+    # =====================================================
 
+    if request.method == "POST":
+
+        data = request.get_json(
+            silent=True
+        )
+
+
+        if not data:
+
+            return jsonify({
+
+                "success": False,
+
+                "message":
+                    "Request body is required"
+
+            }), 400
+
+
+        cart_ids = data.get(
+            "cart_ids",
+            []
+        )
+
+
+        if not isinstance(
+            cart_ids,
+            list
+        ):
+
+            return jsonify({
+
+                "success": False,
+
+                "message":
+                    "cart_ids must be a list"
+
+            }), 400
+
+    else:
+
+        cart_ids = session.get(
+            "checkout_cart_ids",
+            []
+        )
+
+
+    # =====================================================
+    # VALIDATE SELECTION
+    # =====================================================
 
     if not isinstance(
         cart_ids,
         list
     ):
 
-        return jsonify({
-
-            "success": False,
-
-            "message":
-                "cart_ids must be a list"
-
-        }), 400
+        cart_ids = []
 
 
     if len(cart_ids) == 0:
@@ -2564,7 +2690,9 @@ def checkout_selected():
     try:
 
         cart_ids = [
+
             int(cart_id)
+
             for cart_id in cart_ids
         ]
 
@@ -2588,6 +2716,14 @@ def checkout_selected():
             cart_ids
         )
     )
+
+
+    # Save exact selection
+    # into checkout session.
+
+    session[
+        "checkout_cart_ids"
+    ] = cart_ids
 
 
     conn = get_db()
@@ -2662,7 +2798,9 @@ def checkout_selected():
 
 
         found_ids = {
+
             item["cart_id"]
+
             for item in items
         }
 
@@ -2690,9 +2828,11 @@ def checkout_selected():
                 item["price"]
             )
 
+
             quantity = int(
                 item["quantity"]
             )
+
 
             subtotal = (
                 price * quantity
@@ -2766,7 +2906,10 @@ def checkout_selected():
                 total,
 
             "selected_count":
-                len(selected_items)
+                len(selected_items),
+
+            "selected_cart_ids":
+                cart_ids
 
         }), 200
 
@@ -2893,11 +3036,28 @@ def create_order():
     # =====================================================
     # SELECTED CART IDS
     # =====================================================
+    #
+    # First preference:
+    # frontend sends cart_ids
+    #
+    # Second preference:
+    # checkout session
+    #
+    # NEVER use complete cart automatically.
+    # =====================================================
 
     cart_ids = data.get(
         "cart_ids",
-        []
+        None
     )
+
+
+    if cart_ids is None:
+
+        cart_ids = session.get(
+            "checkout_cart_ids",
+            []
+        )
 
 
     # =====================================================
@@ -2975,7 +3135,9 @@ def create_order():
     try:
 
         cart_ids = [
+
             int(cart_id)
+
             for cart_id in cart_ids
         ]
 
@@ -2999,6 +3161,13 @@ def create_order():
             cart_ids
         )
     )
+
+
+    # Save exact selected items.
+
+    session[
+        "checkout_cart_ids"
+    ] = cart_ids
 
 
     conn = get_db()
@@ -3089,8 +3258,7 @@ def create_order():
 
 
         # =================================================
-        # IMPORTANT:
-        # ONLY SELECTED ITEMS MUST BE FOUND
+        # EXACT SELECTION CHECK
         # =================================================
 
         if len(cart_items) != len(cart_ids):
@@ -3145,7 +3313,9 @@ def create_order():
         for item in cart_items:
 
             total += (
+
                 float(item["price"])
+
                 * int(item["quantity"])
             )
 
@@ -3191,7 +3361,9 @@ def create_order():
         for item in cart_items:
 
             subtotal = (
+
                 float(item["price"])
+
                 * int(item["quantity"])
             )
 
@@ -3288,6 +3460,16 @@ def create_order():
 
 
         # =================================================
+        # CLEAR CHECKOUT SELECTION
+        # =================================================
+
+        session.pop(
+            "checkout_cart_ids",
+            None
+        )
+
+
+        # =================================================
         # GET CREATED ORDER
         # =================================================
 
@@ -3302,7 +3484,7 @@ def create_order():
 
 
         # =================================================
-        # RETURN ORDER ITEMS
+        # GET CREATED ORDER ITEMS
         # =================================================
 
         created_items = conn.execute(
@@ -3400,6 +3582,7 @@ def create_order():
     except Exception as error:
 
         conn.rollback()
+
 
         print(
             "Create Order Error:",
@@ -3851,6 +4034,7 @@ def delete_order(order_id):
     except Exception as error:
 
         conn.rollback()
+
 
         print(
             "Delete Order Error:",
