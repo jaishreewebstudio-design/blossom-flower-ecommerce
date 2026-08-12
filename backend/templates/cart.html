@@ -10,24 +10,15 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Cart | Blossom Flower Shop</title>
+    <title>My Cart | Blossom Flower Shop</title>
 
     <style>
-
-        /* =====================================================
-           RESET
-        ===================================================== */
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
-
-        /* =====================================================
-           BODY
-        ===================================================== */
 
         body {
 
@@ -36,7 +27,12 @@
                 Helvetica,
                 sans-serif;
 
-            background: #fff5f8;
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff5f9,
+                    #fdebf3
+                );
 
             color: #333;
 
@@ -50,103 +46,149 @@
 
         .navbar {
 
+            width: 100%;
+
             background: white;
 
-            padding: 20px 50px;
+            min-height: 72px;
 
             display: flex;
 
-            justify-content: space-between;
-
             align-items: center;
 
+            justify-content: space-between;
+
+            padding:
+                0 35px;
+
+            border-bottom:
+                1px solid #f2dce7;
+
             box-shadow:
-                0 3px 15px
-                rgba(0, 0, 0, 0.08);
+                0 2px 10px
+                rgba(0, 0, 0, 0.04);
 
             position: sticky;
 
             top: 0;
 
-            z-index: 100;
+            z-index: 1000;
         }
 
 
         .logo {
 
-            color: #d63384;
+            font-size: 27px;
 
-            font-size: 25px;
+            font-weight: 700;
 
-            font-weight: bold;
+            color: #df2780;
 
             white-space: nowrap;
         }
 
 
-        nav ul {
-
-            list-style: none;
+        .nav-links {
 
             display: flex;
 
             align-items: center;
 
-            gap: 25px;
+            gap: 30px;
         }
 
 
-        nav ul li a {
+        .nav-links a {
 
             text-decoration: none;
 
-            color: #444;
+            color: #333;
 
-            font-weight: 600;
+            font-size: 16px;
 
-            transition: 0.3s;
+            font-weight: 500;
+
+            padding:
+                25px 3px;
+
+            transition: 0.2s;
         }
 
 
-        nav ul li a:hover {
+        .nav-links a:hover {
 
-            color: #d63384;
+            color: #df2780;
+        }
+
+
+        .nav-links a.active {
+
+            color: #df2780;
+
+            border-bottom:
+                3px solid #df2780;
+        }
+
+
+        .user-area {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 16px;
+
+            white-space: nowrap;
+        }
+
+
+        .user-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            border:
+                1px solid #ddd;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 20px;
+
+            background: #fff;
         }
 
 
         /* =====================================================
-           MAIN SECTION
+           PAGE
         ===================================================== */
 
-        .cart-section {
+        .container {
 
-            max-width: 1100px;
+            width: 94%;
 
-            margin: 45px auto;
+            max-width: 1250px;
 
-            padding: 0 20px;
-        }
-
-
-        .cart-card {
-
-            background: white;
-
-            border-radius: 18px;
-
-            padding: 30px;
-
-            box-shadow:
-                0 6px 25px
-                rgba(0, 0, 0, 0.08);
+            margin:
+                35px auto 60px;
         }
 
 
         .page-title {
 
-            color: #c2185b;
+            font-size: 32px;
 
-            font-size: 28px;
+            font-weight: 700;
+
+            color: #111;
 
             margin-bottom: 8px;
         }
@@ -154,9 +196,658 @@
 
         .page-subtitle {
 
+            color: #666;
+
+            font-size: 16px;
+
+            margin-bottom: 28px;
+        }
+
+
+        /* =====================================================
+           CART MAIN
+        ===================================================== */
+
+        .cart-box {
+
+            background: white;
+
+            border:
+                1px solid #eadde4;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 4px 18px
+                rgba(0, 0, 0, 0.05);
+        }
+
+
+        /* =====================================================
+           SECTION HEADER
+        ===================================================== */
+
+        .section-header {
+
+            padding:
+                18px 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            border-bottom:
+                1px solid #eadde4;
+
+            background:
+                #fff8fb;
+        }
+
+
+        .section-title {
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+            color: #222;
+        }
+
+
+        .section-count {
+
+            min-width: 35px;
+
+            height: 35px;
+
+            padding:
+                0 10px;
+
+            border-radius: 50px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 700;
+
+            color: white;
+
+            background: #df2780;
+        }
+
+
+        /* =====================================================
+           CART ITEM
+        ===================================================== */
+
+        .cart-item {
+
+            display: grid;
+
+            grid-template-columns:
+                55px
+                115px
+                1fr
+                160px
+                150px;
+
+            gap: 18px;
+
+            align-items: center;
+
+            padding:
+                25px;
+
+            border-bottom:
+                1px solid #eeeeee;
+
+            transition: 0.2s;
+        }
+
+
+        .cart-item:hover {
+
+            background:
+                #fffafd;
+        }
+
+
+        .cart-item:last-child {
+
+            border-bottom: none;
+        }
+
+
+        /* =====================================================
+           SELECT
+        ===================================================== */
+
+        .select-area {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .select-checkbox {
+
+            width: 22px;
+
+            height: 22px;
+
+            accent-color: #df2780;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           IMAGE
+        ===================================================== */
+
+        .flower-image {
+
+            width: 115px;
+
+            height: 115px;
+
+            border-radius: 15px;
+
+            object-fit: cover;
+
+            border:
+                1px solid #f0d8e3;
+
+            background: #fff2f7;
+        }
+
+
+        /* =====================================================
+           FLOWER INFO
+        ===================================================== */
+
+        .flower-info {
+
+            min-width: 0;
+        }
+
+
+        .flower-name {
+
+            font-size: 23px;
+
+            font-weight: 700;
+
+            color: #292929;
+
+            margin-bottom: 8px;
+        }
+
+
+        .flower-description {
+
+            color: #666;
+
+            font-size: 16px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .flower-price {
+
+            color: #df2780;
+
+            font-size: 18px;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           QUANTITY
+        ===================================================== */
+
+        .quantity-area {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .quantity-box {
+
+            display: flex;
+
+            align-items: center;
+
+            border:
+                1px solid #eab6ce;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+
+        .quantity-btn {
+
+            width: 45px;
+
+            height: 42px;
+
+            border: none;
+
+            background: #fde3ee;
+
+            color: #df2780;
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .quantity-btn:hover {
+
+            background: #f8cddd;
+        }
+
+
+        .quantity-value {
+
+            width: 50px;
+
+            height: 42px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: white;
+
+            font-size: 17px;
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           ACTIONS
+        ===================================================== */
+
+        .actions {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: flex-end;
+
+            gap: 12px;
+        }
+
+
+        .remove-btn {
+
+            border: none;
+
+            background: #ffe5e5;
+
+            color: #c91d1d;
+
+            padding:
+                12px 18px;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .remove-btn:hover {
+
+            background: #ffd2d2;
+        }
+
+
+        .select-btn {
+
+            border:
+                1px solid #df2780;
+
+            background: white;
+
+            color: #df2780;
+
+            padding:
+                10px 18px;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .select-btn:hover {
+
+            background: #df2780;
+
+            color: white;
+        }
+
+
+        .subtotal {
+
+            color: #df2780;
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            text-align: right;
+        }
+
+
+        /* =====================================================
+           ORDERED SECTION
+        ===================================================== */
+
+        .ordered-section {
+
+            margin-top: 25px;
+
+            background: white;
+
+            border:
+                1px solid #eadde4;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 4px 18px
+                rgba(0, 0, 0, 0.05);
+        }
+
+
+        .ordered-header {
+
+            padding:
+                18px 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            background:
+                #fff8ec;
+
+            border-bottom:
+                1px solid #f1dfbd;
+        }
+
+
+        .ordered-title {
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+            color: #9b5d00;
+        }
+
+
+        .ordered-count {
+
+            min-width: 35px;
+
+            height: 35px;
+
+            padding:
+                0 10px;
+
+            border-radius: 50px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 700;
+
+            color: white;
+
+            background: #e58a00;
+        }
+
+
+        .ordered-item {
+
+            display: grid;
+
+            grid-template-columns:
+                115px
+                1fr
+                180px
+                150px;
+
+            gap: 20px;
+
+            align-items: center;
+
+            padding:
+                25px;
+
+            border-bottom:
+                1px solid #eeeeee;
+        }
+
+
+        .ordered-item:last-child {
+
+            border-bottom: none;
+        }
+
+
+        .ordered-badge {
+
+            display: inline-block;
+
+            background: #fff0d2;
+
+            color: #a85c00;
+
+            padding:
+                8px 14px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            margin-bottom: 10px;
+        }
+
+
+        .ordered-date {
+
             color: #777;
 
-            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           BOTTOM CHECKOUT BAR
+        ===================================================== */
+
+        .checkout-bar {
+
+            margin-top: 25px;
+
+            background: white;
+
+            border:
+                1px solid #eadde4;
+
+            border-radius: 15px;
+
+            padding:
+                20px 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            box-shadow:
+                0 4px 18px
+                rgba(0, 0, 0, 0.05);
+        }
+
+
+        .selected-info {
+
+            font-size: 17px;
+
+            color: #555;
+        }
+
+
+        .selected-info strong {
+
+            color: #df2780;
+
+            font-size: 20px;
+        }
+
+
+        .checkout-btn {
+
+            border: none;
+
+            background: #df2780;
+
+            color: white;
+
+            padding:
+                14px 25px;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .checkout-btn:hover {
+
+            background: #c91d70;
+        }
+
+
+        .checkout-btn:disabled {
+
+            background: #d9a8bd;
+
+            cursor: not-allowed;
+        }
+
+
+        /* =====================================================
+           EMPTY
+        ===================================================== */
+
+        .empty-cart {
+
+            text-align: center;
+
+            padding:
+                70px 20px;
+
+            color: #777;
+        }
+
+
+        .empty-cart-icon {
+
+            font-size: 55px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .empty-cart h2 {
+
+            color: #333;
+
+            margin-bottom: 10px;
+        }
+
+
+        .shop-btn {
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            background: #df2780;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding:
+                13px 25px;
+
+            border-radius: 10px;
+
+            font-weight: 700;
         }
 
 
@@ -168,26 +859,14 @@
 
             display: none;
 
-            padding: 13px 16px;
-
-            border-radius: 9px;
-
             margin-bottom: 20px;
 
-            font-weight: bold;
-        }
+            padding:
+                14px 18px;
 
+            border-radius: 10px;
 
-        .message.success {
-
-            display: block;
-
-            background: #e6f8ed;
-
-            color: #16803c;
-
-            border:
-                1px solid #b7e5c7;
+            font-weight: 600;
         }
 
 
@@ -195,563 +874,19 @@
 
             display: block;
 
-            background: #ffe7e7;
+            background: #ffe5e5;
 
-            color: #b42323;
-
-            border:
-                1px solid #f2b8b8;
+            color: #c62828;
         }
 
 
-        /* =====================================================
-           CART TOP BAR
-        ===================================================== */
+        .message.success {
 
-        .cart-top-bar {
+            display: block;
 
-            display: flex;
+            background: #e7f8e9;
 
-            justify-content: space-between;
-
-            align-items: center;
-
-            gap: 15px;
-
-            padding: 15px 18px;
-
-            background: #fff0f5;
-
-            border:
-                1px solid #f0d6df;
-
-            border-radius: 12px;
-
-            margin-bottom: 20px;
-        }
-
-
-        .select-all-area {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 10px;
-
-            color: #c2185b;
-
-            font-weight: bold;
-        }
-
-
-        .select-all-area input {
-
-            width: 18px;
-
-            height: 18px;
-
-            accent-color: #d63384;
-
-            cursor: pointer;
-        }
-
-
-        .item-count {
-
-            color: #777;
-
-            font-size: 14px;
-        }
-
-
-        /* =====================================================
-           CART ITEMS
-        ===================================================== */
-
-        .cart-items {
-
-            border:
-                1px solid #f0d6df;
-
-            border-radius: 12px;
-
-            overflow: hidden;
-        }
-
-
-        .cart-item {
-
-            display: grid;
-
-            grid-template-columns:
-                45px
-                100px
-                1fr
-                auto
-                auto
-                auto;
-
-            align-items: center;
-
-            gap: 18px;
-
-            padding: 20px;
-
-            border-bottom:
-                1px solid #eeeeee;
-
-            transition: 0.2s;
-        }
-
-
-        .cart-item:last-child {
-
-            border-bottom: none;
-        }
-
-
-        .cart-item:hover {
-
-            background: #fffafb;
-        }
-
-
-        /* =====================================================
-           CHECKBOX
-        ===================================================== */
-
-        .item-checkbox {
-
-            width: 18px;
-
-            height: 18px;
-
-            accent-color: #d63384;
-
-            cursor: pointer;
-        }
-
-
-        /* =====================================================
-           FLOWER IMAGE
-        ===================================================== */
-
-        .flower-image {
-
-            width: 90px;
-
-            height: 90px;
-
-            border-radius: 12px;
-
-            overflow: hidden;
-
-            background: #fff0f5;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            border:
-                1px solid #f0d6df;
-        }
-
-
-        .flower-image img {
-
-            width: 100%;
-
-            height: 100%;
-
-            object-fit: cover;
-        }
-
-
-        .flower-placeholder {
-
-            font-size: 35px;
-        }
-
-
-        /* =====================================================
-           PRODUCT INFORMATION
-        ===================================================== */
-
-        .product-info {
-
-            min-width: 0;
-        }
-
-
-        .product-name {
-
-            color: #444;
-
-            font-size: 18px;
-
-            font-weight: bold;
-
-            margin-bottom: 7px;
-        }
-
-
-        .product-description {
-
-            color: #777;
-
-            font-size: 14px;
-
-            line-height: 1.5;
-
-            max-width: 420px;
-        }
-
-
-        .product-price {
-
-            color: #d63384;
-
-            font-size: 16px;
-
-            font-weight: bold;
-
-            margin-top: 8px;
-        }
-
-
-        /* =====================================================
-           QUANTITY
-        ===================================================== */
-
-        .quantity-box {
-
-            display: flex;
-
-            align-items: center;
-
-            border:
-                1px solid #e7bfd0;
-
-            border-radius: 8px;
-
-            overflow: hidden;
-
-            background: white;
-        }
-
-
-        .quantity-btn {
-
-            width: 35px;
-
-            height: 35px;
-
-            border: none;
-
-            background: #ffe0eb;
-
-            color: #c2185b;
-
-            font-size: 18px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            transition: 0.2s;
-        }
-
-
-        .quantity-btn:hover {
-
-            background: #f8c5d4;
-        }
-
-
-        .quantity-value {
-
-            min-width: 40px;
-
-            text-align: center;
-
-            font-weight: bold;
-
-            color: #444;
-        }
-
-
-        /* =====================================================
-           SUBTOTAL
-        ===================================================== */
-
-        .item-subtotal {
-
-            color: #d63384;
-
-            font-weight: bold;
-
-            font-size: 17px;
-
-            white-space: nowrap;
-        }
-
-
-        /* =====================================================
-           REMOVE BUTTON
-        ===================================================== */
-
-        .remove-btn {
-
-            border: none;
-
-            background: #ffe7e7;
-
-            color: #b42323;
-
-            padding: 9px 12px;
-
-            border-radius: 8px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            transition: 0.2s;
-        }
-
-
-        .remove-btn:hover {
-
-            background: #ffd0d0;
-        }
-
-
-        /* =====================================================
-           SUMMARY
-        ===================================================== */
-
-        .cart-summary {
-
-            margin-top: 25px;
-
-            border:
-                1px solid #f0d6df;
-
-            border-radius: 12px;
-
-            padding: 22px;
-
-            background: #fffafb;
-        }
-
-
-        .summary-row {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            padding: 8px 0;
-
-            color: #555;
-        }
-
-
-        .summary-row.selected {
-
-            color: #c2185b;
-
-            font-weight: bold;
-        }
-
-
-        .summary-total {
-
-            margin-top: 12px;
-
-            padding-top: 15px;
-
-            border-top:
-                1px solid #e8d5dc;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-        }
-
-
-        .summary-total-label {
-
-            color: #c2185b;
-
-            font-size: 23px;
-
-            font-weight: bold;
-        }
-
-
-        .summary-total-price {
-
-            color: #d63384;
-
-            font-size: 26px;
-
-            font-weight: bold;
-        }
-
-
-        /* =====================================================
-           BUTTON AREA
-        ===================================================== */
-
-        .button-area {
-
-            display: flex;
-
-            justify-content: flex-end;
-
-            gap: 15px;
-
-            margin-top: 25px;
-        }
-
-
-        .btn {
-
-            border: none;
-
-            padding: 14px 24px;
-
-            border-radius: 9px;
-
-            font-size: 16px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            transition: 0.2s;
-        }
-
-
-        .continue-btn {
-
-            background: #ffe0eb;
-
-            color: #c2185b;
-        }
-
-
-        .continue-btn:hover {
-
-            background: #f8c5d4;
-        }
-
-
-        .checkout-btn {
-
-            background: #d63384;
-
-            color: white;
-
-            min-width: 190px;
-        }
-
-
-        .checkout-btn:hover {
-
-            background: #c2185b;
-        }
-
-
-        .checkout-btn:disabled {
-
-            opacity: 0.5;
-
-            cursor: not-allowed;
-        }
-
-
-        /* =====================================================
-           EMPTY CART
-        ===================================================== */
-
-        .empty-cart {
-
-            text-align: center;
-
-            padding: 65px 20px;
-        }
-
-
-        .empty-icon {
-
-            font-size: 65px;
-
-            margin-bottom: 15px;
-        }
-
-
-        .empty-cart h2 {
-
-            color: #d63384;
-
-            margin-bottom: 10px;
-        }
-
-
-        .empty-cart p {
-
-            color: #777;
-
-            margin-bottom: 25px;
-        }
-
-
-        .shop-btn {
-
-            display: inline-block;
-
-            text-decoration: none;
-
-            background: #d63384;
-
-            color: white;
-
-            padding: 12px 22px;
-
-            border-radius: 8px;
-
-            font-weight: bold;
-        }
-
-
-        .shop-btn:hover {
-
-            background: #c2185b;
-        }
-
-
-        /* =====================================================
-           LOADING
-        ===================================================== */
-
-        .loading {
-
-            text-align: center;
-
-            padding: 50px;
-
-            color: #777;
-
-            font-size: 17px;
+            color: #287b31;
         }
 
 
@@ -759,145 +894,169 @@
            RESPONSIVE
         ===================================================== */
 
-        @media (max-width: 900px) {
+        @media (max-width: 950px) {
+
+            .navbar {
+
+                padding:
+                    0 18px;
+            }
+
+
+            .nav-links {
+
+                gap: 15px;
+            }
+
+
+            .nav-links a {
+
+                font-size: 14px;
+            }
+
 
             .cart-item {
 
                 grid-template-columns:
-                    35px
-                    80px
-                    1fr
-                    auto;
-
-                gap: 14px;
+                    45px
+                    100px
+                    1fr;
             }
 
 
-            .quantity-box {
+            .quantity-area {
 
-                grid-column: 3;
-                width: fit-content;
+                justify-content: flex-start;
             }
 
 
-            .item-subtotal {
-
-                grid-column: 4;
-                grid-row: 2;
-            }
-
-
-            .remove-btn {
-
-                grid-column: 4;
-                grid-row: 1;
-            }
-
-        }
-
-
-        @media (max-width: 700px) {
-
-            .navbar {
-
-                flex-direction: column;
-
-                gap: 15px;
-
-                padding: 20px;
-            }
-
-
-            nav ul {
-
-                flex-wrap: wrap;
-
-                justify-content: center;
-
-                gap: 15px;
-            }
-
-
-            .cart-section {
-
-                margin-top: 25px;
-
-                padding: 0 12px;
-            }
-
-
-            .cart-card {
-
-                padding: 20px;
-            }
-
-
-            .cart-top-bar {
-
-                flex-direction: column;
+            .actions {
 
                 align-items: flex-start;
             }
 
 
+            .subtotal {
+
+                text-align: left;
+            }
+
+
+            .ordered-item {
+
+                grid-template-columns:
+                    100px
+                    1fr;
+            }
+        }
+
+
+        @media (max-width: 650px) {
+
+            .navbar {
+
+                flex-direction: column;
+
+                padding:
+                    15px;
+
+                gap: 10px;
+            }
+
+
+            .nav-links {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+
+            .nav-links a {
+
+                padding:
+                    8px 3px;
+            }
+
+
+            .container {
+
+                width: 96%;
+
+                margin-top: 25px;
+            }
+
+
             .cart-item {
 
                 grid-template-columns:
-                    35px
-                    75px
+                    40px
+                    85px
                     1fr;
 
-                gap: 12px;
+                gap: 10px;
 
-                padding: 15px;
+                padding: 18px;
             }
 
 
             .flower-image {
 
-                width: 70px;
+                width: 85px;
 
-                height: 70px;
+                height: 85px;
             }
 
 
-            .quantity-box {
+            .flower-name {
 
-                grid-column: 3;
-
-                grid-row: 2;
+                font-size: 18px;
             }
 
 
-            .item-subtotal {
+            .flower-description {
 
-                grid-column: 3;
-
-                grid-row: 3;
+                font-size: 14px;
             }
 
 
-            .remove-btn {
+            .quantity-area,
+            .actions,
+            .subtotal {
 
-                grid-column: 3;
-
-                grid-row: 4;
-
-                width: fit-content;
+                grid-column:
+                    3 / 4;
             }
 
 
-            .button-area {
+            .actions {
+
+                align-items: flex-start;
+            }
+
+
+            .ordered-item {
+
+                grid-template-columns:
+                    85px
+                    1fr;
+
+                gap: 12px;
+            }
+
+
+            .checkout-bar {
 
                 flex-direction: column;
+
+                align-items: stretch;
             }
 
 
-            .btn {
+            .checkout-btn {
 
                 width: 100%;
             }
-
         }
 
     </style>
@@ -908,431 +1067,115 @@
 <body>
 
 
-<!-- =========================================================
+<!-- =====================================================
      NAVBAR
-========================================================= -->
+===================================================== -->
 
-<header class="navbar">
+<nav class="navbar">
 
     <div class="logo">
         🌸 Blossom Flower Shop
     </div>
 
 
-    <nav>
+    <div class="nav-links">
 
-        <ul>
+        <a href="/dashboard">
+            Dashboard
+        </a>
 
-            <li>
-                <a href="{{ url_for('dashboard_page') }}">
-                    Dashboard
-                </a>
-            </li>
+        <a href="/home">
+            Home
+        </a>
 
+        <a href="/flower">
+            Flowers
+        </a>
 
-            <li>
-                <a href="{{ url_for('home_page') }}">
-                    Home
-                </a>
-            </li>
+        <a
+            href="/cart"
+            class="active"
+        >
+            Cart
+        </a>
 
+        <a href="/orders">
+            Orders
+        </a>
 
-            <li>
-                <a href="{{ url_for('flowers_page') }}">
-                    Flowers
-                </a>
-            </li>
-
-
-            <li>
-                <a href="{{ url_for('cart_page') }}">
-                    Cart
-                </a>
-            </li>
+    </div>
 
 
-            <li>
-                <a href="{{ url_for('orders_page') }}">
-                    Orders
-                </a>
-            </li>
+    <div class="user-area">
 
-        </ul>
+        <div class="user-icon">
+            👤
+        </div>
 
-    </nav>
+        <span id="welcomeUser">
+            Welcome
+        </span>
 
-</header>
+    </div>
 
-
-
-<!-- =========================================================
-     CART SECTION
-========================================================= -->
-
-<section class="cart-section">
-
-    <div class="cart-card">
+</nav>
 
 
-        <h1 class="page-title">
-            🌸 Shopping Cart
-        </h1>
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
 
 
-        <p class="page-subtitle">
-            Select the flowers you want to order.
-        </p>
+    <h1 class="page-title">
+        🛒 My Cart
+    </h1>
 
 
-        <!-- MESSAGE -->
-
-        <div
-            id="message"
-            class="message"
-        ></div>
+    <p class="page-subtitle">
+        Select the flowers you want to purchase.
+    </p>
 
 
+    <div
+        id="message"
+        class="message"
+    ></div>
 
-        <!-- =================================================
-             CART CONTENT
-        ================================================== -->
 
-        <div id="cartContent">
+    <!-- =================================================
+         ACTIVE CART
+    ================================================= -->
 
-            <div class="loading">
-                ⏳ Loading your cart...
+    <section class="cart-box">
+
+        <div class="section-header">
+
+            <div class="section-title">
+                🛒 In Cart
+            </div>
+
+            <div
+                class="section-count"
+                id="activeCount"
+            >
+                0
             </div>
 
         </div>
 
 
-    </div>
-
-</section>
-
-
-
-<script>
-
-
-/* =========================================================
-   API
-========================================================= */
-
-const API_URL = "";
-
-
-
-/* =========================================================
-   CURRENT USER
-========================================================= */
-
-function getCurrentUser() {
-
-    const userData =
-        localStorage.getItem("currentUser");
-
-
-    if (!userData) {
-
-        return null;
-
-    }
-
-
-    try {
-
-        return JSON.parse(userData);
-
-    } catch (error) {
-
-        console.error(
-            "Current User Error:",
-            error
-        );
-
-        return null;
-
-    }
-
-}
-
-
-
-/* =========================================================
-   VARIABLES
-========================================================= */
-
-let cartItems = [];
-
-let selectedCartIds = [];
-
-
-
-/* =========================================================
-   LOAD SAVED SELECTION
-========================================================= */
-
-function loadSavedSelection() {
-
-    const saved =
-        localStorage.getItem(
-            "selectedCartIds"
-        );
-
-
-    if (!saved) {
-
-        selectedCartIds = [];
-
-        return;
-
-    }
-
-
-    try {
-
-        const parsed =
-            JSON.parse(saved);
-
-
-        if (!Array.isArray(parsed)) {
-
-            selectedCartIds = [];
-
-            return;
-
-        }
-
-
-        selectedCartIds =
-            parsed
-                .map(id => Number(id))
-                .filter(
-                    id =>
-                        Number.isInteger(id) &&
-                        id > 0
-                );
-
-    } catch (error) {
-
-        console.error(
-            "Selection Error:",
-            error
-        );
-
-        selectedCartIds = [];
-
-    }
-
-}
-
-
-
-/* =========================================================
-   SAVE SELECTION
-========================================================= */
-
-function saveSelectedIds() {
-
-    localStorage.setItem(
-        "selectedCartIds",
-        JSON.stringify(
-            selectedCartIds
-        )
-    );
-
-}
-
-
-
-/* =========================================================
-   LOAD CART
-========================================================= */
-
-async function loadCart() {
-
-    const user =
-        getCurrentUser();
-
-
-    if (!user || !user.id) {
-
-        document.getElementById(
-            "cartContent"
-        ).innerHTML = `
+        <div id="activeCartContainer">
 
             <div class="empty-cart">
 
-                <div class="empty-icon">
-                    🌸
+                <div class="empty-cart-icon">
+                    🛒
                 </div>
 
                 <h2>
-                    Please Login
-                </h2>
-
-                <p>
-                    Please login to view your shopping cart.
-                </p>
-
-                <a
-                    href="{{ url_for('login_page') }}"
-                    class="shop-btn"
-                >
-                    Login
-                </a>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    loadSavedSelection();
-
-
-    try {
-
-        const response =
-            await fetch(
-                `${API_URL}/api/cart/${user.id}`,
-                {
-                    method: "GET",
-
-                    credentials: "include",
-
-                    headers: {
-                        "Accept":
-                            "application/json"
-                    }
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if (
-            !response.ok ||
-            !data.success
-        ) {
-
-            throw new Error(
-                data.message ||
-                "Unable to load cart."
-            );
-
-        }
-
-
-        cartItems =
-            Array.isArray(data.cart)
-                ? data.cart
-                : [];
-
-
-        /*
-         * Remove IDs from localStorage
-         * that no longer exist in cart.
-         */
-
-        const existingIds =
-            cartItems.map(
-                item => Number(item.id)
-            );
-
-
-        selectedCartIds =
-            selectedCartIds.filter(
-                id =>
-                    existingIds.includes(id)
-            );
-
-
-        saveSelectedIds();
-
-
-        displayCart();
-
-
-    } catch (error) {
-
-        console.error(
-            "Cart Error:",
-            error
-        );
-
-
-        document.getElementById(
-            "cartContent"
-        ).innerHTML = `
-
-            <div class="empty-cart">
-
-                <div class="empty-icon">
-                    🌸
-                </div>
-
-                <h2>
-                    Unable to Load Cart
-                </h2>
-
-                <p>
-                    ${escapeHtml(
-                        error.message ||
-                        "Something went wrong."
-                    )}
-                </p>
-
-                <button
-                    class="btn checkout-btn"
-                    onclick="loadCart()"
-                >
-                    Try Again
-                </button>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-
-/* =========================================================
-   DISPLAY CART
-========================================================= */
-
-function displayCart() {
-
-    const container =
-        document.getElementById(
-            "cartContent"
-        );
-
-
-    if (
-        !Array.isArray(cartItems) ||
-        cartItems.length === 0
-    ) {
-
-        container.innerHTML = `
-
-            <div class="empty-cart">
-
-                <div class="empty-icon">
-                    🌸
-                </div>
-
-                <h2>
-                    Your Cart is Empty
+                    Your cart is empty
                 </h2>
 
                 <p>
@@ -1340,1015 +1183,1131 @@ function displayCart() {
                 </p>
 
                 <a
-                    href="{{ url_for('flowers_page') }}"
+                    href="/flower"
                     class="shop-btn"
                 >
-                    🌸 Browse Flowers
+                    Shop Flowers
                 </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         ORDERED ITEMS
+    ================================================= -->
+
+    <section
+        class="ordered-section"
+        id="orderedSection"
+        style="display:none;"
+    >
+
+        <div class="ordered-header">
+
+            <div class="ordered-title">
+                📦 Ordered
+            </div>
+
+            <div
+                class="ordered-count"
+                id="orderedCount"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div id="orderedCartContainer"></div>
+
+    </section>
+
+
+    <!-- =================================================
+         CHECKOUT BAR
+    ================================================= -->
+
+    <div class="checkout-bar">
+
+        <div class="selected-info">
+
+            Selected:
+
+            <strong id="selectedCount">
+                0
+            </strong>
+
+            item(s)
+
+        </div>
+
+
+        <button
+            id="checkoutButton"
+            class="checkout-btn"
+            disabled
+            onclick="goToCheckout()"
+        >
+            🛒 Proceed to Checkout
+        </button>
+
+    </div>
+
+
+</main>
+
+
+<script>
+
+    /* =====================================================
+       GLOBAL DATA
+    ===================================================== */
+
+    let currentUserId = null;
+
+    let cartItems = [];
+
+    let selectedCartIds = [];
+
+
+    /* =====================================================
+       PAGE LOAD
+    ===================================================== */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        async function () {
+
+            await loadCurrentUser();
+
+        }
+    );
+
+
+    /* =====================================================
+       LOAD CURRENT USER
+    ===================================================== */
+
+    async function loadCurrentUser() {
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/me",
+                    {
+                        credentials: "include"
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                window.location.href =
+                    "/login";
+
+                return;
+            }
+
+
+            currentUserId =
+                data.user.id;
+
+
+            document.getElementById(
+                "welcomeUser"
+            ).textContent =
+                "Welcome, " +
+                data.user.name;
+
+
+            await loadCart();
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "User Error:",
+                error
+            );
+
+            showMessage(
+                "Unable to load user information.",
+                "error"
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       LOAD CART
+    ===================================================== */
+
+    async function loadCart() {
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/cart/${currentUserId}`,
+                    {
+                        credentials: "include"
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                response.status === 401
+            ) {
+
+                window.location.href =
+                    "/login";
+
+                return;
+            }
+
+
+            if (!data.success) {
+
+                showMessage(
+                    data.message ||
+                    "Unable to load cart.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            cartItems =
+                data.cart || [];
+
+
+            /*
+             * IMPORTANT:
+             *
+             * Only In Cart items can remain selected.
+             *
+             * Ordered items are automatically removed
+             * from selectedCartIds.
+             */
+
+            selectedCartIds =
+                selectedCartIds.filter(
+                    id =>
+                        cartItems.some(
+                            item =>
+                                item.id === id &&
+                                item.status === "In Cart"
+                        )
+                );
+
+
+            renderCart();
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Cart Error:",
+                error
+            );
+
+            showMessage(
+                "Unable to load cart.",
+                "error"
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       RENDER CART
+    ===================================================== */
+
+    function renderCart() {
+
+        const activeItems =
+            cartItems.filter(
+                item =>
+                    item.status !== "Ordered"
+            );
+
+
+        const orderedItems =
+            cartItems.filter(
+                item =>
+                    item.status === "Ordered"
+            );
+
+
+        /*
+         * ACTIVE COUNT
+         */
+
+        document.getElementById(
+            "activeCount"
+        ).textContent =
+            activeItems.length;
+
+
+        /*
+         * ORDERED COUNT
+         */
+
+        document.getElementById(
+            "orderedCount"
+        ).textContent =
+            orderedItems.length;
+
+
+        renderActiveItems(
+            activeItems
+        );
+
+
+        renderOrderedItems(
+            orderedItems
+        );
+
+
+        updateSelectedCount();
+
+    }
+
+
+    /* =====================================================
+       ACTIVE ITEMS
+    ===================================================== */
+
+    function renderActiveItems(
+        items
+    ) {
+
+        const container =
+            document.getElementById(
+                "activeCartContainer"
+            );
+
+
+        if (items.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="empty-cart">
+
+                    <div class="empty-cart-icon">
+                        🛒
+                    </div>
+
+                    <h2>
+                        No active items in cart
+                    </h2>
+
+                    <p>
+                        Your purchased items will appear
+                        below in the Ordered section.
+                    </p>
+
+                    <a
+                        href="/flower"
+                        class="shop-btn"
+                    >
+                        Shop Flowers
+                    </a>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        container.innerHTML =
+            items.map(
+                item =>
+                    createActiveItemHTML(
+                        item
+                    )
+            ).join("");
+
+    }
+
+
+    /* =====================================================
+       ACTIVE ITEM HTML
+    ===================================================== */
+
+    function createActiveItemHTML(
+        item
+    ) {
+
+        const isSelected =
+            selectedCartIds.includes(
+                item.id
+            );
+
+
+        const image =
+            item.image ||
+            "https://via.placeholder.com/115x115?text=Flower";
+
+
+        const quantity =
+            Number(item.quantity) || 1;
+
+
+        const price =
+            Number(item.price) || 0;
+
+
+        const subtotal =
+            Number(item.subtotal) ||
+            price * quantity;
+
+
+        return `
+
+            <div
+                class="cart-item"
+                id="cart-item-${item.id}"
+            >
+
+                <!-- SELECT -->
+
+                <div class="select-area">
+
+                    <input
+                        type="checkbox"
+                        class="select-checkbox"
+                        id="select-${item.id}"
+                        ${isSelected ? "checked" : ""}
+                        onchange="toggleSelection(${item.id})"
+                    >
+
+                </div>
+
+
+                <!-- IMAGE -->
+
+                <img
+                    src="${escapeHTML(image)}"
+                    alt="${escapeHTML(item.name)}"
+                    class="flower-image"
+                    onerror="
+                        this.src='https://via.placeholder.com/115x115?text=Flower'
+                    "
+                >
+
+
+                <!-- INFORMATION -->
+
+                <div class="flower-info">
+
+                    <div class="flower-name">
+                        🌸
+                        ${escapeHTML(item.name)}
+                    </div>
+
+                    <div class="flower-description">
+                        ${escapeHTML(
+                            item.description ||
+                            "Beautiful fresh flower."
+                        )}
+                    </div>
+
+                    <div class="flower-price">
+                        ₹${price.toFixed(2)}
+                    </div>
+
+                </div>
+
+
+                <!-- QUANTITY -->
+
+                <div class="quantity-area">
+
+                    <div class="quantity-box">
+
+                        <button
+                            class="quantity-btn"
+                            onclick="
+                                updateQuantity(
+                                    ${item.id},
+                                    ${quantity - 1}
+                                )
+                            "
+                            ${quantity <= 1 ? "disabled" : ""}
+                        >
+                            −
+                        </button>
+
+
+                        <div class="quantity-value">
+                            ${quantity}
+                        </div>
+
+
+                        <button
+                            class="quantity-btn"
+                            onclick="
+                                updateQuantity(
+                                    ${item.id},
+                                    ${quantity + 1}
+                                )
+                            "
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div class="actions">
+
+                    <button
+                        class="remove-btn"
+                        onclick="
+                            removeCartItem(
+                                ${item.id}
+                            )
+                        "
+                    >
+                        🗑 Remove
+                    </button>
+
+
+                    <button
+                        class="select-btn"
+                        onclick="
+                            toggleSelection(
+                                ${item.id}
+                            )
+                        "
+                    >
+                        ${
+                            isSelected
+                                ? "☑ Selected"
+                                : "☐ Select"
+                        }
+                    </button>
+
+                    <div class="subtotal">
+                        ₹${subtotal.toFixed(2)}
+                    </div>
+
+                </div>
 
             </div>
 
         `;
 
-        return;
+    }
+
+
+    /* =====================================================
+       ORDERED ITEMS
+    ===================================================== */
+
+    function renderOrderedItems(
+        items
+    ) {
+
+        const section =
+            document.getElementById(
+                "orderedSection"
+            );
+
+
+        const container =
+            document.getElementById(
+                "orderedCartContainer"
+            );
+
+
+        if (items.length === 0) {
+
+            section.style.display =
+                "none";
+
+            container.innerHTML = "";
+
+            return;
+        }
+
+
+        section.style.display =
+            "block";
+
+
+        container.innerHTML =
+            items.map(
+                item =>
+                    createOrderedItemHTML(
+                        item
+                    )
+            ).join("");
 
     }
 
 
-    container.innerHTML = `
+    /* =====================================================
+       ORDERED ITEM HTML
+    ===================================================== */
 
-        <div class="cart-top-bar">
+    function createOrderedItemHTML(
+        item
+    ) {
 
-            <label class="select-all-area">
+        const image =
+            item.image ||
+            "https://via.placeholder.com/115x115?text=Flower";
 
-                <input
-                    type="checkbox"
-                    id="selectAll"
-                    onchange="toggleSelectAll()"
-                >
 
-                <span>
-                    Select All
-                </span>
+        const quantity =
+            Number(item.quantity) || 1;
 
-            </label>
 
+        const price =
+            Number(item.price) || 0;
+
+
+        const subtotal =
+            Number(item.subtotal) ||
+            price * quantity;
+
+
+        return `
 
             <div
-                id="itemCount"
-                class="item-count"
+                class="ordered-item"
+                id="ordered-item-${item.id}"
             >
-                0 items selected
-            </div>
 
-        </div>
-
-
-        <div
-            id="cartItems"
-            class="cart-items"
-        ></div>
-
-
-        <div class="cart-summary">
-
-            <div class="summary-row">
-
-                <span>
-                    Total Cart Items
-                </span>
-
-                <strong id="cartItemCount">
-                    0
-                </strong>
-
-            </div>
-
-
-            <div class="summary-row selected">
-
-                <span>
-                    Selected Items
-                </span>
-
-                <strong id="selectedItemCount">
-                    0
-                </strong>
-
-            </div>
-
-
-            <div class="summary-total">
-
-                <div class="summary-total-label">
-                    Total
-                </div>
-
-                <div
-                    id="selectedTotal"
-                    class="summary-total-price"
-                >
-                    ₹0.00
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="button-area">
-
-            <a
-                href="{{ url_for('flowers_page') }}"
-                class="btn continue-btn"
-            >
-                ← Continue Shopping
-            </a>
-
-
-            <button
-                type="button"
-                id="checkoutButton"
-                class="btn checkout-btn"
-                onclick="goToCheckout()"
-                disabled
-            >
-                Proceed to Checkout →
-            </button>
-
-        </div>
-
-    `;
-
-
-    renderCartItems();
-
-    updateCartSummary();
-
-}
-
-
-
-/* =========================================================
-   RENDER CART ITEMS
-========================================================= */
-
-function renderCartItems() {
-
-    const container =
-        document.getElementById(
-            "cartItems"
-        );
-
-
-    container.innerHTML = "";
-
-
-    cartItems.forEach(
-        function(item) {
-
-
-            const id =
-                Number(item.id);
-
-
-            const price =
-                Number(
-                    item.price || 0
-                );
-
-
-            const quantity =
-                Number(
-                    item.quantity || 1
-                );
-
-
-            const subtotal =
-                price * quantity;
-
-
-            const isSelected =
-                selectedCartIds.includes(
-                    id
-                );
-
-
-            const row =
-                document.createElement(
-                    "div"
-                );
-
-
-            row.className =
-                "cart-item";
-
-
-            row.dataset.id =
-                id;
-
-
-            let imageHtml =
-                `<div class="flower-placeholder">🌸</div>`;
-
-
-            if (
-                item.image ||
-                item.image_url
-            ) {
-
-                const image =
-                    item.image ||
-                    item.image_url;
-
-
-                imageHtml = `
-
-                    <img
-                        src="${escapeHtml(image)}"
-                        alt="${escapeHtml(
-                            item.name || "Flower"
-                        )}"
-                        onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;flower-placeholder&quot;>🌸</div>';"
-                    >
-
-                `;
-
-            }
-
-
-            row.innerHTML = `
-
-                <input
-                    type="checkbox"
-                    class="item-checkbox"
-                    ${isSelected ? "checked" : ""}
-                    onchange="toggleItemSelection(${id})"
-                    aria-label="Select ${escapeHtml(
-                        item.name || "flower"
-                    )}"
+                <!-- IMAGE -->
+
+                <img
+                    src="${escapeHTML(image)}"
+                    alt="${escapeHTML(item.name)}"
+                    class="flower-image"
+                    onerror="
+                        this.src='https://via.placeholder.com/115x115?text=Flower'
+                    "
                 >
 
 
-                <div class="flower-image">
+                <!-- INFORMATION -->
 
-                    ${imageHtml}
+                <div class="flower-info">
 
-                </div>
-
-
-                <div class="product-info">
-
-                    <div class="product-name">
-
+                    <div class="flower-name">
                         🌸
-                        ${escapeHtml(
-                            item.name ||
-                            "Flower"
-                        )}
-
+                        ${escapeHTML(item.name)}
                     </div>
 
-
-                    <div class="product-description">
-
-                        ${escapeHtml(
+                    <div class="flower-description">
+                        ${escapeHTML(
                             item.description ||
                             "Beautiful fresh flower."
                         )}
-
                     </div>
 
-
-                    <div class="product-price">
-
+                    <div class="flower-price">
                         ₹${price.toFixed(2)}
-
                     </div>
 
                 </div>
 
 
-                <div class="quantity-box">
+                <!-- ORDERED STATUS -->
 
-                    <button
-                        type="button"
-                        class="quantity-btn"
-                        onclick="changeQuantity(${id}, -1)"
-                    >
-                        −
-                    </button>
+                <div>
 
+                    <div class="ordered-badge">
+                        📦 Ordered
+                    </div>
 
-                    <span
-                        class="quantity-value"
-                        id="quantity-${id}"
-                    >
-                        ${quantity}
-                    </span>
-
-
-                    <button
-                        type="button"
-                        class="quantity-btn"
-                        onclick="changeQuantity(${id}, 1)"
-                    >
-                        +
-                    </button>
+                    <div class="ordered-date">
+                        ${formatDate(
+                            item.created_at
+                        )}
+                    </div>
 
                 </div>
 
 
-                <div
-                    class="item-subtotal"
-                    id="subtotal-${id}"
-                >
+                <!-- SUBTOTAL -->
+
+                <div class="subtotal">
                     ₹${subtotal.toFixed(2)}
                 </div>
 
+            </div>
 
-                <button
-                    type="button"
-                    class="remove-btn"
-                    onclick="removeCartItem(${id})"
-                >
-                    🗑 Remove
-                </button>
+        `;
 
-            `;
+    }
 
 
-            container.appendChild(
-                row
+    /* =====================================================
+       SELECT / UNSELECT
+    ===================================================== */
+
+    function toggleSelection(
+        cartId
+    ) {
+
+        const item =
+            cartItems.find(
+                cartItem =>
+                    cartItem.id === cartId
+            );
+
+
+        /*
+         * Ordered item can NEVER be selected.
+         */
+
+        if (
+            !item ||
+            item.status === "Ordered"
+        ) {
+
+            return;
+        }
+
+
+        const index =
+            selectedCartIds.indexOf(
+                cartId
+            );
+
+
+        if (index === -1) {
+
+            selectedCartIds.push(
+                cartId
             );
 
         }
-    );
+        else {
 
-}
+            selectedCartIds.splice(
+                index,
+                1
+            );
 
-
-
-/* =========================================================
-   TOGGLE ITEM SELECTION
-========================================================= */
-
-function toggleItemSelection(
-    cartId
-) {
-
-    cartId =
-        Number(cartId);
+        }
 
 
-    if (
-        selectedCartIds.includes(
-            cartId
-        )
-    ) {
+        renderCart();
+
+    }
+
+
+    /* =====================================================
+       UPDATE SELECTED COUNT
+    ===================================================== */
+
+    function updateSelectedCount() {
+
+        /*
+         * Keep only currently active IDs.
+         */
 
         selectedCartIds =
             selectedCartIds.filter(
                 id =>
-                    id !== cartId
+                    cartItems.some(
+                        item =>
+                            item.id === id &&
+                            item.status === "In Cart"
+                    )
             );
 
-    } else {
 
-        selectedCartIds.push(
-            cartId
-        );
+        document.getElementById(
+            "selectedCount"
+        ).textContent =
+            selectedCartIds.length;
+
+
+        const button =
+            document.getElementById(
+                "checkoutButton"
+            );
+
+
+        button.disabled =
+            selectedCartIds.length === 0;
 
     }
 
 
-    saveSelectedIds();
+    /* =====================================================
+       UPDATE QUANTITY
+    ===================================================== */
 
-    updateCartSummary();
-
-    updateSelectAllCheckbox();
-
-}
-
-
-
-/* =========================================================
-   SELECT ALL
-========================================================= */
-
-function toggleSelectAll() {
-
-    const checkbox =
-        document.getElementById(
-            "selectAll"
-        );
-
-
-    if (
-        !checkbox
+    async function updateQuantity(
+        cartId,
+        quantity
     ) {
 
-        return;
+        if (quantity < 1) {
 
-    }
-
-
-    if (checkbox.checked) {
-
-        selectedCartIds =
-            cartItems.map(
-                item =>
-                    Number(item.id)
-            );
-
-    } else {
-
-        selectedCartIds = [];
-
-    }
-
-
-    saveSelectedIds();
-
-    renderCartItems();
-
-    updateCartSummary();
-
-}
-
-
-
-/* =========================================================
-   UPDATE SELECT ALL CHECKBOX
-========================================================= */
-
-function updateSelectAllCheckbox() {
-
-    const checkbox =
-        document.getElementById(
-            "selectAll"
-        );
-
-
-    if (
-        !checkbox ||
-        cartItems.length === 0
-    ) {
-
-        return;
-
-    }
-
-
-    const allSelected =
-        cartItems.every(
-            item =>
-                selectedCartIds.includes(
-                    Number(item.id)
-                )
-        );
-
-
-    checkbox.checked =
-        allSelected;
-
-
-    checkbox.indeterminate =
-        !allSelected &&
-        selectedCartIds.length > 0;
-
-}
-
-
-
-/* =========================================================
-   CHANGE QUANTITY
-========================================================= */
-
-async function changeQuantity(
-    cartId,
-    change
-) {
-
-    const item =
-        cartItems.find(
-            product =>
-                Number(product.id) ===
-                Number(cartId)
-        );
-
-
-    if (!item) {
-
-        return;
-
-    }
-
-
-    const currentQuantity =
-        Number(
-            item.quantity || 1
-        );
-
-
-    const newQuantity =
-        currentQuantity +
-        Number(change);
-
-
-    if (newQuantity < 1) {
-
-        return;
-
-    }
-
-
-    try {
-
-        /*
-         * Try PUT first.
-         */
-
-        let response =
-            await fetch(
-                `${API_URL}/api/cart/${cartId}`,
-                {
-                    method: "PUT",
-
-                    credentials: "include",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json",
-
-                        "Accept":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify({
-                            quantity:
-                                newQuantity
-                        })
-                }
-            );
-
-
-        /*
-         * Some backend versions may
-         * use PATCH instead.
-         *
-         * The main API remains PUT.
-         */
-
-        const data =
-            await response.json();
-
-
-        if (
-            !response.ok ||
-            !data.success
-        ) {
-
-            throw new Error(
-                data.message ||
-                "Unable to update quantity."
-            );
-
+            return;
         }
 
 
-        item.quantity =
-            newQuantity;
+        try {
 
+            const response =
+                await fetch(
+                    `/api/cart/${cartId}`,
+                    {
+                        method: "PUT",
 
-        renderCartItems();
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
 
-        updateCartSummary();
+                        credentials:
+                            "include",
 
-
-    } catch (error) {
-
-        console.error(
-            "Quantity Update Error:",
-            error
-        );
-
-
-        showMessage(
-            error.message ||
-            "Unable to update quantity.",
-            "error"
-        );
-
-    }
-
-}
-
-
-
-/* =========================================================
-   REMOVE CART ITEM
-========================================================= */
-
-async function removeCartItem(
-    cartId
-) {
-
-    const confirmed =
-        confirm(
-            "Are you sure you want to remove this flower from your cart?"
-        );
-
-
-    if (!confirmed) {
-
-        return;
-
-    }
-
-
-    try {
-
-        const response =
-            await fetch(
-                `${API_URL}/api/cart/${cartId}`,
-                {
-                    method: "DELETE",
-
-                    credentials: "include",
-
-                    headers: {
-                        "Accept":
-                            "application/json"
+                        body:
+                            JSON.stringify({
+                                quantity:
+                                    quantity
+                            })
                     }
-                }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!data.success) {
+
+                showMessage(
+                    data.message ||
+                    "Unable to update quantity.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            await loadCart();
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Quantity Error:",
+                error
             );
 
-
-        const data =
-            await response.json();
-
-
-        if (
-            !response.ok ||
-            !data.success
-        ) {
-
-            throw new Error(
-                data.message ||
-                "Unable to remove item."
+            showMessage(
+                "Unable to update quantity.",
+                "error"
             );
 
         }
 
-
-        /*
-         * Remove from local selected IDs.
-         */
-
-        selectedCartIds =
-            selectedCartIds.filter(
-                id =>
-                    Number(id) !==
-                    Number(cartId)
-            );
-
-
-        saveSelectedIds();
-
-
-        /*
-         * Remove from local cart.
-         */
-
-        cartItems =
-            cartItems.filter(
-                item =>
-                    Number(item.id) !==
-                    Number(cartId)
-            );
-
-
-        displayCart();
-
-
-        showMessage(
-            "Flower removed from cart successfully.",
-            "success"
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Remove Cart Error:",
-            error
-        );
-
-
-        showMessage(
-            error.message ||
-            "Unable to remove item.",
-            "error"
-        );
-
-    }
-
-}
-
-
-
-/* =========================================================
-   UPDATE CART SUMMARY
-========================================================= */
-
-function updateCartSummary() {
-
-    const totalCartItems =
-        cartItems.reduce(
-            function(total, item) {
-
-                return (
-                    total +
-                    Number(
-                        item.quantity || 0
-                    )
-                );
-
-            },
-            0
-        );
-
-
-    const selectedItems =
-        cartItems.filter(
-            item =>
-                selectedCartIds.includes(
-                    Number(item.id)
-                )
-        );
-
-
-    const selectedQuantity =
-        selectedItems.reduce(
-            function(total, item) {
-
-                return (
-                    total +
-                    Number(
-                        item.quantity || 0
-                    )
-                );
-
-            },
-            0
-        );
-
-
-    const selectedTotal =
-        selectedItems.reduce(
-            function(total, item) {
-
-                return (
-                    total +
-                    Number(
-                        item.price || 0
-                    ) *
-                    Number(
-                        item.quantity || 0
-                    )
-                );
-
-            },
-            0
-        );
-
-
-    const itemCount =
-        document.getElementById(
-            "itemCount"
-        );
-
-
-    const cartItemCount =
-        document.getElementById(
-            "cartItemCount"
-        );
-
-
-    const selectedItemCount =
-        document.getElementById(
-            "selectedItemCount"
-        );
-
-
-    const totalElement =
-        document.getElementById(
-            "selectedTotal"
-        );
-
-
-    const checkoutButton =
-        document.getElementById(
-            "checkoutButton"
-        );
-
-
-    if (itemCount) {
-
-        itemCount.textContent =
-            `${selectedQuantity} item${
-                selectedQuantity === 1
-                    ? ""
-                    : "s"
-            } selected`;
-
     }
 
 
-    if (cartItemCount) {
+    /* =====================================================
+       REMOVE CART ITEM
+    ===================================================== */
 
-        cartItemCount.textContent =
-            totalCartItems;
-
-    }
-
-
-    if (selectedItemCount) {
-
-        selectedItemCount.textContent =
-            selectedQuantity;
-
-    }
-
-
-    if (totalElement) {
-
-        totalElement.textContent =
-            `₹${selectedTotal.toFixed(2)}`;
-
-    }
-
-
-    if (checkoutButton) {
-
-        checkoutButton.disabled =
-            selectedItems.length === 0;
-
-    }
-
-
-    updateSelectAllCheckbox();
-
-}
-
-
-
-/* =========================================================
-   GO TO CHECKOUT
-========================================================= */
-
-function goToCheckout() {
-
-    /*
-     * IMPORTANT:
-     *
-     * Only selected IDs are sent.
-     */
-
-    if (
-        selectedCartIds.length === 0
+    async function removeCartItem(
+        cartId
     ) {
 
-        showMessage(
-            "Please select at least one flower.",
-            "error"
-        );
+        const item =
+            cartItems.find(
+                cartItem =>
+                    cartItem.id === cartId
+            );
 
-        return;
+
+        if (!item) {
+
+            return;
+        }
+
+
+        const confirmed =
+            confirm(
+                `Remove "${item.name}" from cart?`
+            );
+
+
+        if (!confirmed) {
+
+            return;
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/cart/${cartId}`,
+                    {
+                        method: "DELETE",
+
+                        credentials:
+                            "include"
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!data.success) {
+
+                showMessage(
+                    data.message ||
+                    "Unable to remove item.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            /*
+             * Remove from local selection too.
+             */
+
+            selectedCartIds =
+                selectedCartIds.filter(
+                    id =>
+                        id !== cartId
+                );
+
+
+            showMessage(
+                "Flower removed from cart.",
+                "success"
+            );
+
+
+            await loadCart();
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Remove Error:",
+                error
+            );
+
+            showMessage(
+                "Unable to remove item.",
+                "error"
+            );
+
+        }
 
     }
 
 
-    saveSelectedIds();
+    /* =====================================================
+       CHECKOUT
+    ===================================================== */
+
+    function goToCheckout() {
+
+        if (
+            selectedCartIds.length === 0
+        ) {
+
+            showMessage(
+                "Please select at least one flower.",
+                "error"
+            );
+
+            return;
+        }
 
 
-    const ids =
-        selectedCartIds.join(",");
+        /*
+         * Send ONLY selected cart IDs.
+         *
+         * Example:
+         *
+         * /checkout?cart_ids=3,5
+         */
+
+        const ids =
+            selectedCartIds.join(",");
 
 
-    /*
-     * Checkout URL:
-     *
-     * /checkout?cart_ids=1,3,5
-     */
-
-    window.location.href =
-        `{{ url_for('checkout_page') }}?cart_ids=${encodeURIComponent(ids)}`;
-
-}
-
-
-
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-function showMessage(
-    text,
-    type
-) {
-
-    const message =
-        document.getElementById(
-            "message"
-        );
-
-
-    if (!message) {
-
-        return;
+        window.location.href =
+            `/checkout?cart_ids=${encodeURIComponent(ids)}`;
 
     }
 
 
-    message.textContent =
-        text;
+    /* =====================================================
+       DATE FORMAT
+    ===================================================== */
+
+    function formatDate(
+        dateString
+    ) {
+
+        if (!dateString) {
+
+            return "Ordered";
+        }
 
 
-    message.className =
-        `message ${type}`;
+        const date =
+            new Date(
+                dateString.replace(
+                    " ",
+                    "T"
+                )
+            );
 
 
-    /*
-     * Automatically hide success
-     * messages after 3 seconds.
-     */
+        if (
+            isNaN(
+                date.getTime()
+            )
+        ) {
 
-    if (type === "success") {
+            return "Ordered";
+        }
+
+
+        return date.toLocaleString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       ESCAPE HTML
+    ===================================================== */
+
+    function escapeHTML(
+        value
+    ) {
+
+        if (
+            value === null ||
+            value === undefined
+        ) {
+
+            return "";
+        }
+
+
+        return String(value)
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    /* =====================================================
+       MESSAGE
+    ===================================================== */
+
+    function showMessage(
+        text,
+        type
+    ) {
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+
+        message.textContent =
+            text;
+
+
+        message.className =
+            "message " + type;
+
 
         setTimeout(
-            function() {
+            function () {
 
                 message.className =
                     "message";
-
-                message.textContent =
-                    "";
 
             },
             3000
         );
 
     }
-
-}
-
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHtml(
-    text
-) {
-
-    if (
-        text === null ||
-        text === undefined
-    ) {
-
-        return "";
-
-    }
-
-
-    return String(text)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-
-/* =========================================================
-   PAGE LOAD
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        loadCart();
-
-    }
-);
-
 
 </script>
 
