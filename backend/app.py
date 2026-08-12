@@ -331,14 +331,14 @@ def init_db():
 
         if count == 0:
 
-            flowers = [
+           flowers = [
 
     (
         "Red Rose",
         "Rose",
         "Fresh red roses, perfect for love and special occasions.",
         499,
-        "https://images.unsplash.com/photo-1518704601994-6a9b5d3c6d83?auto=format&fit=crop&w=900&q=85",
+        "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=85",
         25,
     ),
 
@@ -347,7 +347,7 @@ def init_db():
         "Lily",
         "Beautiful fresh white lilies with an elegant fragrance.",
         599,
-        "https://images.unsplash.com/photo-1546014311-dcd91d8aa884?auto=format&fit=crop&w=900&q=85",
+        "https://images.unsplash.com/photo-1589781876844-46a2a0c4a691?auto=format&fit=crop&w=900&q=85",
         20,
     ),
 
@@ -356,7 +356,7 @@ def init_db():
         "Tulip",
         "Fresh pink tulips that bring beauty and happiness.",
         449,
-        "https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=900&q=85",
+        "https://images.unsplash.com/photo-1520763185298-7a2f3c8d8f2e?auto=format&fit=crop&w=900&q=85",
         30,
     ),
 
@@ -365,7 +365,7 @@ def init_db():
         "Sunflower",
         "Bright yellow sunflowers to make every day cheerful.",
         399,
-        "https://images.unsplash.com/photo-1444894423756-1bb106dce5a7?auto=format&fit=crop&w=900&q=85",
+        "https://images.unsplash.com/photo-1597848212624-e19e7f9b5b1a?auto=format&fit=crop&w=900&q=85",
         15,
     ),
 
@@ -374,7 +374,7 @@ def init_db():
         "Rose",
         "Soft pink roses suitable for gifts and celebrations.",
         549,
-        "https://images.unsplash.com/photo-1483954954641-4b0aa06d332d?auto=format&fit=crop&w=900&q=85",
+        "https://images.unsplash.com/photo-1455659817273-f96807779d8a?auto=format&fit=crop&w=900&q=85",
         18,
     ),
 
@@ -383,10 +383,12 @@ def init_db():
         "Lily",
         "Beautiful orange lilies with vibrant natural colors.",
         649,
-         "backend/image/orange.jpg",
+        "https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?auto=format&fit=crop&w=900&q=85",
+        20,
     ),
 ]
-            conn.executemany(
+
+        conn.executemany(
                 """
                 INSERT INTO flowers
                 (
