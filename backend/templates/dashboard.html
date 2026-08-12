@@ -5,20 +5,28 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Dashboard | Blossom Flower Shop</title>
 
+
     <style>
+
+        /* =========================================
+           RESET
+        ========================================= */
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
+
+
+        /* =========================================
+           BODY
+        ========================================= */
 
         body {
 
@@ -27,78 +35,199 @@
                 Helvetica,
                 sans-serif;
 
-            background:
-                #fff0f6;
-
             min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff5f8,
+                    #ffe9f1
+                );
 
             color: #333;
 
         }
 
 
-        /* =====================================================
-           DASHBOARD
-        ===================================================== */
+        /* =========================================
+           HEADER
+        ========================================= */
 
-        .dashboard {
+        .dashboard-header {
 
             width: 100%;
 
-            padding: 32px;
+            background: white;
+
+            padding: 18px 45px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            box-shadow:
+                0 4px 18px
+                rgba(0, 0, 0, 0.08);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
 
         }
 
 
-        .dashboard-title {
+        .logo {
 
-            text-align: center;
+            color: #d63384;
 
-            color: #d92d82;
+            font-size: 24px;
 
-            font-size: 34px;
+            font-weight: bold;
 
-            font-weight: 800;
-
-            margin-bottom: 30px;
+            white-space: nowrap;
 
         }
 
 
-        /* =====================================================
-           GRID
-        ===================================================== */
+        /* =========================================
+           NAVIGATION
+        ========================================= */
 
-        .dashboard-grid {
+        .dashboard-header nav {
 
-            display: grid;
+            display: flex;
 
-            grid-template-columns:
-                repeat(
-                    2,
-                    minmax(300px, 1fr)
-                );
+            align-items: center;
 
-            gap: 30px;
+            gap: 20px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .dashboard-header nav a {
+
+            text-decoration: none;
+
+            color: #444;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+
+        }
+
+
+        .dashboard-header nav a:hover {
+
+            color: #d63384;
+
+        }
+
+
+        /* LOGOUT BUTTON */
+
+        .logout-btn {
+
+            border: none;
+
+            background: #d63384;
+
+            color: white;
+
+            padding: 9px 18px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        .logout-btn:hover {
+
+            background: #ad1457;
+
+        }
+
+
+        /* =========================================
+           DASHBOARD SECTION
+        ========================================= */
+
+        .dashboard-section {
 
             max-width: 1100px;
 
             margin: auto;
 
+            padding: 45px 25px 60px;
+
+            text-align: center;
+
         }
 
 
-        /* =====================================================
-           CARD
-        ===================================================== */
+        .dashboard-section h2 {
+
+            font-size: 32px;
+
+            color: #333;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .dashboard-section > p {
+
+            color: #777;
+
+            font-size: 16px;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        /* =========================================
+           DASHBOARD CARDS
+        ========================================= */
+
+        .dashboard-cards {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+
+        }
+
 
         .dashboard-card {
 
-            background: #ffffff;
+            background: white;
 
-            border-radius: 20px;
+            border-radius: 16px;
 
-            min-height: 280px;
+            padding: 28px 20px;
+
+            min-height: 225px;
 
             display: flex;
 
@@ -108,176 +237,195 @@
 
             align-items: center;
 
-            text-align: center;
-
-            padding: 30px;
-
             box-shadow:
                 0 8px 25px
-                rgba(
-                    217,
-                    45,
-                    130,
-                    0.08
-                );
+                rgba(0, 0, 0, 0.08);
+
+            transition:
+                transform 0.3s,
+                box-shadow 0.3s;
 
         }
 
 
-        /* =====================================================
-           CARD TITLE
-        ===================================================== */
+        .dashboard-card:hover {
 
-        .card-title {
+            transform: translateY(-6px);
 
-            color: #d92d82;
-
-            font-size: 26px;
-
-            font-weight: 700;
-
-            margin-bottom: 20px;
+            box-shadow:
+                0 12px 30px
+                rgba(0, 0, 0, 0.13);
 
         }
 
 
-        /* =====================================================
-           ICON
-        ===================================================== */
+        .dashboard-card h3 {
 
-        .card-icon {
-
-            font-size: 42px;
-
-            margin-bottom: 12px;
-
-        }
-
-
-        /* =====================================================
-           COUNT
-        ===================================================== */
-
-        .card-count {
-
-            font-size: 48px;
-
-            font-weight: 800;
-
-            color: #000;
-
-            margin-bottom: 12px;
-
-            min-height: 58px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-        }
-
-
-        /* =====================================================
-           DESCRIPTION
-        ===================================================== */
-
-        .card-description {
-
-            color: #666;
+            color: #d63384;
 
             font-size: 20px;
 
-            margin-bottom: 22px;
+            margin-bottom: 15px;
 
         }
 
 
-        /* =====================================================
-           BUTTON
-        ===================================================== */
+        .dashboard-card .count {
 
-        .card-button {
+            font-size: 38px;
 
-            border: none;
+            font-weight: bold;
+
+            color: #111;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .dashboard-card p {
+
+            color: #777;
+
+            margin-bottom: 18px;
+
+            font-size: 15px;
+
+        }
+
+
+        /* =========================================
+           CARD BUTTON
+        ========================================= */
+
+        .card-btn {
+
+            display: inline-block;
+
+            text-decoration: none;
 
             background: #ff1493;
 
             color: white;
 
-            font-size: 17px;
+            padding: 10px 20px;
 
-            font-weight: 700;
+            border-radius: 8px;
 
-            padding: 13px 28px;
+            font-size: 14px;
 
-            border-radius: 10px;
+            font-weight: bold;
 
-            cursor: pointer;
-
-            transition: 0.2s;
+            transition: 0.3s;
 
         }
 
 
-        .card-button:hover {
+        .card-btn:hover {
 
-            background: #d90b78;
+            background: #d63384;
 
-            transform:
-                translateY(-1px);
-
-        }
-
-
-        /* =====================================================
-           LOADING
-        ===================================================== */
-
-        .loading {
-
-            opacity: 0.5;
+            transform: scale(1.04);
 
         }
 
 
-        /* =====================================================
-           ERROR
-        ===================================================== */
+        /* =========================================
+           ACCOUNT CARD
+        ========================================= */
 
-        .count-error {
+        .account-card {
 
-            font-size: 20px;
-
-            color: #d92d82;
+            grid-column: span 1;
 
         }
 
 
-        /* =====================================================
-           MOBILE
-        ===================================================== */
+        .account-name {
 
-        @media (max-width: 750px) {
+            font-size: 30px;
 
-            .dashboard {
+            font-weight: bold;
 
-                padding: 18px;
+            color: #111;
+
+            margin-bottom: 12px;
+
+            word-break: break-word;
+
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 900px) {
+
+            .dashboard-header {
+
+                padding: 18px 25px;
+
+                flex-direction: column;
+
+                gap: 15px;
 
             }
 
 
-            .dashboard-grid {
+            .dashboard-cards {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .dashboard-header {
+
+                padding: 15px;
+
+            }
+
+
+            .dashboard-header nav {
+
+                justify-content: center;
+
+                gap: 12px;
+
+            }
+
+
+            .dashboard-section {
+
+                padding:
+                    30px 15px 45px;
+
+            }
+
+
+            .dashboard-section h2 {
+
+                font-size: 26px;
+
+            }
+
+
+            .dashboard-cards {
 
                 grid-template-columns: 1fr;
 
             }
 
 
-            .dashboard-title {
+            .dashboard-card {
 
-                font-size: 28px;
+                min-height: 210px;
 
             }
 
@@ -291,445 +439,548 @@
 <body>
 
 
-<div class="dashboard">
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header class="dashboard-header">
 
 
-    <!-- =====================================================
-         DASHBOARD TITLE
-    ====================================================== -->
+    <div class="logo">
 
-    <h1 class="dashboard-title">
+        🌸 Blossom Flower Shop
 
-        🌸 Blossom Flower Shop Dashboard
-
-    </h1>
+    </div>
 
 
-    <!-- =====================================================
-         DASHBOARD GRID
-    ====================================================== -->
+    <nav>
 
-    <div class="dashboard-grid">
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="home.html">
+            Home
+        </a>
+
+        <a href="flower.html">
+            Flowers
+        </a>
+
+        <a href="cart.html">
+            Cart
+        </a>
+
+        <a href="orders.html">
+            Orders
+        </a>
+
+        <a href="about.html">
+            About
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
 
 
-        <!-- =================================================
-             HOME
-        ================================================== -->
+        <button
+            class="logout-btn"
+            onclick="logout()">
+
+            Logout
+
+        </button>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================================
+     DASHBOARD
+========================================= -->
+
+<section class="dashboard-section">
+
+
+    <h2 id="welcomeUser">
+
+        Welcome 🌸
+
+    </h2>
+
+
+    <p>
+
+        Manage your Flower Shop from here.
+
+    </p>
+
+
+
+    <div class="dashboard-cards">
+
+
+        <!-- HOME -->
 
         <div class="dashboard-card">
 
-            <div class="card-icon">
+            <h3>
+                🏠 Home
+            </h3>
 
-                🏠
-
+            <div class="count">
+                🌸
             </div>
 
-
-            <div class="card-title">
-
-                Home
-
-            </div>
-
-
-            <div class="card-description">
-
+            <p>
                 Explore Beautiful Flowers
+            </p>
 
-            </div>
-
-
-            <button
-                type="button"
-                class="card-button"
-                onclick="window.location.href='/home'"
-            >
+            <a
+                href="home.html"
+                class="card-btn">
 
                 Explore
 
-            </button>
+            </a>
 
         </div>
 
 
-        <!-- =================================================
-             FLOWERS
-        ================================================== -->
+
+        <!-- FLOWERS -->
 
         <div class="dashboard-card">
 
-            <div class="card-icon">
-
-                🌹
-
-            </div>
-
-
-            <div class="card-title">
-
-                Flowers
-
-            </div>
-
+            <h3>
+                🌹 Flowers
+            </h3>
 
             <div
-                id="flowersCount"
-                class="card-count loading"
-            >
+                class="count"
+                id="flowerCount">
 
                 0
 
             </div>
 
-
-            <div class="card-description">
-
+            <p>
                 Fresh Flower Collection
+            </p>
 
-            </div>
-
-
-            <button
-                type="button"
-                class="card-button"
-                onclick="window.location.href='/flower'"
-            >
+            <a
+                href="flower.html"
+                class="card-btn">
 
                 Shop Now
 
-            </button>
+            </a>
 
         </div>
 
 
-        <!-- =================================================
-             CART
-        ================================================== -->
+
+        <!-- CART -->
 
         <div class="dashboard-card">
 
-            <div class="card-icon">
-
-                🛒
-
-            </div>
-
-
-            <div class="card-title">
-
-                Cart
-
-            </div>
-
+            <h3>
+                🛒 Cart
+            </h3>
 
             <div
-                id="cartCount"
-                class="card-count loading"
-            >
+                class="count"
+                id="cartCount">
 
                 0
 
             </div>
 
-
-            <div class="card-description">
-
+            <p>
                 Items in Cart
+            </p>
 
-            </div>
-
-
-            <button
-                type="button"
-                class="card-button"
-                onclick="window.location.href='/cart'"
-            >
+            <a
+                href="cart.html"
+                class="card-btn">
 
                 View Cart
 
-            </button>
+            </a>
 
         </div>
 
 
-        <!-- =================================================
-             ORDERS
-        ================================================== -->
+
+        <!-- ORDERS -->
 
         <div class="dashboard-card">
 
-            <div class="card-icon">
-
-                📦
-
-            </div>
-
-
-            <div class="card-title">
-
-                Orders
-
-            </div>
-
+            <h3>
+                📦 Orders
+            </h3>
 
             <div
-                id="ordersCount"
-                class="card-count loading"
-            >
+                class="count"
+                id="orderCount">
 
                 0
 
             </div>
 
+            <p>
+                Total Orders
+            </p>
 
-            <div class="card-description">
-
-                Ordered Items
-
-            </div>
-
-
-            <button
-                type="button"
-                class="card-button"
-                onclick="window.location.href='/orders'"
-            >
+            <a
+                href="orders.html"
+                class="card-btn">
 
                 View Orders
 
-            </button>
+            </a>
+
+        </div>
+
+
+
+        <!-- ACCOUNT -->
+
+        <div class="dashboard-card account-card">
+
+            <h3>
+                👤 Account
+            </h3>
+
+            <div
+                class="account-name"
+                id="accountName">
+
+                User
+
+            </div>
+
+            <p>
+                Customer Account
+            </p>
 
         </div>
 
 
     </div>
 
+</section>
 
-</div>
 
+
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
 
 <script>
 
+    // =========================================
+    // LOGIN PROTECTION
+    // =========================================
 
-    /* =========================================================
-       GET ELEMENTS
-    ========================================================= */
+    if (localStorage.getItem("loggedIn") !== "true") {
 
-    const flowersCount =
-        document.getElementById(
-            "flowersCount"
+        alert("Please Login First!");
+
+        window.location.href = "index.html";
+
+    }
+
+
+    // =========================================
+    // CURRENT USER
+    // =========================================
+
+    let currentUser = null;
+
+    try {
+
+        currentUser = JSON.parse(
+            localStorage.getItem("currentUser")
         );
 
+    } catch (error) {
 
-    const cartCount =
-        document.getElementById(
-            "cartCount"
-        );
+        console.error("User data error:", error);
 
-
-    const ordersCount =
-        document.getElementById(
-            "ordersCount"
-        );
+    }
 
 
-    /* =========================================================
-       LOAD DASHBOARD COUNTS
-    ========================================================= */
+    // =========================================
+    // SHOW USER NAME
+    // =========================================
 
-    async function loadDashboardCounts() {
+    if (currentUser) {
+
+        const welcomeUser =
+            document.getElementById("welcomeUser");
+
+        const accountName =
+            document.getElementById("accountName");
+
+
+        if (welcomeUser) {
+
+            welcomeUser.innerHTML =
+                "Welcome, " +
+                (currentUser.name || "User") +
+                " 🌸";
+
+        }
+
+
+        if (accountName) {
+
+            accountName.innerHTML =
+                currentUser.name || "User";
+
+        }
+
+    }
+
+
+    // =========================================
+    // API URL
+    // =========================================
+
+    const API_URL = "http://127.0.0.1:5000";
+
+
+    // =========================================
+    // CART COUNT FROM DATABASE
+    // =========================================
+
+    async function updateCartCount() {
+
+        const cartCount =
+            document.getElementById("cartCount");
+
+
+        if (!cartCount) {
+            return;
+        }
+
+
+        if (!currentUser || !currentUser.id) {
+
+            cartCount.innerHTML = "0";
+
+            return;
+
+        }
+
 
         try {
 
-            /* ---------------------------------------------
-               Show loading
-            --------------------------------------------- */
-
-            flowersCount.classList.add(
-                "loading"
-            );
-
-            cartCount.classList.add(
-                "loading"
-            );
-
-            ordersCount.classList.add(
-                "loading"
-            );
-
-
-            /* ---------------------------------------------
-               API REQUEST
-            --------------------------------------------- */
-
             const response = await fetch(
-                "/api/dashboard",
-                {
-                    method: "GET",
-
-                    credentials: "include",
-
-                    cache: "no-store",
-
-                    headers: {
-                        "Accept":
-                            "application/json"
-                    }
-                }
+                `${API_URL}/api/cart/${currentUser.id}`
             );
 
 
-            /* ---------------------------------------------
-               RESPONSE JSON
-            --------------------------------------------- */
-
-            const data =
-                await response.json();
+            const data = await response.json();
 
 
-            console.log(
-                "Dashboard API:",
-                data
-            );
+            console.log("Dashboard Cart Data:", data);
 
 
-            /* ---------------------------------------------
-               LOGIN CHECK
-            --------------------------------------------- */
+            if (!response.ok || !data.success) {
 
-            if (
-                response.status === 401
-            ) {
-
-                window.location.href =
-                    "/login";
+                cartCount.innerHTML = "0";
 
                 return;
 
             }
 
 
-            /* ---------------------------------------------
-               API ERROR
-            --------------------------------------------- */
+            // Your backend may return items
+            // or cart
 
-            if (
-                !response.ok ||
-                !data.success
-            ) {
+            const items =
+                data.items ||
+                data.cart ||
+                [];
 
-                throw new Error(
-                    data.message ||
-                    "Unable to load dashboard"
+
+            // Count total quantity
+
+            let totalItems = 0;
+
+
+            items.forEach(function(item) {
+
+                totalItems += Number(
+                    item.quantity || 1
                 );
+
+            });
+
+
+            cartCount.innerHTML =
+                totalItems;
+
+
+        } catch (error) {
+
+            console.error(
+                "Dashboard Cart Error:",
+                error
+            );
+
+            cartCount.innerHTML = "0";
+
+        }
+
+    }
+
+
+    // =========================================
+    // ORDER COUNT
+    // =========================================
+
+    async function updateOrderCount() {
+
+        const orderCount =
+            document.getElementById("orderCount");
+
+
+        if (!orderCount) {
+            return;
+        }
+
+
+        if (!currentUser || !currentUser.id) {
+
+            orderCount.innerHTML = "0";
+
+            return;
+
+        }
+
+
+        try {
+
+            /*
+             * If your backend has:
+             *
+             * /api/orders/<user_id>
+             *
+             * this will load the real order count.
+             */
+
+            const response = await fetch(
+                `${API_URL}/api/orders/${currentUser.id}`
+            );
+
+
+            const data = await response.json();
+
+
+            console.log(
+                "Dashboard Order Data:",
+                data
+            );
+
+
+            if (!response.ok || !data.success) {
+
+                orderCount.innerHTML = "0";
+
+                return;
 
             }
 
 
-            /* =================================================
-               COUNTS
-            ================================================= */
-
-            const counts =
-                data.counts || {};
+            const orders =
+                data.orders ||
+                data.items ||
+                [];
 
 
-            /* =================================================
-               FLOWERS COUNT
-            ================================================= */
-
-            flowersCount.textContent =
-                Number(
-                    counts.flowers || 0
-                );
+            orderCount.innerHTML =
+                orders.length;
 
 
-            flowersCount.classList.remove(
-                "loading"
-            );
-
-
-            /* =================================================
-               CART COUNT
-               
-               IMPORTANT:
-               This is TOTAL QUANTITY in cart,
-               not number of cart rows.
-               
-               Example:
-               Rose x 2
-               Lily x 3
-               Dashboard = 5
-            ================================================= */
-
-            cartCount.textContent =
-                Number(
-                    counts.cart || 0
-                );
-
-
-            cartCount.classList.remove(
-                "loading"
-            );
-
-
-            /* =================================================
-               ORDERS COUNT
-               
-               IMPORTANT:
-               This is TOTAL ORDERED QUANTITY,
-               not number of orders.
-               
-               Example:
-               Order 1 = Rose x 2
-               Order 2 = Lily x 3
-               Dashboard = 5
-            ================================================= */
-
-            ordersCount.textContent =
-                Number(
-                    counts.orders || 0
-                );
-
-
-            ordersCount.classList.remove(
-                "loading"
-            );
-
-
-        }
-        catch (error) {
+        } catch (error) {
 
             console.error(
-                "Dashboard Error:",
+                "Dashboard Order Error:",
                 error
             );
 
 
-            /* ---------------------------------------------
-               Error display
-            --------------------------------------------- */
+            // Fallback to localStorage
 
-            flowersCount.textContent =
-                "0";
-
-            cartCount.textContent =
-                "0";
-
-            ordersCount.textContent =
-                "0";
+            const localOrders =
+                JSON.parse(
+                    localStorage.getItem("orders")
+                ) || [];
 
 
-            flowersCount.classList.remove(
-                "loading"
+            orderCount.innerHTML =
+                localOrders.length;
+
+        }
+
+    }
+
+
+    // =========================================
+    // FLOWER COUNT
+    // =========================================
+
+    async function updateFlowerCount() {
+
+        const flowerCount =
+            document.getElementById(
+                "flowerCount"
             );
 
-            cartCount.classList.remove(
-                "loading"
-            );
 
-            ordersCount.classList.remove(
-                "loading"
+        if (!flowerCount) {
+            return;
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/flowers`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                response.ok &&
+                data.success
+            ) {
+
+                const flowers =
+                    data.flowers || [];
+
+
+                flowerCount.innerHTML =
+                    flowers.length + "+";
+
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "Flower count error:",
+                error
             );
 
         }
@@ -737,65 +988,57 @@
     }
 
 
-    /* =========================================================
-       FIRST LOAD
-    ========================================================= */
+    // =========================================
+    // LOGOUT
+    // =========================================
 
-    loadDashboardCounts();
+    function logout() {
 
-
-    /* =========================================================
-       REFRESH WHEN USER RETURNS TO TAB
-    ========================================================= */
-
-    window.addEventListener(
-        "focus",
-        function () {
-
-            loadDashboardCounts();
-
-        }
-    );
+        localStorage.removeItem(
+            "loggedIn"
+        );
 
 
-    /* =========================================================
-       REFRESH WHEN PAGE BECOMES VISIBLE
-    ========================================================= */
-
-    document.addEventListener(
-        "visibilitychange",
-        function () {
-
-            if (
-                document.visibilityState ===
-                "visible"
-            ) {
-
-                loadDashboardCounts();
-
-            }
-
-        }
-    );
+        localStorage.removeItem(
+            "currentUser"
+        );
 
 
-    /* =========================================================
-       REFRESH WHEN BROWSER BACK/FORWARD
-    ========================================================= */
+        alert(
+            "Logged Out Successfully!"
+        );
 
-    window.addEventListener(
-        "pageshow",
-        function () {
 
-            loadDashboardCounts();
+        window.location.href = "/login";
+    }
 
-        }
+
+    // =========================================
+    // INITIAL LOAD
+    // =========================================
+
+    updateCartCount();
+
+    updateOrderCount();
+
+    updateFlowerCount();
+
+
+    // =========================================
+    // REFRESH CART COUNT
+    // =========================================
+
+    /*
+     * Every 2 seconds dashboard checks
+     * the database again.
+     *
+     * So if cart changes, count updates.
+     */
+
+    setInterval(
+        updateCartCount,
+        2000
     );
 
 
 </script>
-
-
-</body>
-
-</html>
