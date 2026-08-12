@@ -347,7 +347,7 @@ def init_db():
                     "Lily",
                     "Beautiful fresh white lilies with an elegant fragrance.",
                     599,
-                    "https://images.unsplash.com/photo-1597848212624-e19f1f68c8b6",
+                    "https://i.pinimg.com/736x/57/97/b2/5797b2fd00d20c8446658b6038c6de1a.jpg",
                     20,
                 ),
 
@@ -365,7 +365,7 @@ def init_db():
                     "Sunflower",
                     "Bright yellow sunflowers to make every day cheerful.",
                     399,
-                    "https://images.unsplash.com/photo-1597848212624-e19f1f68c8b6",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpiDig3frKUzINOZZ6ssqFRqhDF3DP_akQIPaaTWkk2A&s=10",
                     15,
                 ),
 
@@ -374,7 +374,7 @@ def init_db():
                     "Rose",
                     "Soft pink roses suitable for gifts and celebrations.",
                     549,
-                    "https://images.unsplash.com/photo-1518709268805-4e9042af9f23",
+                    "https://blacktulipflowers.in/wp-content/uploads/2026/01/Blush-Pink-Roses-Valentine-Bouquet-4.png",
                     18,
                 ),
 
