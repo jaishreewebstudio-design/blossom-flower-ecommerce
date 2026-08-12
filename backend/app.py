@@ -86,7 +86,7 @@ Features:
 - Checkout
 - Orders
 - Health Check
-""",
+        """,
 
         "version": "4.0.0"
     },
@@ -1028,10 +1028,6 @@ def login():
         }), 401
 
 
-    # =====================================================
-    # CREATE SESSION
-    # =====================================================
-
     session.clear()
 
     session["user_id"] = user["id"]
@@ -1869,8 +1865,8 @@ def get_cart(user_id):
     for item in items:
 
         subtotal = (
-            item["price"]
-            * item["quantity"]
+            float(item["price"])
+            * int(item["quantity"])
         )
 
 
@@ -2238,7 +2234,7 @@ def clear_user_cart(user_id):
 )
 def create_order():
     """
-    Create order / checkout
+    Create order / checkout ONLY from selected cart items
     ---
     tags:
       - Orders
@@ -2366,6 +2362,11 @@ def create_order():
         )
     ).strip()
 
+
+    # =====================================================
+    # IMPORTANT:
+    # ONLY SELECTED CART IDs ARE ACCEPTED
+    # =====================================================
 
     cart_ids = data.get(
         "cart_ids",
@@ -2514,7 +2515,7 @@ def create_order():
 
 
         # =================================================
-        # GET SELECTED CART ITEMS
+        # GET ONLY SELECTED CART ITEMS
         # =================================================
 
         placeholders = ",".join(
@@ -2552,7 +2553,7 @@ def create_order():
 
             AND cart.id IN ({placeholders})
 
-            AND cart.status != 'Ordered'
+            AND cart.status = 'In Cart'
 
             ORDER BY cart.id ASC
         """
@@ -2570,7 +2571,7 @@ def create_order():
 
 
         # =================================================
-        # CHECK ITEMS
+        # CHECK SELECTED ITEMS
         # =================================================
 
         if not cart_items:
@@ -2620,7 +2621,7 @@ def create_order():
 
 
         # =================================================
-        # CHECK STOCK
+        # CHECK STOCK ONLY FOR SELECTED ITEMS
         # =================================================
 
         for item in cart_items:
@@ -2655,9 +2656,12 @@ def create_order():
 
         # =================================================
         # CALCULATE TOTAL
+        #
+        # IMPORTANT:
+        # ONLY SELECTED ITEMS
         # =================================================
 
-        total = 0
+        total = 0.0
 
 
         for item in cart_items:
@@ -2670,6 +2674,8 @@ def create_order():
 
         # =================================================
         # CREATE ORDER
+        #
+        # total = ONLY SELECTED ITEMS TOTAL
         # =================================================
 
         cursor = conn.execute(
@@ -2703,7 +2709,7 @@ def create_order():
 
 
         # =================================================
-        # INSERT ORDER ITEMS
+        # INSERT ONLY SELECTED ORDER ITEMS
         # =================================================
 
         for item in cart_items:
@@ -2740,10 +2746,10 @@ def create_order():
 
 
             # =============================================
-            # REDUCE FLOWER STOCK
+            # REDUCE STOCK ONLY FOR SELECTED ITEMS
             # =============================================
 
-            conn.execute(
+            stock_update = conn.execute(
                 """
                 UPDATE flowers
 
@@ -2762,11 +2768,18 @@ def create_order():
             )
 
 
+            if stock_update.rowcount != 1:
+
+                raise Exception(
+                    f"Stock update failed for {item['name']}"
+                )
+
+
             # =============================================
-            # MARK CART ITEM ORDERED
+            # MARK ONLY SELECTED CART ITEM AS ORDERED
             # =============================================
 
-            conn.execute(
+            cart_update = conn.execute(
                 """
                 UPDATE cart
 
@@ -2775,12 +2788,21 @@ def create_order():
                 WHERE id = ?
 
                 AND user_id = ?
+
+                AND status = 'In Cart'
                 """,
                 (
                     item["cart_id"],
                     user_id
                 )
             )
+
+
+            if cart_update.rowcount != 1:
+
+                raise Exception(
+                    f"Cart status update failed for {item['name']}"
+                )
 
 
         # =================================================
@@ -2809,7 +2831,7 @@ def create_order():
             "success": True,
 
             "message":
-                "Order placed successfully",
+                "Selected items ordered successfully",
 
             "order": {
 
@@ -2840,7 +2862,13 @@ def create_order():
                 "created_at":
                     order["created_at"]
 
-            }
+            },
+
+            "ordered_cart_ids":
+                cart_ids,
+
+            "selected_items_count":
+                len(cart_items)
 
         }), 201
 
@@ -3418,66 +3446,84 @@ if __name__ == "__main__":
     print("==========================================")
     print("")
 
+
     print("Server:")
     print(
         f"http://127.0.0.1:{port}"
     )
 
+
     print("")
+
 
     print("Flowers:")
     print(
         f"http://127.0.0.1:{port}/flower"
     )
 
+
     print("")
+
 
     print("Flower API:")
     print(
         f"http://127.0.0.1:{port}/api/flowers"
     )
 
+
     print("")
+
 
     print("Cart API:")
     print(
         f"http://127.0.0.1:{port}/api/cart/<user_id>"
     )
 
+
     print("")
+
 
     print("Checkout API:")
     print(
         f"http://127.0.0.1:{port}/api/orders"
     )
 
+
     print("")
+
 
     print("Orders:")
     print(
         f"http://127.0.0.1:{port}/orders"
     )
 
+
     print("")
+
 
     print("Health:")
     print(
         f"http://127.0.0.1:{port}/api/health"
     )
 
+
     print("")
+
 
     print("Swagger:")
     print(
         f"http://127.0.0.1:{port}/apidocs/"
     )
 
+
     print("")
+
 
     print("API JSON:")
     print(
         f"http://127.0.0.1:{port}/apispec_1.json"
     )
+
 
     print("")
     print("==========================================")
