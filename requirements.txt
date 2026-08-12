@@ -1,0 +1,5 @@
+Flask
+flasgger
+flask-cors
+gunicorn
+Werkzeug

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Register - Blossom Flower Shop</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff0f6,
+                    #ffe4ef
+                );
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 30px;
+
+            color: #333;
+
+        }
+
+
+        /* =========================
+           REGISTER CONTAINER
+        ========================= */
+
+        .register-container {
+
+            width: 100%;
+
+            max-width: 460px;
+
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 10px 35px
+                rgba(0, 0, 0, 0.12);
+
+        }
+
+
+        .register-container h1 {
+
+            text-align: center;
+
+            color: #d63384;
+
+            font-size: 26px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .welcome-text {
+
+            text-align: center;
+
+            color: #777;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .register-container h2 {
+
+            text-align: center;
+
+            color: #c2185b;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        #registerForm {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 16px;
+
+        }
+
+
+        #registerForm input {
+
+            width: 100%;
+
+            padding: 14px 16px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            outline: none;
+
+        }
+
+
+        #registerForm input:focus {
+
+            border-color: #d63384;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(214, 51, 132, 0.10);
+
+        }
+
+
+        #registerForm button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #d63384;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        #registerForm button:hover {
+
+            background: #ad1457;
+
+        }
+
+
+        #registerForm button:disabled {
+
+            opacity: 0.7;
+
+            cursor: not-allowed;
+
+        }
+
+
+        #message {
+
+            text-align: center;
+
+            min-height: 20px;
+
+            font-size: 14px;
+
+        }
+
+
+        /* =========================
+           LOGIN LINK
+        ========================= */
+
+        .account-text {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+        }
+
+
+        .account-text a {
+
+            color: #d63384;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+        }
+
+
+        .account-text a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 500px) {
+
+            body {
+
+                padding: 20px;
+
+            }
+
+            .register-container {
+
+                padding: 28px 22px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="register-container">
+
+
+    <h1>
+        🌸 Blossom Flower Shop
+    </h1>
+
+
+    <p class="welcome-text">
+        Create New Account
+    </p>
+
+
+    <h2>
+        Register
+    </h2>
+
+
+    <form id="registerForm">
+
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Enter Full Name"
+            required
+        >
+
+
+        <input
+            type="email"
+            id="regEmail"
+            placeholder="Enter Email"
+            required
+        >
+
+
+        <input
+            type="password"
+            id="regPassword"
+            placeholder="Create Password"
+            minlength="6"
+            required
+        >
+
+
+        <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm Password"
+            minlength="6"
+            required
+        >
+
+
+        <button
+            type="submit"
+            id="registerButton"
+        >
+            Register
+        </button>
+
+
+        <p id="message"></p>
+
+
+    </form>
+
+
+    <p class="account-text">
+
+        Already have an account?
+
+        <a href="login.html">
+            Login Here
+        </a>
+
+    </p>
+
+
+</div>
+
+
+<script>
+
+    // =====================================
+    // REGISTER FORM
+    // =====================================
+
+    const registerForm =
+        document.getElementById(
+            "registerForm"
+        );
+
+
+    const registerButton =
+        document.getElementById(
+            "registerButton"
+        );
+
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    registerForm.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const name =
+                document
+                    .getElementById("name")
+                    .value
+                    .trim();
+
+
+            const email =
+                document
+                    .getElementById("regEmail")
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById("regPassword")
+                    .value;
+
+
+            const confirmPassword =
+                document
+                    .getElementById("confirmPassword")
+                    .value;
+
+
+            // =================================
+            // CHECK PASSWORD
+            // =================================
+
+            if (
+                password !==
+                confirmPassword
+            ) {
+
+                message.textContent =
+                    "Passwords do not match.";
+
+                message.style.color =
+                    "red";
+
+                return;
+            }
+
+
+            // =================================
+            // CHECK PASSWORD LENGTH
+            // =================================
+
+            if (password.length < 6) {
+
+                message.textContent =
+                    "Password must be at least 6 characters.";
+
+                message.style.color =
+                    "red";
+
+                return;
+            }
+
+
+            registerButton.disabled =
+                true;
+
+
+            message.textContent =
+                "Creating account...";
+
+            message.style.color =
+                "#777";
+
+
+            // =================================
+            // SEND TO FLASK
+            // =================================
+
+            try {
+
+                const response =
+                    await fetch(
+                        "http://127.0.0.1:5000/api/register",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                name: name,
+
+                                email: email,
+
+                                password: password
+
+                            })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                // =================================
+                // SUCCESS
+                // =================================
+
+                if (
+                    response.ok &&
+                    data.success
+                ) {
+
+                    message.textContent =
+                        "🌸 Registration successful! Redirecting to login...";
+
+                    message.style.color =
+                        "green";
+
+
+                    registerForm.reset();
+
+
+                    setTimeout(
+                        function() {
+
+                            window.location.href =
+                                "login.html";
+
+                        },
+                        1200
+                    );
+
+
+                    return;
+                }
+
+
+                // =================================
+                // ERROR
+                // =================================
+
+                message.textContent =
+                    data.message ||
+                    "Registration failed.";
+
+                message.style.color =
+                    "#d63384";
+
+
+                registerButton.disabled =
+                    false;
+
+            } catch (error) {
+
+                console.error(
+                    "Registration Error:",
+                    error
+                );
+
+
+                message.textContent =
+                    "Unable to connect to Flask server.";
+
+                message.style.color =
+                    "red";
+
+
+                registerButton.disabled =
+                    false;
+
+            }
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

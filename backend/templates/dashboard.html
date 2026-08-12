@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Blossom Flower Shop</title>
+
+
+    <style>
+
+        /* =========================================
+           RESET
+        ========================================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /* =========================================
+           BODY
+        ========================================= */
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff5f8,
+                    #ffe9f1
+                );
+
+            color: #333;
+
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .dashboard-header {
+
+            width: 100%;
+
+            background: white;
+
+            padding: 18px 45px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            box-shadow:
+                0 4px 18px
+                rgba(0, 0, 0, 0.08);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+        }
+
+
+        .logo {
+
+            color: #d63384;
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* =========================================
+           NAVIGATION
+        ========================================= */
+
+        .dashboard-header nav {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .dashboard-header nav a {
+
+            text-decoration: none;
+
+            color: #444;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+
+        }
+
+
+        .dashboard-header nav a:hover {
+
+            color: #d63384;
+
+        }
+
+
+        /* LOGOUT BUTTON */
+
+        .logout-btn {
+
+            border: none;
+
+            background: #d63384;
+
+            color: white;
+
+            padding: 9px 18px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        .logout-btn:hover {
+
+            background: #ad1457;
+
+        }
+
+
+        /* =========================================
+           DASHBOARD SECTION
+        ========================================= */
+
+        .dashboard-section {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            padding: 45px 25px 60px;
+
+            text-align: center;
+
+        }
+
+
+        .dashboard-section h2 {
+
+            font-size: 32px;
+
+            color: #333;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .dashboard-section > p {
+
+            color: #777;
+
+            font-size: 16px;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        /* =========================================
+           DASHBOARD CARDS
+        ========================================= */
+
+        .dashboard-cards {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+
+        }
+
+
+        .dashboard-card {
+
+            background: white;
+
+            border-radius: 16px;
+
+            padding: 28px 20px;
+
+            min-height: 225px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0, 0, 0, 0.08);
+
+            transition:
+                transform 0.3s,
+                box-shadow 0.3s;
+
+        }
+
+
+        .dashboard-card:hover {
+
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 12px 30px
+                rgba(0, 0, 0, 0.13);
+
+        }
+
+
+        .dashboard-card h3 {
+
+            color: #d63384;
+
+            font-size: 20px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .dashboard-card .count {
+
+            font-size: 38px;
+
+            font-weight: bold;
+
+            color: #111;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .dashboard-card p {
+
+            color: #777;
+
+            margin-bottom: 18px;
+
+            font-size: 15px;
+
+        }
+
+
+        /* =========================================
+           CARD BUTTON
+        ========================================= */
+
+        .card-btn {
+
+            display: inline-block;
+
+            text-decoration: none;
+
+            background: #ff1493;
+
+            color: white;
+
+            padding: 10px 20px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+
+        }
+
+
+        .card-btn:hover {
+
+            background: #d63384;
+
+            transform: scale(1.04);
+
+        }
+
+
+        /* =========================================
+           ACCOUNT CARD
+        ========================================= */
+
+        .account-card {
+
+            grid-column: span 1;
+
+        }
+
+
+        .account-name {
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+            color: #111;
+
+            margin-bottom: 12px;
+
+            word-break: break-word;
+
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 900px) {
+
+            .dashboard-header {
+
+                padding: 18px 25px;
+
+                flex-direction: column;
+
+                gap: 15px;
+
+            }
+
+
+            .dashboard-cards {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .dashboard-header {
+
+                padding: 15px;
+
+            }
+
+
+            .dashboard-header nav {
+
+                justify-content: center;
+
+                gap: 12px;
+
+            }
+
+
+            .dashboard-section {
+
+                padding:
+                    30px 15px 45px;
+
+            }
+
+
+            .dashboard-section h2 {
+
+                font-size: 26px;
+
+            }
+
+
+            .dashboard-cards {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .dashboard-card {
+
+                min-height: 210px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header class="dashboard-header">
+
+
+    <div class="logo">
+
+        🌸 Blossom Flower Shop
+
+    </div>
+
+
+    <nav>
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="home.html">
+            Home
+        </a>
+
+        <a href="flower.html">
+            Flowers
+        </a>
+
+        <a href="cart.html">
+            Cart
+        </a>
+
+        <a href="orders.html">
+            Orders
+        </a>
+
+        <a href="about.html">
+            About
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+
+        <button
+            class="logout-btn"
+            onclick="logout()">
+
+            Logout
+
+        </button>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================================
+     DASHBOARD
+========================================= -->
+
+<section class="dashboard-section">
+
+
+    <h2 id="welcomeUser">
+
+        Welcome 🌸
+
+    </h2>
+
+
+    <p>
+
+        Manage your Flower Shop from here.
+
+    </p>
+
+
+
+    <div class="dashboard-cards">
+
+
+        <!-- HOME -->
+
+        <div class="dashboard-card">
+
+            <h3>
+                🏠 Home
+            </h3>
+
+            <div class="count">
+                🌸
+            </div>
+
+            <p>
+                Explore Beautiful Flowers
+            </p>
+
+            <a
+                href="home.html"
+                class="card-btn">
+
+                Explore
+
+            </a>
+
+        </div>
+
+
+
+        <!-- FLOWERS -->
+
+        <div class="dashboard-card">
+
+            <h3>
+                🌹 Flowers
+            </h3>
+
+            <div
+                class="count"
+                id="flowerCount">
+
+                0
+
+            </div>
+
+            <p>
+                Fresh Flower Collection
+            </p>
+
+            <a
+                href="flower.html"
+                class="card-btn">
+
+                Shop Now
+
+            </a>
+
+        </div>
+
+
+
+        <!-- CART -->
+
+        <div class="dashboard-card">
+
+            <h3>
+                🛒 Cart
+            </h3>
+
+            <div
+                class="count"
+                id="cartCount">
+
+                0
+
+            </div>
+
+            <p>
+                Items in Cart
+            </p>
+
+            <a
+                href="cart.html"
+                class="card-btn">
+
+                View Cart
+
+            </a>
+
+        </div>
+
+
+
+        <!-- ORDERS -->
+
+        <div class="dashboard-card">
+
+            <h3>
+                📦 Orders
+            </h3>
+
+            <div
+                class="count"
+                id="orderCount">
+
+                0
+
+            </div>
+
+            <p>
+                Total Orders
+            </p>
+
+            <a
+                href="orders.html"
+                class="card-btn">
+
+                View Orders
+
+            </a>
+
+        </div>
+
+
+
+        <!-- ACCOUNT -->
+
+        <div class="dashboard-card account-card">
+
+            <h3>
+                👤 Account
+            </h3>
+
+            <div
+                class="account-name"
+                id="accountName">
+
+                User
+
+            </div>
+
+            <p>
+                Customer Account
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
+
+<script>
+
+    // =========================================
+    // LOGIN PROTECTION
+    // =========================================
+
+    if (localStorage.getItem("loggedIn") !== "true") {
+
+        alert("Please Login First!");
+
+        window.location.href = "index.html";
+
+    }
+
+
+    // =========================================
+    // CURRENT USER
+    // =========================================
+
+    let currentUser = null;
+
+    try {
+
+        currentUser = JSON.parse(
+            localStorage.getItem("currentUser")
+        );
+
+    } catch (error) {
+
+        console.error("User data error:", error);
+
+    }
+
+
+    // =========================================
+    // SHOW USER NAME
+    // =========================================
+
+    if (currentUser) {
+
+        const welcomeUser =
+            document.getElementById("welcomeUser");
+
+        const accountName =
+            document.getElementById("accountName");
+
+
+        if (welcomeUser) {
+
+            welcomeUser.innerHTML =
+                "Welcome, " +
+                (currentUser.name || "User") +
+                " 🌸";
+
+        }
+
+
+        if (accountName) {
+
+            accountName.innerHTML =
+                currentUser.name || "User";
+
+        }
+
+    }
+
+
+    // =========================================
+    // API URL
+    // =========================================
+
+    const API_URL = "http://127.0.0.1:5000";
+
+
+    // =========================================
+    // CART COUNT FROM DATABASE
+    // =========================================
+
+    async function updateCartCount() {
+
+        const cartCount =
+            document.getElementById("cartCount");
+
+
+        if (!cartCount) {
+            return;
+        }
+
+
+        if (!currentUser || !currentUser.id) {
+
+            cartCount.innerHTML = "0";
+
+            return;
+
+        }
+
+
+        try {
+
+            const response = await fetch(
+                `${API_URL}/api/cart/${currentUser.id}`
+            );
+
+
+            const data = await response.json();
+
+
+            console.log("Dashboard Cart Data:", data);
+
+
+            if (!response.ok || !data.success) {
+
+                cartCount.innerHTML = "0";
+
+                return;
+
+            }
+
+
+            // Your backend may return items
+            // or cart
+
+            const items =
+                data.items ||
+                data.cart ||
+                [];
+
+
+            // Count total quantity
+
+            let totalItems = 0;
+
+
+            items.forEach(function(item) {
+
+                totalItems += Number(
+                    item.quantity || 1
+                );
+
+            });
+
+
+            cartCount.innerHTML =
+                totalItems;
+
+
+        } catch (error) {
+
+            console.error(
+                "Dashboard Cart Error:",
+                error
+            );
+
+            cartCount.innerHTML = "0";
+
+        }
+
+    }
+
+
+    // =========================================
+    // ORDER COUNT
+    // =========================================
+
+    async function updateOrderCount() {
+
+        const orderCount =
+            document.getElementById("orderCount");
+
+
+        if (!orderCount) {
+            return;
+        }
+
+
+        if (!currentUser || !currentUser.id) {
+
+            orderCount.innerHTML = "0";
+
+            return;
+
+        }
+
+
+        try {
+
+            /*
+             * If your backend has:
+             *
+             * /api/orders/<user_id>
+             *
+             * this will load the real order count.
+             */
+
+            const response = await fetch(
+                `${API_URL}/api/orders/${currentUser.id}`
+            );
+
+
+            const data = await response.json();
+
+
+            console.log(
+                "Dashboard Order Data:",
+                data
+            );
+
+
+            if (!response.ok || !data.success) {
+
+                orderCount.innerHTML = "0";
+
+                return;
+
+            }
+
+
+            const orders =
+                data.orders ||
+                data.items ||
+                [];
+
+
+            orderCount.innerHTML =
+                orders.length;
+
+
+        } catch (error) {
+
+            console.error(
+                "Dashboard Order Error:",
+                error
+            );
+
+
+            // Fallback to localStorage
+
+            const localOrders =
+                JSON.parse(
+                    localStorage.getItem("orders")
+                ) || [];
+
+
+            orderCount.innerHTML =
+                localOrders.length;
+
+        }
+
+    }
+
+
+    // =========================================
+    // FLOWER COUNT
+    // =========================================
+
+    async function updateFlowerCount() {
+
+        const flowerCount =
+            document.getElementById(
+                "flowerCount"
+            );
+
+
+        if (!flowerCount) {
+            return;
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/flowers`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                response.ok &&
+                data.success
+            ) {
+
+                const flowers =
+                    data.flowers || [];
+
+
+                flowerCount.innerHTML =
+                    flowers.length + "+";
+
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "Flower count error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    // =========================================
+    // LOGOUT
+    // =========================================
+
+    function logout() {
+
+        localStorage.removeItem(
+            "loggedIn"
+        );
+
+
+        localStorage.removeItem(
+            "currentUser"
+        );
+
+
+        alert(
+            "Logged Out Successfully!"
+        );
+
+
+        window.location.href = "/login";
+    }
+
+
+    // =========================================
+    // INITIAL LOAD
+    // =========================================
+
+    updateCartCount();
+
+    updateOrderCount();
+
+    updateFlowerCount();
+
+
+    // =========================================
+    // REFRESH CART COUNT
+    // =========================================
+
+    /*
+     * Every 2 seconds dashboard checks
+     * the database again.
+     *
+     * So if cart changes, count updates.
+     */
+
+    setInterval(
+        updateCartCount,
+        2000
+    );
+
+
+</script>

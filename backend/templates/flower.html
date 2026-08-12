@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Flowers | Blossom Flower Shop</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff7fa;
+            color: #333;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+
+            background: #ffffff;
+
+            padding: 18px 50px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            box-shadow:
+                0 2px 10px
+                rgba(0,0,0,0.08);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+        }
+
+
+        .logo {
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            color: #d63384;
+        }
+
+
+        nav ul {
+
+            list-style: none;
+
+            display: flex;
+
+            gap: 25px;
+        }
+
+
+        nav ul li a {
+
+            text-decoration: none;
+
+            color: #333;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+
+        nav ul li a:hover {
+
+            color: #d63384;
+        }
+
+
+        /* =========================
+           FLOWER PAGE
+        ========================= */
+
+        .flower-page {
+
+            max-width: 1200px;
+
+            margin: 40px auto;
+
+            padding: 20px;
+        }
+
+
+        .flower-page h1 {
+
+            text-align: center;
+
+            color: #c2185b;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        #searchBox {
+
+            display: block;
+
+            width: 100%;
+
+            max-width: 500px;
+
+            margin: 0 auto 25px;
+
+            padding: 14px 18px;
+
+            border: 2px solid #f3b6ce;
+
+            border-radius: 30px;
+
+            outline: none;
+
+            font-size: 16px;
+        }
+
+
+        #searchBox:focus {
+
+            border-color: #d63384;
+        }
+
+
+        /* =========================
+           FILTER
+        ========================= */
+
+        .filter-section {
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .filter-btn {
+
+            padding: 10px 20px;
+
+            border: none;
+
+            border-radius: 25px;
+
+            background: #f8c8dc;
+
+            color: #8e2450;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .filter-btn:hover {
+
+            background: #d63384;
+
+            color: white;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           FLOWER GRID
+        ========================= */
+
+        .flower-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+
+        /* =========================
+           FLOWER CARD
+        ========================= */
+
+        .flower-card {
+
+            background: white;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,0.10);
+
+            padding-bottom: 20px;
+
+            transition: 0.3s;
+        }
+
+
+        .flower-card:hover {
+
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(0,0,0,0.15);
+        }
+
+
+        .flower-card img {
+
+            width: 100%;
+
+            height: 220px;
+
+            object-fit: cover;
+        }
+
+
+        .flower-card h3 {
+
+            margin:
+                18px 18px 8px;
+
+            color: #c2185b;
+
+            font-size: 21px;
+        }
+
+
+        .flower-card p {
+
+            margin: 8px 18px;
+
+            color: #666;
+
+            line-height: 1.5;
+        }
+
+
+        .flower-price {
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            color: #d63384 !important;
+        }
+
+
+        .stock-text {
+
+            font-size: 14px;
+
+            color: #777 !important;
+        }
+
+
+        /* =========================
+           ADD CART BUTTON
+        ========================= */
+
+        .add-cart-btn {
+
+            display: block;
+
+            width:
+                calc(100% - 36px);
+
+            margin:
+                15px 18px 0;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #d63384;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .add-cart-btn:hover {
+
+            background: #ad1457;
+        }
+
+
+        .add-cart-btn:disabled {
+
+            background: #aaa;
+
+            cursor: not-allowed;
+        }
+
+
+        /* =========================
+           LOADING / EMPTY
+        ========================= */
+
+        .message {
+
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+            padding: 40px;
+
+            font-size: 18px;
+
+            color: #777;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .flower-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .navbar {
+
+                padding: 15px 25px;
+            }
+
+
+            nav ul {
+
+                gap: 12px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .navbar {
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+
+            nav ul {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+
+            .flower-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+
+        🌸 Blossom Flower Shop
+
+    </div>
+
+
+    <nav>
+
+        <ul>
+
+            <li>
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+            </li>
+
+
+            <li>
+                <a href="home.html">
+                    Home
+                </a>
+            </li>
+
+
+            <li>
+                <a href="flower.html">
+                    Flowers
+                </a>
+            </li>
+
+
+            <li>
+                <a href="orders.html">
+                    Orders
+                </a>
+            </li>
+
+
+            <li>
+                <a href="cart.html">
+                    Cart
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================
+     FLOWER PAGE
+========================= -->
+
+<section class="flower-page">
+
+    <h1>
+        🌸 Our Fresh Flowers
+    </h1>
+
+
+    <!-- SEARCH -->
+
+    <input
+        type="text"
+        id="searchBox"
+        placeholder="Search Flowers..."
+    >
+
+
+    <!-- FILTER -->
+
+    <div class="filter-section">
+
+        <button
+            class="filter-btn"
+            onclick="filterFlowers('All')"
+        >
+            All
+        </button>
+
+
+        <button
+            class="filter-btn"
+            onclick="filterFlowers('Rose')"
+        >
+            Rose
+        </button>
+
+
+        <button
+            class="filter-btn"
+            onclick="filterFlowers('Lily')"
+        >
+            Lily
+        </button>
+
+
+        <button
+            class="filter-btn"
+            onclick="filterFlowers('Tulip')"
+        >
+            Tulip
+        </button>
+
+
+        <button
+            class="filter-btn"
+            onclick="filterFlowers('Sunflower')"
+        >
+            Sunflower
+        </button>
+
+    </div>
+
+
+    <!-- FLOWERS -->
+
+    <div
+        id="flowerContainer"
+        class="flower-grid"
+    >
+
+        <p class="message">
+            Loading flowers...
+        </p>
+
+    </div>
+
+</section>
+
+
+<script>
+
+    // =====================================
+    // FLASK API
+    // =====================================
+
+    const API_BASE_URL =
+        "http://127.0.0.1:5000";
+
+
+    let allFlowers = [];
+
+
+    // =====================================
+    // LOAD FLOWERS
+    // =====================================
+
+    async function loadFlowers() {
+
+        const container =
+            document.getElementById(
+                "flowerContainer"
+            );
+
+
+        try {
+
+            container.innerHTML =
+                `
+                <p class="message">
+                    Loading flowers...
+                </p>
+                `;
+
+
+            const response =
+                await fetch(
+                    `${API_BASE_URL}/api/flowers`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "Flowers API:",
+                data
+            );
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to load flowers"
+                );
+
+            }
+
+
+            allFlowers =
+                data.flowers || [];
+
+
+            displayFlowers(
+                allFlowers
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Flower API Error:",
+                error
+            );
+
+
+            container.innerHTML =
+                `
+                <p class="message">
+
+                    ❌ Unable to connect
+                    to Flask server.
+
+                    <br><br>
+
+                    Please make sure
+                    <b>python app.py</b>
+                    is running.
+
+                </p>
+                `;
+
+        }
+
+    }
+
+
+    // =====================================
+    // DISPLAY FLOWERS
+    // =====================================
+
+    function displayFlowers(
+        flowers
+    ) {
+
+        const container =
+            document.getElementById(
+                "flowerContainer"
+            );
+
+
+        container.innerHTML = "";
+
+
+        if (
+            !flowers ||
+            flowers.length === 0
+        ) {
+
+            container.innerHTML =
+                `
+                <p class="message">
+
+                    🌸 No flowers found.
+
+                </p>
+                `;
+
+            return;
+
+        }
+
+
+        flowers.forEach(
+            function(flower) {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "flower-card";
+
+
+                const image =
+                    flower.image ||
+                    "https://via.placeholder.com/500x300?text=Flower";
+
+
+                card.innerHTML =
+                    `
+
+                    <img
+                        src="${image}"
+                        alt="${flower.name || "Flower"}"
+                    >
+
+
+                    <h3>
+                        ${flower.name || "Flower"}
+                    </h3>
+
+
+                    <p>
+                        ${
+                            flower.description ||
+                            "Fresh beautiful flowers"
+                        }
+                    </p>
+
+
+                    <p class="flower-price">
+
+                        ₹${Number(
+                            flower.price || 0
+                        ).toFixed(2)}
+
+                    </p>
+
+
+                    <p class="stock-text">
+
+                        Available Stock:
+                        ${flower.stock ?? 0}
+
+                    </p>
+
+
+                    <button
+                        class="add-cart-btn"
+                        onclick="addToCart(${flower.id})"
+                        ${
+                            Number(flower.stock) <= 0
+                                ? "disabled"
+                                : ""
+                        }
+                    >
+
+                        ${
+                            Number(flower.stock) <= 0
+                                ? "Out of Stock"
+                                : "🛒 Add to Cart"
+                        }
+
+                    </button>
+
+                    `;
+
+
+                container.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+
+
+    // =====================================
+    // FILTER FLOWERS
+    // =====================================
+
+    function filterFlowers(
+        category
+    ) {
+
+        if (
+            category === "All"
+        ) {
+
+            displayFlowers(
+                allFlowers
+            );
+
+            return;
+
+        }
+
+
+        const filteredFlowers =
+            allFlowers.filter(
+                function(flower) {
+
+                    return (
+
+                        flower.category &&
+
+                        flower.category
+                            .toLowerCase() ===
+                        category.toLowerCase()
+
+                    );
+
+                }
+            );
+
+
+        displayFlowers(
+            filteredFlowers
+        );
+
+    }
+
+
+    // =====================================
+    // SEARCH FLOWERS
+    // =====================================
+
+    function searchFlowers() {
+
+        const searchBox =
+            document.getElementById(
+                "searchBox"
+            );
+
+
+        const searchText =
+            searchBox.value
+                .toLowerCase()
+                .trim();
+
+
+        const filteredFlowers =
+            allFlowers.filter(
+                function(flower) {
+
+                    const name =
+                        (
+                            flower.name ||
+                            ""
+                        ).toLowerCase();
+
+
+                    const category =
+                        (
+                            flower.category ||
+                            ""
+                        ).toLowerCase();
+
+
+                    const description =
+                        (
+                            flower.description ||
+                            ""
+                        ).toLowerCase();
+
+
+                    return (
+
+                        name.includes(
+                            searchText
+                        ) ||
+
+                        category.includes(
+                            searchText
+                        ) ||
+
+                        description.includes(
+                            searchText
+                        )
+
+                    );
+
+                }
+            );
+
+
+        displayFlowers(
+            filteredFlowers
+        );
+
+    }
+
+
+    // =====================================
+    // ADD TO CART
+    // =====================================
+
+    async function addToCart(
+        flowerId
+    ) {
+
+        // ---------------------------------
+        // CHECK LOGIN
+        // ---------------------------------
+
+        const loggedIn =
+            localStorage.getItem(
+                "loggedIn"
+            );
+
+
+        const currentUserData =
+            localStorage.getItem(
+                "currentUser"
+            );
+
+
+        if (
+            loggedIn !== "true" ||
+            !currentUserData
+        ) {
+
+            alert(
+                "🌸 Please login first to add flowers to cart."
+            );
+
+
+            window.location.href =
+                "login.html";
+
+
+            return;
+
+        }
+
+
+        // ---------------------------------
+        // GET USER
+        // ---------------------------------
+
+        let currentUser;
+
+
+        try {
+
+            currentUser =
+                JSON.parse(
+                    currentUserData
+                );
+
+        } catch (error) {
+
+            console.error(
+                "User Data Error:",
+                error
+            );
+
+
+            localStorage.removeItem(
+                "currentUser"
+            );
+
+
+            localStorage.removeItem(
+                "loggedIn"
+            );
+
+
+            alert(
+                "Please login again."
+            );
+
+
+            window.location.href =
+                "login.html";
+
+
+            return;
+
+        }
+
+
+        if (
+            !currentUser ||
+            !currentUser.id
+        ) {
+
+            alert(
+                "User information not found. Please login again."
+            );
+
+
+            window.location.href =
+                "login.html";
+
+
+            return;
+
+        }
+
+
+        // ---------------------------------
+        // SEND TO FLASK
+        // ---------------------------------
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_BASE_URL}/api/cart`,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            user_id:
+                                currentUser.id,
+
+                            flower_id:
+                                flowerId,
+
+                            quantity: 1
+
+                        })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "Cart API:",
+                data
+            );
+
+
+            if (
+                response.ok &&
+                data.success
+            ) {
+
+                alert(
+                    "🌸 Flower added to cart!"
+                );
+
+
+                return;
+
+            }
+
+
+            alert(
+                data.message ||
+                "Unable to add flower to cart."
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Cart API Error:",
+                error
+            );
+
+
+            alert(
+                "Unable to connect to Flask server."
+            );
+
+        }
+
+    }
+
+
+    // =====================================
+    // SEARCH EVENT
+    // =====================================
+
+    document
+        .getElementById(
+            "searchBox"
+        )
+        .addEventListener(
+            "input",
+            searchFlowers
+        );
+
+
+    // =====================================
+    // PAGE LOAD
+    // =====================================
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+            loadFlowers();
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

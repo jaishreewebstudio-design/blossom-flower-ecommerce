@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login - Blossom Flower Shop</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff0f6,
+                    #ffe4ef
+                );
+
+            color: #333;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+
+        /* =========================================
+           LOGIN BOX
+        ========================================= */
+
+        .login {
+
+            width: 100%;
+
+            max-width: 440px;
+
+            margin: 30px 20px;
+
+            padding: 40px 35px;
+
+            background: white;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 30px
+                rgba(0, 0, 0, 0.12);
+
+        }
+
+
+        /* =========================================
+           LOGO
+        ========================================= */
+
+        .logo {
+
+            text-align: center;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .logo-icon {
+
+            font-size: 42px;
+
+        }
+
+
+        .logo h1 {
+
+            color: #ff1493;
+
+            font-size: 30px;
+
+            line-height: 1.1;
+
+            margin-top: 5px;
+
+        }
+
+
+        .welcome {
+
+            text-align: center;
+
+            color: #777;
+
+            margin-top: 12px;
+
+            margin-bottom: 25px;
+
+            font-size: 15px;
+
+        }
+
+
+        .login h2 {
+
+            text-align: center;
+
+            color: #222;
+
+            margin-bottom: 25px;
+
+            font-size: 23px;
+
+        }
+
+
+        /* =========================================
+           INPUTS
+        ========================================= */
+
+        .input-group {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .input-group label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            color: #444;
+
+        }
+
+
+        .input-group input {
+
+            width: 100%;
+
+            padding: 14px 16px;
+
+            border:
+                1px solid #d8d8d8;
+
+            border-radius: 9px;
+
+            font-size: 15px;
+
+            outline: none;
+
+            background: #f8faff;
+
+        }
+
+
+        .input-group input:focus {
+
+            border-color: #ff1493;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(255, 20, 147, 0.10);
+
+            background: white;
+
+        }
+
+
+        /* =========================================
+           LOGIN BUTTON
+        ========================================= */
+
+        #loginButton {
+
+            width: 100%;
+
+            padding: 14px;
+
+            margin-top: 5px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #ff1493;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        #loginButton:hover {
+
+            background: #d41475;
+
+        }
+
+
+        #loginButton:disabled {
+
+            opacity: 0.7;
+
+            cursor: not-allowed;
+
+        }
+
+
+        /* =========================================
+           MESSAGE
+        ========================================= */
+
+        #message {
+
+            text-align: center;
+
+            min-height: 25px;
+
+            margin-top: 18px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            line-height: 22px;
+
+        }
+
+
+        #message a {
+
+            color: #ff1493;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+        }
+
+
+        #message a:hover {
+
+            text-decoration: underline;
+
+        }
+.forgot-password {
+    text-align: right;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.forgot-password a {
+    color: #ff1493;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+.forgot-text {
+    text-align: right;
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 18px;
+}
+
+        /* =========================================
+           REGISTER
+        ========================================= */
+
+        .register-text {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            font-size: 14px;
+
+        }
+
+
+        .register-text a {
+
+            color: #ff1493;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+        }
+
+
+        .register-text a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* =========================================
+           HOME
+        ========================================= */
+
+        .home-link {
+
+            text-align: center;
+
+            margin-top: 18px;
+
+        }
+
+
+        .home-link a {
+
+            color: #555;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+        }
+
+
+        .home-link a:hover {
+
+            color: #ff1493;
+
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 500px) {
+
+            .login {
+
+                padding:
+                    30px 22px;
+
+            }
+
+            .logo h1 {
+
+                font-size: 26px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     LOGIN BOX
+========================================= -->
+
+<section class="login">
+
+
+    <!-- LOGO -->
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            🌸
+        </div>
+
+        <h1>
+            Blossom Flower Shop
+        </h1>
+
+    </div>
+
+
+    <p class="welcome">
+        Welcome Back!
+    </p>
+
+
+    <h2>
+        Login
+    </h2>
+
+
+    <!-- =====================================
+         EMAIL
+    ====================================== -->
+
+    <div class="input-group">
+
+        <label for="email">
+            Email
+        </label>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            autocomplete="email"
+        >
+
+    </div>
+
+
+    <!-- =====================================
+         PASSWORD
+    ====================================== -->
+
+    <div class="input-group">
+
+        <label for="password">
+            Password
+        </label>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+        >
+
+    </div>
+
+
+    <!-- =====================================
+         LOGIN BUTTON
+
+         IMPORTANT:
+         type="button"
+
+         Isse browser form submit nahi karega.
+         Page refresh nahi hoga.
+    ====================================== -->
+
+    <button
+        type="button"
+        id="loginButton"
+        onclick="loginUser()"
+    >
+
+        Login
+
+    </button>
+
+
+    <!-- MESSAGE -->
+
+    <p id="message"></p>
+<!-- FORGOT PASSWORD -->
+
+<p class="forgot-password">
+    <a href="/forgot-password">
+        Forgot Password?
+    </a>
+</p>
+
+<p class="forgot-text">
+    Forgot your password? Don't worry, we'll help you reset it.
+</p>
+
+<!-- REGISTER -->
+
+<p class="register-text">
+    Don't have an account?
+    <a href="/register">
+        Register Here
+    </a>
+</p>
+    <!-- HOME -->
+
+    <div class="home-link">
+
+        <a href="/">
+            ← Back to Home
+        </a>
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================
+     LOGIN JAVASCRIPT
+========================================= -->
+
+<script>
+
+
+// =====================================================
+// LOGIN FUNCTION
+// =====================================================
+
+async function loginUser() {
+
+
+    console.log(
+        "LOGIN BUTTON CLICKED"
+    );
+
+
+    // =================================================
+    // GET ELEMENTS
+    // =================================================
+
+    const emailInput =
+        document.getElementById(
+            "email"
+        );
+
+
+    const passwordInput =
+        document.getElementById(
+            "password"
+        );
+
+
+    const loginButton =
+        document.getElementById(
+            "loginButton"
+        );
+
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    // =================================================
+    // GET VALUES
+    // =================================================
+
+    const email =
+        emailInput.value
+            .trim()
+            .toLowerCase();
+
+
+    const password =
+        passwordInput.value;
+
+
+    console.log(
+        "EMAIL:",
+        email
+    );
+
+
+    // =================================================
+    // VALIDATION
+    // =================================================
+
+    if (!email) {
+
+        message.textContent =
+            "Please enter your email.";
+
+        message.style.color =
+            "#d63384";
+
+        emailInput.focus();
+
+        return;
+
+    }
+
+
+    if (!password) {
+
+        message.textContent =
+            "Please enter your password.";
+
+        message.style.color =
+            "#d63384";
+
+        passwordInput.focus();
+
+        return;
+
+    }
+
+
+    // =================================================
+    // DISABLE BUTTON
+    // =================================================
+
+    loginButton.disabled =
+        true;
+
+
+    loginButton.textContent =
+        "Logging in...";
+
+
+    message.textContent =
+        "Please wait...";
+
+
+    message.style.color =
+        "#777";
+
+
+    // =================================================
+    // SEND LOGIN REQUEST
+    // =================================================
+
+    try {
+
+
+        console.log(
+            "SENDING REQUEST TO /api/login"
+        );
+
+
+        const response =
+            await fetch(
+                "/api/login",
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            email:
+                                email,
+
+                            password:
+                                password
+
+                        })
+
+                }
+            );
+
+
+        console.log(
+            "SERVER STATUS:",
+            response.status
+        );
+
+
+        // =================================================
+        // READ RESPONSE
+        // =================================================
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "SERVER RESPONSE:",
+            data
+        );
+
+
+        // =================================================
+        // LOGIN SUCCESS
+        // =================================================
+
+        if (
+            response.ok &&
+            data.success === true
+        ) {
+
+
+            console.log(
+                "LOGIN SUCCESS"
+            );
+
+
+            // ---------------------------------------------
+            // SAVE LOGIN
+            // ---------------------------------------------
+
+            localStorage.setItem(
+                "loggedIn",
+                "true"
+            );
+
+
+            localStorage.setItem(
+                "currentUser",
+                JSON.stringify(
+                    data.user
+                )
+            );
+
+
+            localStorage.setItem(
+                "user_id",
+                String(
+                    data.user.id
+                )
+            );
+
+
+            localStorage.setItem(
+                "user_name",
+                data.user.name
+            );
+
+
+            localStorage.setItem(
+                "user_email",
+                data.user.email
+            );
+
+
+            // ---------------------------------------------
+            // SUCCESS MESSAGE
+            // ---------------------------------------------
+
+            message.textContent =
+                "🌸 Login successful!";
+
+
+            message.style.color =
+                "green";
+
+
+            loginButton.textContent =
+                "Login Successful ✓";
+
+
+            // ---------------------------------------------
+            // GO TO DASHBOARD
+            // ---------------------------------------------
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "/dashboard";
+
+                },
+                500
+            );
+
+
+            return;
+
+        }
+
+
+        // =================================================
+        // USER NOT REGISTERED
+        // =================================================
+
+        if (
+            response.status === 404 &&
+            data.registered === false
+        ) {
+
+
+            console.log(
+                "USER NOT REGISTERED"
+            );
+
+
+            message.innerHTML =
+                "⚠️ This email is not registered.<br>" +
+                "<a href='/register'>" +
+                "Register Here" +
+                "</a>";
+
+
+            message.style.color =
+                "#d63384";
+
+
+            loginButton.disabled =
+                false;
+
+
+            loginButton.textContent =
+                "Login";
+
+
+            return;
+
+        }
+
+
+        // =================================================
+        // WRONG PASSWORD
+        // =================================================
+
+        if (
+            response.status === 401 &&
+            data.registered === true
+        ) {
+
+
+            console.log(
+                "WRONG PASSWORD"
+            );
+
+
+            message.textContent =
+                "❌ Incorrect password. Please try again.";
+
+
+            message.style.color =
+                "#d63384";
+
+
+            loginButton.disabled =
+                false;
+
+
+            loginButton.textContent =
+                "Login";
+
+
+            return;
+
+        }
+
+
+        // =================================================
+        // OTHER BACKEND ERROR
+        // =================================================
+
+        console.log(
+            "LOGIN FAILED:",
+            data
+        );
+
+
+        message.textContent =
+            data.message ||
+            "Login failed. Please try again.";
+
+
+        message.style.color =
+            "red";
+
+
+        loginButton.disabled =
+            false;
+
+
+        loginButton.textContent =
+            "Login";
+
+
+    }
+
+
+    // =================================================
+    // CONNECTION ERROR
+    // =================================================
+
+    catch (error) {
+
+
+        console.error(
+            "LOGIN ERROR:",
+            error
+        );
+
+
+        message.textContent =
+            "❌ Unable to connect to Flask server.";
+
+
+        message.style.color =
+            "red";
+
+
+        loginButton.disabled =
+            false;
+
+
+        loginButton.textContent =
+            "Login";
+
+    }
+
+}
+
+
+// =====================================================
+// ENTER KEY LOGIN
+// =====================================================
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            loginUser();
+
+        }
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>
