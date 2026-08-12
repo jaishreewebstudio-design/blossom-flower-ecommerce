@@ -1285,43 +1285,39 @@ def forgot_password():
 # DASHBOARD API
 # =========================================================
 
-@app.route(
-    "/api/dashboard",
-    methods=["GET"]
-)
+@app.route("/api/dashboard", methods=["GET"])
 def dashboard_api():
     """
-    Get dashboard statistics
+    Get dashboard statistics for logged-in user.
+
+    Dashboard counts:
+    - Flowers = total flowers
+    - Cart = total quantity currently in cart
+    - Orders = total quantity ordered by logged-in user
+
     ---
     tags:
       - Dashboard
     """
 
-    logged_user_id = session.get(
-        "user_id"
-    )
+    # =====================================================
+    # CHECK LOGIN
+    # =====================================================
 
+    user_id = session.get("user_id")
 
-    if not logged_user_id:
-
+    if not user_id:
         return jsonify(
             {
                 "success": False,
-                "message": "Please login first",
+                "message": "Please login to view dashboard",
             }
         ), 401
 
-
     try:
+        user_id = int(user_id)
 
-        user_id = int(
-            logged_user_id
-        )
-
-    except (
-        TypeError,
-        ValueError
-    ):
+    except (TypeError, ValueError):
 
         return jsonify(
             {
@@ -1330,23 +1326,13 @@ def dashboard_api():
             }
         ), 401
 
+    # =====================================================
+    # DATABASE
+    # =====================================================
 
     conn = get_db()
 
-
     try:
-
-        # =================================================
-        # TOTAL USERS
-        # =================================================
-
-        total_users = conn.execute(
-            """
-            SELECT COUNT(*)
-            FROM users
-            """
-        ).fetchone()[0]
-
 
         # =================================================
         # TOTAL FLOWERS
@@ -1359,147 +1345,20 @@ def dashboard_api():
             """
         ).fetchone()[0]
 
-
         # =================================================
-        # IN STOCK FLOWERS
-        # =================================================
-
-        in_stock_flowers = conn.execute(
-            """
-            SELECT COUNT(*)
-            FROM flowers
-            WHERE stock > 0
-            """
-        ).fetchone()[0]
-
-
-        # =================================================
-        # OUT OF STOCK FLOWERS
-        # =================================================
-
-        out_of_stock_flowers = conn.execute(
-            """
-            SELECT COUNT(*)
-            FROM flowers
-            WHERE stock <= 0
-            """
-        ).fetchone()[0]
-
-
-        # =================================================
-        # USER ORDER COUNT
+        # CART COUNT
         #
-        # IMPORTANT:
-        # This is TOTAL ORDERED FLOWER QUANTITY,
-        # not number of order records.
+        # Only "In Cart" items.
         #
-        # Example:
-        # Rose x 2
-        # Lily x 3
+        # SUM(quantity) means:
         #
-        # Orders count = 5
-        # =================================================
-
-        total_orders = conn.execute(
-            """
-            SELECT COALESCE(
-                SUM(order_items.quantity),
-                0
-            )
-            FROM orders
-            INNER JOIN order_items
-                ON orders.id = order_items.order_id
-            WHERE orders.user_id = ?
-            """,
-            (user_id,),
-        ).fetchone()[0]
-
-
-        # =================================================
-        # USER ORDER RECORD COUNT
-        # =================================================
-
-        order_records = conn.execute(
-            """
-            SELECT COUNT(*)
-            FROM orders
-            WHERE user_id = ?
-            """,
-            (user_id,),
-        ).fetchone()[0]
-
-
-        # =================================================
-        # PROCESSING ORDERS QUANTITY
-        # =================================================
-
-        processing_orders = conn.execute(
-            """
-            SELECT COALESCE(
-                SUM(order_items.quantity),
-                0
-            )
-            FROM orders
-            INNER JOIN order_items
-                ON orders.id = order_items.order_id
-            WHERE orders.user_id = ?
-              AND orders.status = 'Processing'
-            """,
-            (user_id,),
-        ).fetchone()[0]
-
-
-        # =================================================
-        # COMPLETED ORDERS QUANTITY
-        # =================================================
-
-        completed_orders = conn.execute(
-            """
-            SELECT COALESCE(
-                SUM(order_items.quantity),
-                0
-            )
-            FROM orders
-            INNER JOIN order_items
-                ON orders.id = order_items.order_id
-            WHERE orders.user_id = ?
-              AND orders.status = 'Completed'
-            """,
-            (user_id,),
-        ).fetchone()[0]
-
-
-        # =================================================
-        # USER REVENUE
-        # =================================================
-
-        total_revenue = conn.execute(
-            """
-            SELECT COALESCE(
-                SUM(total),
-                0
-            )
-            FROM orders
-            WHERE user_id = ?
-            """,
-            (user_id,),
-        ).fetchone()[0]
-
-
-        # =================================================
-        # CART QUANTITY
-        #
-        # IMPORTANT:
-        # Count quantity, not number of rows.
-        #
-        # Example:
-        # Rose x 2
-        # Lily x 3
+        # Rose quantity 2
+        # Lily quantity 3
         #
         # Cart count = 5
         # =================================================
 
-        cart_items = conn.execute(
+        cart_count_result = conn.execute(
             """
             SELECT COALESCE(
                 SUM(quantity),
@@ -1509,93 +1368,147 @@ def dashboard_api():
             WHERE user_id = ?
               AND status = 'In Cart'
             """,
-            (user_id,),
-        ).fetchone()[0]
+            (
+                user_id,
+            ),
+        ).fetchone()
 
+        cart_count = int(
+            cart_count_result[0] or 0
+        )
+
+        # =================================================
+        # ORDER COUNT
+        #
+        # IMPORTANT:
+        # Count ordered QUANTITY,
+        # not number of orders.
+        #
+        # Example:
+        #
+        # Order #1
+        # Rose = 2
+        #
+        # Order #2
+        # Lily = 3
+        #
+        # Orders count = 5
+        # =================================================
+
+        orders_count_result = conn.execute(
+            """
+            SELECT COALESCE(
+                SUM(order_items.quantity),
+                0
+            )
+            FROM order_items
+
+            INNER JOIN orders
+                ON order_items.order_id = orders.id
+
+            WHERE orders.user_id = ?
+            """,
+            (
+                user_id,
+            ),
+        ).fetchone()
+
+        orders_count = int(
+            orders_count_result[0] or 0
+        )
+
+        # =================================================
+        # TOTAL ORDER RECORDS
+        #
+        # Kept separately in case needed later.
+        # =================================================
+
+        total_orders = conn.execute(
+            """
+            SELECT COUNT(*)
+            FROM orders
+            WHERE user_id = ?
+            """,
+            (
+                user_id,
+            ),
+        ).fetchone()[0]
 
         # =================================================
         # CART ROW COUNT
+        #
+        # Kept separately in case needed later.
         # =================================================
 
-        cart_records = conn.execute(
+        cart_rows = conn.execute(
             """
             SELECT COUNT(*)
             FROM cart
             WHERE user_id = ?
               AND status = 'In Cart'
             """,
-            (user_id,),
+            (
+                user_id,
+            ),
         ).fetchone()[0]
 
-
         # =================================================
-        # ORDERED CART QUANTITY
+        # RESPONSE
         # =================================================
-
-        ordered_cart_items = conn.execute(
-            """
-            SELECT COALESCE(
-                SUM(quantity),
-                0
-            )
-            FROM cart
-            WHERE user_id = ?
-              AND status = 'Ordered'
-            """,
-            (user_id,),
-        ).fetchone()[0]
-
 
         return jsonify(
             {
                 "success": True,
 
+                "message": "Dashboard loaded successfully",
+
+                # -----------------------------------------
+                # Main counts used by dashboard.html
+                # -----------------------------------------
+
+                "counts": {
+
+                    "flowers": int(
+                        total_flowers or 0
+                    ),
+
+                    "cart": int(
+                        cart_count or 0
+                    ),
+
+                    "orders": int(
+                        orders_count or 0
+                    ),
+                },
+
+                # -----------------------------------------
+                # Detailed statistics
+                # -----------------------------------------
+
                 "stats": {
 
-                    "total_users":
-                        int(total_users or 0),
+                    "total_flowers": int(
+                        total_flowers or 0
+                    ),
 
-                    "total_flowers":
-                        int(total_flowers or 0),
+                    "cart_items": int(
+                        cart_count or 0
+                    ),
 
-                    "in_stock_flowers":
-                        int(in_stock_flowers or 0),
+                    "ordered_items": int(
+                        orders_count or 0
+                    ),
 
-                    "out_of_stock_flowers":
-                        int(out_of_stock_flowers or 0),
+                    "total_orders": int(
+                        total_orders or 0
+                    ),
 
-                    # Actual ordered quantity
-                    "total_orders":
-                        int(total_orders or 0),
-
-                    # Number of order records
-                    "order_records":
-                        int(order_records or 0),
-
-                    "processing_orders":
-                        int(processing_orders or 0),
-
-                    "completed_orders":
-                        int(completed_orders or 0),
-
-                    "total_revenue":
-                        float(total_revenue or 0),
-
-                    # Actual cart quantity
-                    "cart_items":
-                        int(cart_items or 0),
-
-                    # Number of cart rows
-                    "cart_records":
-                        int(cart_records or 0),
-
-                    # Already ordered items still visible in cart
-                    "ordered_cart_items":
-                        int(ordered_cart_items or 0),
+                    "cart_rows": int(
+                        cart_rows or 0
+                    ),
                 },
             }
         ), 200
-
 
     except Exception as error:
 
@@ -1604,7 +1517,6 @@ def dashboard_api():
             error
         )
 
-
         return jsonify(
             {
                 "success": False,
@@ -1612,11 +1524,9 @@ def dashboard_api():
             }
         ), 500
 
-
     finally:
 
         conn.close()
-
 
 # =========================================================
 # GET ALL FLOWERS
