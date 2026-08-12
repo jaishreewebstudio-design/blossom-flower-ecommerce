@@ -383,7 +383,7 @@ def init_db():
         "Lily",
         "Beautiful orange lilies with vibrant natural colors.",
         649,
-         "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=85",
+         "https://upload.wikimedia.org/wikipedia/commons/a/a9/Lilium_candidum1.jpg",
     ),
 ]
             conn.executemany(
