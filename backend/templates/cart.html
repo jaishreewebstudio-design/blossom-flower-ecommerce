@@ -1363,7 +1363,7 @@
 
             const response =
                 await fetch(
-                    `/api/cart/${currentUserId}`,
+                    `/api/cart`,
                     {
                         credentials: "include"
                     }
@@ -1398,7 +1398,12 @@
 
 
             cartItems =
-                data.cart || [];
+                (data.cart || []).map(function(item) {
+                    if (item.status === "In Cart") {
+                        item.id = Number(item.cart_id ?? item.id);
+                    }
+                    return item;
+                });
 
 
             /*

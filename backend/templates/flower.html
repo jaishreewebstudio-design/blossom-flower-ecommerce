@@ -910,186 +910,55 @@
         flowerId
     ) {
 
-        // ---------------------------------
-        // CHECK LOGIN
-        // ---------------------------------
-
-        const loggedIn =
-            localStorage.getItem(
-                "loggedIn"
-            );
-
-
-        const currentUserData =
-            localStorage.getItem(
-                "currentUser"
-            );
-
-
-        if (
-            loggedIn !== "true" ||
-            !currentUserData
-        ) {
-
-            alert(
-                "🌸 Please login first to add flowers to cart."
-            );
-
-
-            window.location.href =
-                "login.html";
-
-
-            return;
-
-        }
-
-
-        // ---------------------------------
-        // GET USER
-        // ---------------------------------
-
-        let currentUser;
-
-
         try {
 
-            currentUser =
-                JSON.parse(
-                    currentUserData
-                );
-
-        } catch (error) {
-
-            console.error(
-                "User Data Error:",
-                error
+            const meResponse = await fetch(
+                `${API_BASE_URL}/api/me`,
+                { method: "GET", credentials: "include" }
             );
 
+            const meData = await meResponse.json();
 
-            localStorage.removeItem(
-                "currentUser"
-            );
-
-
-            localStorage.removeItem(
-                "loggedIn"
-            );
-
-
-            alert(
-                "Please login again."
-            );
-
-
-            window.location.href =
-                "login.html";
-
-
-            return;
-
-        }
-
-
-        if (
-            !currentUser ||
-            !currentUser.id
-        ) {
-
-            alert(
-                "User information not found. Please login again."
-            );
-
-
-            window.location.href =
-                "login.html";
-
-
-            return;
-
-        }
-
-
-        // ---------------------------------
-        // SEND TO FLASK
-        // ---------------------------------
-
-        try {
-
-            const response =
-                await fetch(
-                    `${API_BASE_URL}/api/cart`,
-                    {
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body: JSON.stringify({
-
-                            user_id:
-                                currentUser.id,
-
-                            flower_id:
-                                flowerId,
-
-                            quantity: 1
-
-                        })
-
-                    }
-                );
-
-
-            const data =
-                await response.json();
-
-
-            console.log(
-                "Cart API:",
-                data
-            );
-
-
-            if (
-                response.ok &&
-                data.success
-            ) {
-
-                alert(
-                    "🌸 Flower added to cart!"
-                );
-
-
+            if (!meResponse.ok || !meData.success || !meData.logged_in) {
+                alert("🌸 Please login first to add flowers to cart.");
+                window.location.href = "/login";
                 return;
-
             }
 
-
-            alert(
-                data.message ||
-                "Unable to add flower to cart."
+            const response = await fetch(
+                `${API_BASE_URL}/api/cart`,
+                {
+                    method: "POST",
+                    credentials: "include",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        flower_id: Number(flowerId),
+                        quantity: 1
+                    })
+                }
             );
 
+            const data = await response.json();
+            console.log("Cart API:", data);
+
+            if (response.status === 401) {
+                alert("🌸 Please login first to add flowers to cart.");
+                window.location.href = "/login";
+                return;
+            }
+
+            if (response.ok && data.success) {
+                alert("🌸 Flower added to cart!");
+                return;
+            }
+
+            alert(data.message || "Unable to add flower to cart.");
 
         } catch (error) {
-
-            console.error(
-                "Cart API Error:",
-                error
-            );
-
-
-            alert(
-                "Unable to connect to Flask server."
-            );
-
+            console.error("Cart API Error:", error);
+            alert("Unable to connect to Flask server.");
         }
-
     }
-
 
     // =====================================
     // SEARCH EVENT

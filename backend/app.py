@@ -2126,13 +2126,16 @@ def add_to_cart():
             ), 400
 
 
-        # =================================================
-        # PART 1 ENDS HERE
-        # =================================================
-        # PART 2 WILL CONTINUE FROM THE NEXT LINE.
-        # =========================================================
-# CONTINUE ADD TO CART
-# =========================================================
+        existing = conn.execute(
+            """
+            SELECT id, quantity, status
+            FROM cart
+            WHERE user_id = ?
+              AND flower_id = ?
+            LIMIT 1
+            """,
+            (session_user_id, flower_id),
+        ).fetchone()
 
         if existing:
 
@@ -2331,45 +2334,31 @@ def add_to_cart():
 )
 def get_cart():
     """
-    Get current user's cart
+    Get current user's active cart plus completed ordered items.
     ---
     tags:
       - Cart
     """
 
-    user_id = session.get(
-        "user_id"
-    )
+    user_id = session.get("user_id")
 
     if not user_id:
-
-        return jsonify(
-            {
-                "success": False,
-                "message": "Please login first",
-            }
-        ), 401
+        return jsonify({
+            "success": False,
+            "message": "Please login first",
+        }), 401
 
     try:
-
         user_id = int(user_id)
-
-    except (
-        TypeError,
-        ValueError
-    ):
-
-        return jsonify(
-            {
-                "success": False,
-                "message": "Invalid session",
-            }
-        ), 401
+    except (TypeError, ValueError):
+        return jsonify({
+            "success": False,
+            "message": "Invalid session",
+        }), 401
 
     conn = get_db()
 
     try:
-
         rows = conn.execute(
             """
             SELECT
@@ -2379,142 +2368,116 @@ def get_cart():
                 cart.quantity,
                 cart.status,
                 cart.created_at,
-
                 flowers.name,
                 flowers.category,
                 flowers.description,
                 flowers.price,
                 flowers.image,
                 flowers.stock
-
             FROM cart
-
-            INNER JOIN flowers
-                ON cart.flower_id = flowers.id
-
+            INNER JOIN flowers ON cart.flower_id = flowers.id
             WHERE cart.user_id = ?
               AND cart.status = 'In Cart'
-
             ORDER BY cart.id DESC
             """,
-            (
-                user_id,
-            )
+            (user_id,),
         ).fetchall()
 
         cart_items = []
-
-        total_amount = 0
+        total_amount = 0.0
         total_quantity = 0
 
         for row in rows:
-
-            quantity = int(
-                row["quantity"] or 0
-            )
-
-            price = float(
-                row["price"] or 0
-            )
-
-            subtotal = (
-                price * quantity
-            )
-
+            quantity = int(row["quantity"] or 0)
+            price = float(row["price"] or 0)
+            subtotal = price * quantity
             total_amount += subtotal
             total_quantity += quantity
 
-            cart_items.append(
-                {
-                    "cart_id":
-                        int(row["cart_id"]),
+            cart_items.append({
+                "id": int(row["cart_id"]),
+                "cart_id": int(row["cart_id"]),
+                "user_id": int(row["user_id"]),
+                "flower_id": int(row["flower_id"]),
+                "name": row["name"],
+                "category": row["category"],
+                "description": row["description"],
+                "price": price,
+                "image": row["image"],
+                "stock": int(row["stock"] or 0),
+                "quantity": quantity,
+                "subtotal": round(subtotal, 2),
+                "status": row["status"] or "In Cart",
+                "created_at": row["created_at"],
+            })
 
-                    "user_id":
-                        int(row["user_id"]),
+        # Completed items are stored in order_items after checkout.
+        # Return them as read-only Ordered items for the Cart page.
+        ordered_rows = conn.execute(
+            """
+            SELECT
+                oi.id AS order_item_id,
+                oi.order_id,
+                oi.flower_id,
+                oi.flower_name AS name,
+                oi.price,
+                oi.quantity,
+                oi.subtotal,
+                o.created_at,
+                f.category,
+                f.description,
+                f.image
+            FROM order_items oi
+            INNER JOIN orders o ON oi.order_id = o.id
+            LEFT JOIN flowers f ON oi.flower_id = f.id
+            WHERE o.user_id = ?
+            ORDER BY oi.id DESC
+            """,
+            (user_id,),
+        ).fetchall()
 
-                    "flower_id":
-                        int(row["flower_id"]),
+        for row in ordered_rows:
+            quantity = int(row["quantity"] or 0)
+            price = float(row["price"] or 0)
+            subtotal = float(row["subtotal"] or (price * quantity))
 
-                    "name":
-                        row["name"],
+            cart_items.append({
+                # Negative ids cannot collide with active cart ids.
+                "id": -int(row["order_item_id"]),
+                "cart_id": None,
+                "order_id": int(row["order_id"]),
+                "user_id": user_id,
+                "flower_id": int(row["flower_id"]),
+                "name": row["name"],
+                "category": row["category"] or "",
+                "description": row["description"] or "",
+                "price": price,
+                "image": row["image"] or "",
+                "stock": 0,
+                "quantity": quantity,
+                "subtotal": round(subtotal, 2),
+                "status": "Ordered",
+                "created_at": row["created_at"],
+            })
 
-                    "category":
-                        row["category"],
-
-                    "description":
-                        row["description"],
-
-                    "price":
-                        price,
-
-                    "image":
-                        row["image"],
-
-                    "stock":
-                        int(
-                            row["stock"] or 0
-                        ),
-
-                    "quantity":
-                        quantity,
-
-                    "subtotal":
-                        round(
-                            subtotal,
-                            2
-                        ),
-
-                    "status":
-                        row["status"],
-
-                    "created_at":
-                        row["created_at"],
-                }
-            )
-
-        return jsonify(
-            {
-                "success": True,
-                "message":
-                    "Cart fetched successfully",
-
-                "cart":
-                    cart_items,
-
-                "items":
-                    cart_items,
-
-                "total_items":
-                    len(cart_items),
-
-                "total_quantity":
-                    total_quantity,
-
-                "total_amount":
-                    round(
-                        total_amount,
-                        2
-                    ),
-            }
-        ), 200
+        return jsonify({
+            "success": True,
+            "message": "Cart fetched successfully",
+            "cart": cart_items,
+            "items": cart_items,
+            "total_items": len(rows),
+            "total_quantity": total_quantity,
+            "total_amount": round(total_amount, 2),
+        }), 200
 
     except Exception as error:
-
-        print(
-            "Get Cart Error:",
-            error
-        )
-
-        return jsonify(
-            {
-                "success": False,
-                "message":
-                    "Unable to fetch cart",
-            }
-        ), 500
+        print("Get Cart Error:", error)
+        return jsonify({
+            "success": False,
+            "message": "Unable to fetch cart",
+        }), 500
 
     finally:
-
         conn.close()
 
 
@@ -2878,6 +2841,10 @@ def clear_cart():
 
 @app.route(
     "/api/checkout",
+    methods=["GET"]
+)
+@app.route(
+    "/api/checkout/selected",
     methods=["GET"]
 )
 def get_checkout():
@@ -3534,7 +3501,11 @@ def create_order():
     "/api/orders",
     methods=["GET"]
 )
-def get_orders():
+@app.route(
+    "/api/orders/user/<int:requested_user_id>",
+    methods=["GET"]
+)
+def get_orders(requested_user_id=None):
     """
     Get current user's orders
     ---
@@ -3555,6 +3526,15 @@ def get_orders():
                     "Please login first",
             }
         ), 401
+
+    if requested_user_id is not None and int(requested_user_id) != int(user_id):
+
+        return jsonify(
+            {
+                "success": False,
+                "message": "You can only view your own orders",
+            }
+        ), 403
 
     conn = get_db()
 

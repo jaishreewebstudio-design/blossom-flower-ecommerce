@@ -31,7 +31,7 @@
                 linear-gradient(
                     135deg,
                     #c2386b,
-                    #ba4d7c
+                    #ba4d7c,
                     #ba4d7c
                 );
 
@@ -959,10 +959,7 @@
 
             const response =
                 await fetch(
-                    "/api/orders/user/" +
-                    encodeURIComponent(
-                        user.id
-                    ),
+                    "/api/orders",
                     {
                         method: "GET",
 
