@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
@@ -9,7 +10,9 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Dashboard | Blossom Flower Shop</title>
+    <title>
+        Dashboard | Blossom Flower Shop
+    </title>
 
     <style>
 
@@ -19,7 +22,9 @@
             box-sizing: border-box;
         }
 
+
         body {
+
             font-family:
                 Arial,
                 Helvetica,
@@ -28,21 +33,21 @@
             background:
                 linear-gradient(
                     135deg,
-                    #fff8fb,
-                    #fdf1f6
+                    #fff7fa,
+                    #fceef4
                 );
 
             min-height: 100vh;
 
-            color: #3f2631;
+            color: #442733;
         }
+
 
         /* =================================================
            NAVBAR
         ================================================= */
 
         .navbar {
-            width: 100%;
 
             background: #ffffff;
 
@@ -50,9 +55,10 @@
 
             display: flex;
 
-            align-items: center;
+            justify-content:
+                space-between;
 
-            justify-content: space-between;
+            align-items: center;
 
             box-shadow:
                 0 3px 15px
@@ -62,123 +68,170 @@
 
             top: 0;
 
-            z-index: 1000;
+            z-index: 100;
         }
 
-        .logo {
-            font-size: 25px;
 
-            font-weight: 700;
+        .logo {
+
+            text-decoration: none;
 
             color: #b84c73;
 
-            text-decoration: none;
+            font-size: 25px;
+
+            font-weight: bold;
         }
 
+
         .nav-links {
+
             display: flex;
 
-            align-items: center;
+            gap: 8px;
 
-            gap: 10px;
+            align-items: center;
 
             flex-wrap: wrap;
         }
 
+
         .nav-links a {
+
             text-decoration: none;
 
-            color: #5d3b48;
+            color: #684552;
 
             font-size: 14px;
 
             font-weight: 600;
 
-            padding: 10px 14px;
+            padding: 10px 13px;
 
             border-radius: 8px;
 
-            transition: 0.25s;
+            transition: 0.2s;
         }
 
+
         .nav-links a:hover {
+
             background: #fff0f5;
 
             color: #b84c73;
         }
 
+
         .nav-links .active {
+
             background: #b84c73;
 
-            color: white;
+            color: #ffffff;
         }
 
-        .logout-btn {
-            background: #7c304f !important;
+
+        .logout {
+
+            background: #7d304f !important;
 
             color: white !important;
         }
 
-        .logout-btn:hover {
-            background: #64253f !important;
-        }
 
         /* =================================================
            MAIN
         ================================================= */
 
         .container {
+
             width: 92%;
 
-            max-width: 1250px;
+            max-width: 1200px;
 
-            margin: 0 auto;
+            margin: auto;
 
-            padding: 45px 0;
+            padding: 40px 0;
         }
 
-        .welcome-box {
-            background: white;
+
+        /* =================================================
+           WELCOME
+        ================================================= */
+
+        .welcome {
+
+            background: #ffffff;
 
             border-radius: 18px;
 
             padding: 30px;
 
-            margin-bottom: 30px;
-
-            box-shadow:
-                0 8px 25px
-                rgba(100, 50, 70, 0.08);
+            margin-bottom: 28px;
 
             border-left:
                 5px solid #b84c73;
+
+            box-shadow:
+                0 7px 25px
+                rgba(100, 50, 70, 0.08);
         }
 
-        .welcome-box h1 {
+
+        .welcome h1 {
+
             font-size: 30px;
 
-            color: #4a2936;
+            color: #482935;
 
             margin-bottom: 8px;
         }
 
-        .welcome-box p {
-            color: #866b76;
+
+        .welcome h1 span {
+
+            color: #b84c73;
+        }
+
+
+        .welcome p {
+
+            color: #8d737e;
 
             font-size: 15px;
 
             line-height: 1.6;
         }
 
-        #userName {
-            color: #b84c73;
+
+        /* =================================================
+           ERROR
+        ================================================= */
+
+        .error {
+
+            display: none;
+
+            background: #fff0f0;
+
+            color: #a83232;
+
+            border:
+                1px solid #efc5c5;
+
+            padding: 14px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
         }
+
 
         /* =================================================
            STAT CARDS
         ================================================= */
 
-        .stats-grid {
+        .stats {
+
             display: grid;
 
             grid-template-columns:
@@ -189,14 +242,16 @@
             margin-bottom: 35px;
         }
 
-        .stat-card {
+
+        .card {
+
             background: #ffffff;
 
-            border-radius: 16px;
+            border-radius: 17px;
 
-            padding: 28px;
+            padding: 27px;
 
-            min-height: 170px;
+            min-height: 165px;
 
             display: flex;
 
@@ -204,31 +259,33 @@
 
             gap: 20px;
 
+            border:
+                1px solid #f2dce5;
+
             box-shadow:
                 0 7px 25px
-                rgba(100, 50, 70, 0.08);
+                rgba(100, 50, 70, 0.07);
 
-            border:
-                1px solid #f5dce6;
-
-            transition:
-                transform 0.25s,
-                box-shadow 0.25s;
+            transition: 0.25s;
         }
 
-        .stat-card:hover {
+
+        .card:hover {
+
             transform:
                 translateY(-5px);
 
             box-shadow:
                 0 12px 30px
-                rgba(100, 50, 70, 0.13);
+                rgba(100, 50, 70, 0.12);
         }
 
-        .stat-icon {
-            width: 70px;
 
-            height: 70px;
+        .icon {
+
+            width: 68px;
+
+            height: 68px;
 
             border-radius: 15px;
 
@@ -243,72 +300,88 @@
             flex-shrink: 0;
         }
 
-        .flower-icon {
+
+        .flower {
+
             background: #fff0f5;
         }
 
-        .cart-icon {
-            background: #fff5e9;
+
+        .cart {
+
+            background: #fff5e7;
         }
 
-        .order-icon {
+
+        .orders {
+
             background: #f1edff;
         }
 
-        .stat-content h3 {
+
+        .card h3 {
+
             font-size: 15px;
 
-            color: #8b717b;
+            color: #8b727c;
 
-            margin-bottom: 8px;
-
-            font-weight: 600;
+            margin-bottom: 7px;
         }
 
-        .stat-number {
-            font-size: 34px;
 
-            font-weight: 700;
+        .number {
 
-            color: #4a2936;
+            font-size: 36px;
+
+            font-weight: bold;
+
+            color: #472934;
         }
 
-        .stat-label {
+
+        .description {
+
             font-size: 13px;
 
-            color: #9b838c;
+            color: #9b858e;
 
             margin-top: 5px;
         }
+
 
         /* =================================================
            QUICK ACTIONS
         ================================================= */
 
         .section-title {
+
             font-size: 22px;
 
-            color: #4a2936;
-
             margin-bottom: 18px;
+
+            color: #4a2936;
         }
 
-        .quick-grid {
+
+        .quick-actions {
+
             display: grid;
 
             grid-template-columns:
                 repeat(4, 1fr);
 
-            gap: 18px;
+            gap: 17px;
 
             margin-bottom: 35px;
         }
 
-        .quick-card {
-            background: white;
+
+        .quick {
+
+            background: #ffffff;
 
             border:
-                1px solid #f3dce5;
+                1px solid #f2dce5;
 
             border-radius: 14px;
 
@@ -318,216 +391,219 @@
 
             color: #4a2936;
 
-            transition: 0.25s;
-
-            box-shadow:
-                0 5px 18px
-                rgba(100, 50, 70, 0.05);
+            transition: 0.2s;
         }
 
-        .quick-card:hover {
+
+        .quick:hover {
+
             transform:
                 translateY(-4px);
 
-            border-color: #d78ca7;
-
-            box-shadow:
-                0 10px 25px
-                rgba(100, 50, 70, 0.10);
+            border-color:
+                #d58ba6;
         }
 
-        .quick-card .icon {
-            font-size: 27px;
 
-            margin-bottom: 12px;
+        .quick-icon {
+
+            font-size: 28px;
+
+            margin-bottom: 10px;
         }
 
-        .quick-card h3 {
+
+        .quick h3 {
+
             font-size: 16px;
 
             margin-bottom: 7px;
         }
 
-        .quick-card p {
+
+        .quick p {
+
             font-size: 13px;
 
-            color: #927b84;
+            color: #927a85;
 
             line-height: 1.5;
         }
 
+
         /* =================================================
-           INFO SECTION
+           ACCOUNT
         ================================================= */
 
-        .info-box {
-            background: white;
+        .account {
+
+            background: #ffffff;
 
             border-radius: 16px;
 
-            padding: 28px;
+            padding: 27px;
 
             box-shadow:
                 0 7px 25px
                 rgba(100, 50, 70, 0.07);
 
             border:
-                1px solid #f5dce6;
+                1px solid #f2dce5;
         }
 
-        .info-box h2 {
-            color: #4a2936;
+
+        .account h2 {
 
             font-size: 21px;
 
-            margin-bottom: 18px;
+            margin-bottom: 15px;
+
+            color: #4a2936;
         }
 
-        .info-row {
+
+        .row {
+
             display: flex;
 
-            justify-content: space-between;
-
-            align-items: center;
+            justify-content:
+                space-between;
 
             padding: 14px 0;
 
             border-bottom:
-                1px solid #f2e5ea;
+                1px solid #f1e5ea;
         }
 
-        .info-row:last-child {
+
+        .row:last-child {
+
             border-bottom: none;
         }
 
-        .info-row span:first-child {
-            color: #806873;
+
+        .row span:first-child {
+
+            color: #836d77;
 
             font-size: 14px;
         }
 
-        .info-value {
+
+        .value {
+
+            font-weight: bold;
+
             color: #4a2936;
 
-            font-weight: 700;
-
             font-size: 14px;
         }
 
-        /* =================================================
-           LOADING
-        ================================================= */
-
-        .loading {
-            color: #9a7e89;
-
-            font-size: 14px;
-        }
-
-        .error-message {
-            background: #fff0f0;
-
-            color: #a33a3a;
-
-            border:
-                1px solid #f0c5c5;
-
-            padding: 14px 18px;
-
-            border-radius: 10px;
-
-            margin-bottom: 20px;
-
-            display: none;
-        }
 
         /* =================================================
            FOOTER
         ================================================= */
 
         footer {
+
             text-align: center;
 
             padding: 25px;
 
-            color: #9b838c;
+            color: #9b858e;
 
             font-size: 13px;
         }
+
 
         /* =================================================
            RESPONSIVE
         ================================================= */
 
-        @media (max-width: 950px) {
+        @media (max-width: 900px) {
 
-            .stats-grid {
+            .stats {
+
                 grid-template-columns:
                     repeat(2, 1fr);
             }
 
-            .quick-grid {
+
+            .quick-actions {
+
                 grid-template-columns:
                     repeat(2, 1fr);
             }
+
 
             .navbar {
-                padding: 16px 25px;
+
+                flex-direction: column;
 
                 gap: 15px;
 
-                flex-direction: column;
+                padding: 18px 20px;
             }
-
         }
+
 
         @media (max-width: 600px) {
 
+            .stats {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .quick-actions {
+
+                grid-template-columns: 1fr;
+            }
+
+
             .container {
+
                 width: 94%;
 
                 padding:
                     25px 0;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
 
-            .quick-grid {
-                grid-template-columns: 1fr;
-            }
+            .welcome {
 
-            .welcome-box {
                 padding: 22px;
             }
 
-            .welcome-box h1 {
+
+            .welcome h1 {
+
                 font-size: 24px;
             }
 
-            .stat-card {
-                padding: 22px;
-            }
 
             .nav-links {
+
                 justify-content: center;
             }
 
+
             .nav-links a {
+
                 font-size: 12px;
 
                 padding:
-                    8px 10px;
+                    8px 9px;
             }
-
         }
 
     </style>
 
 </head>
 
+
 <body>
+
 
     <!-- =================================================
          NAVBAR
@@ -541,6 +617,7 @@
         >
             🌸 Blossom
         </a>
+
 
         <div class="nav-links">
 
@@ -577,7 +654,7 @@
 
             <a
                 href="/logout"
-                class="logout-btn"
+                class="logout"
             >
                 Logout
             </a>
@@ -593,11 +670,12 @@
 
     <main class="container">
 
+
         <!-- ERROR -->
 
         <div
-            id="errorMessage"
-            class="error-message"
+            id="error"
+            class="error"
         ></div>
 
 
@@ -605,41 +683,40 @@
              WELCOME
         ================================================= -->
 
-        <section class="welcome-box">
+        <section class="welcome">
 
             <h1>
                 Welcome,
                 <span id="userName">
-                    <span class="loading">
-                        Loading...
-                    </span>
+                    User
                 </span>
                 🌸
             </h1>
 
             <p>
-                Welcome to your Blossom Flower Shop dashboard.
-                Manage your flowers, cart and orders from one place.
+                Manage your flowers, shopping cart
+                and orders from your Blossom dashboard.
             </p>
 
         </section>
 
 
         <!-- =================================================
-             STATISTICS
+             DASHBOARD COUNTS
         ================================================= -->
 
-        <div class="stats-grid">
+        <div class="stats">
+
 
             <!-- FLOWERS -->
 
-            <div class="stat-card">
+            <div class="card">
 
-                <div class="stat-icon flower-icon">
+                <div class="icon flower">
                     🌷
                 </div>
 
-                <div class="stat-content">
+                <div>
 
                     <h3>
                         Total Flowers
@@ -647,13 +724,13 @@
 
                     <div
                         id="flowersCount"
-                        class="stat-number"
+                        class="number"
                     >
                         0
                     </div>
 
-                    <div class="stat-label">
-                        Available flower products
+                    <div class="description">
+                        Flower products
                     </div>
 
                 </div>
@@ -663,13 +740,13 @@
 
             <!-- CART -->
 
-            <div class="stat-card">
+            <div class="card">
 
-                <div class="stat-icon cart-icon">
+                <div class="icon cart">
                     🛒
                 </div>
 
-                <div class="stat-content">
+                <div>
 
                     <h3>
                         Cart Items
@@ -677,13 +754,13 @@
 
                     <div
                         id="cartCount"
-                        class="stat-number"
+                        class="number"
                     >
                         0
                     </div>
 
-                    <div class="stat-label">
-                        Flowers currently in cart
+                    <div class="description">
+                        Flowers in your cart
                     </div>
 
                 </div>
@@ -693,13 +770,13 @@
 
             <!-- ORDERS -->
 
-            <div class="stat-card">
+            <div class="card">
 
-                <div class="stat-icon order-icon">
+                <div class="icon orders">
                     📦
                 </div>
 
-                <div class="stat-content">
+                <div>
 
                     <h3>
                         Ordered Items
@@ -707,13 +784,13 @@
 
                     <div
                         id="ordersCount"
-                        class="stat-number"
+                        class="number"
                     >
                         0
                     </div>
 
-                    <div class="stat-label">
-                        Flowers ordered by you
+                    <div class="description">
+                        Flowers ordered
                     </div>
 
                 </div>
@@ -731,14 +808,16 @@
             Quick Actions
         </h2>
 
-        <div class="quick-grid">
+
+        <div class="quick-actions">
+
 
             <a
                 href="/flower"
-                class="quick-card"
+                class="quick"
             >
 
-                <div class="icon">
+                <div class="quick-icon">
                     🌹
                 </div>
 
@@ -747,8 +826,7 @@
                 </h3>
 
                 <p>
-                    Explore our collection
-                    of beautiful flowers.
+                    View all available flowers.
                 </p>
 
             </a>
@@ -756,20 +834,19 @@
 
             <a
                 href="/cart"
-                class="quick-card"
+                class="quick"
             >
 
-                <div class="icon">
+                <div class="quick-icon">
                     🛒
                 </div>
 
                 <h3>
-                    View Cart
+                    My Cart
                 </h3>
 
                 <p>
-                    Check your selected
-                    flowers and quantities.
+                    View and manage your cart.
                 </p>
 
             </a>
@@ -777,10 +854,10 @@
 
             <a
                 href="/checkout"
-                class="quick-card"
+                class="quick"
             >
 
-                <div class="icon">
+                <div class="quick-icon">
                     💳
                 </div>
 
@@ -789,8 +866,7 @@
                 </h3>
 
                 <p>
-                    Select your cart items
-                    and place an order.
+                    Select items and checkout.
                 </p>
 
             </a>
@@ -798,10 +874,10 @@
 
             <a
                 href="/orders"
-                class="quick-card"
+                class="quick"
             >
 
-                <div class="icon">
+                <div class="quick-icon">
                     📦
                 </div>
 
@@ -810,8 +886,7 @@
                 </h3>
 
                 <p>
-                    View your previous
-                    flower orders.
+                    View your previous orders.
                 </p>
 
             </a>
@@ -823,14 +898,14 @@
              ACCOUNT INFORMATION
         ================================================= -->
 
-        <div class="info-box">
+        <section class="account">
 
             <h2>
                 Account Information
             </h2>
 
 
-            <div class="info-row">
+            <div class="row">
 
                 <span>
                     User ID
@@ -838,7 +913,7 @@
 
                 <span
                     id="userId"
-                    class="info-value"
+                    class="value"
                 >
                     -
                 </span>
@@ -846,7 +921,7 @@
             </div>
 
 
-            <div class="info-row">
+            <div class="row">
 
                 <span>
                     Name
@@ -854,7 +929,7 @@
 
                 <span
                     id="accountName"
-                    class="info-value"
+                    class="value"
                 >
                     -
                 </span>
@@ -862,7 +937,7 @@
             </div>
 
 
-            <div class="info-row">
+            <div class="row">
 
                 <span>
                     Email
@@ -870,7 +945,7 @@
 
                 <span
                     id="accountEmail"
-                    class="info-value"
+                    class="value"
                 >
                     -
                 </span>
@@ -878,7 +953,7 @@
             </div>
 
 
-            <div class="info-row">
+            <div class="row">
 
                 <span>
                     Total Orders
@@ -886,7 +961,7 @@
 
                 <span
                     id="totalOrders"
-                    class="info-value"
+                    class="value"
                 >
                     0
                 </span>
@@ -894,7 +969,7 @@
             </div>
 
 
-            <div class="info-row">
+            <div class="row">
 
                 <span>
                     Cart Rows
@@ -902,14 +977,14 @@
 
                 <span
                     id="cartRows"
-                    class="info-value"
+                    class="value"
                 >
                     0
                 </span>
 
             </div>
 
-        </div>
+        </section>
 
     </main>
 
@@ -932,13 +1007,12 @@
 
     <script>
 
-        /*
-        =====================================================
-        GET CURRENT USER
-        =====================================================
-        */
 
-        async function loadCurrentUser() {
+        // =================================================
+        // LOAD USER
+        // =================================================
+
+        async function loadUser() {
 
             try {
 
@@ -957,7 +1031,7 @@
 
 
                 if (
-                    !response.ok ||
+                    response.status === 401 ||
                     !data.success
                 ) {
 
@@ -965,7 +1039,6 @@
                         "/login";
 
                     return;
-
                 }
 
 
@@ -1002,31 +1075,20 @@
             catch (error) {
 
                 console.error(
-                    "User Error:",
+                    "User loading error:",
                     error
                 );
-
-                window.location.href =
-                    "/login";
 
             }
 
         }
 
 
-        /*
-        =====================================================
-        LOAD DASHBOARD
-        =====================================================
-        */
+        // =================================================
+        // LOAD DASHBOARD COUNTS
+        // =================================================
 
         async function loadDashboard() {
-
-            const errorBox =
-                document.getElementById(
-                    "errorMessage"
-                );
-
 
             try {
 
@@ -1044,12 +1106,6 @@
                     await response.json();
 
 
-                /*
-                -----------------------------------------------
-                LOGIN CHECK
-                -----------------------------------------------
-                */
-
                 if (
                     response.status === 401
                 ) {
@@ -1058,7 +1114,6 @@
                         "/login";
 
                     return;
-
                 }
 
 
@@ -1075,11 +1130,9 @@
                 }
 
 
-                /*
-                -----------------------------------------------
-                MAIN COUNTS
-                -----------------------------------------------
-                */
+                // =================================================
+                // MAIN COUNTS
+                // =================================================
 
                 const counts =
                     data.counts || {};
@@ -1103,11 +1156,9 @@
                     counts.orders || 0;
 
 
-                /*
-                -----------------------------------------------
-                DETAILED STATS
-                -----------------------------------------------
-                */
+                // =================================================
+                // DETAILED STATS
+                // =================================================
 
                 const stats =
                     data.stats || {};
@@ -1130,9 +1181,15 @@
             catch (error) {
 
                 console.error(
-                    "Dashboard Error:",
+                    "Dashboard error:",
                     error
                 );
+
+
+                const errorBox =
+                    document.getElementById(
+                        "error"
+                    );
 
 
                 errorBox.textContent =
@@ -1148,24 +1205,45 @@
         }
 
 
-        /*
-        =====================================================
-        PAGE LOAD
-        =====================================================
-        */
+        // =================================================
+        // REFRESH DASHBOARD
+        //
+        // Har 5 seconds mein count refresh hoga.
+        //
+        // Isse agar cart/order change hua,
+        // dashboard automatically update hoga.
+        // =================================================
+
+        function startDashboardRefresh() {
+
+            setInterval(
+                loadDashboard,
+                5000
+            );
+
+        }
+
+
+        // =================================================
+        // PAGE LOAD
+        // =================================================
 
         document.addEventListener(
             "DOMContentLoaded",
             function () {
 
-                loadCurrentUser();
+                loadUser();
 
                 loadDashboard();
+
+                startDashboardRefresh();
 
             }
         );
 
     </script>
 
+
 </body>
+
 </html>
