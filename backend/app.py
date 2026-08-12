@@ -383,8 +383,7 @@ def init_db():
         "Lily",
         "Beautiful orange lilies with vibrant natural colors.",
         649,
-        "https://plants.glasshousenursery.ca/Content/Images/Photos/L108-03.jpg",
-        12,
+         "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=85",
     ),
 ]
             conn.executemany(
