@@ -13,6 +13,7 @@ from flasgger import Swagger
 
 import sqlite3
 import os
+import urllib.request
 
 from werkzeug.security import (
     generate_password_hash,
@@ -165,6 +166,57 @@ swagger = Swagger(
 BASE_DIR = os.path.dirname(
     os.path.abspath(__file__)
 )
+
+
+# =========================================================
+# LOCAL FLOWER IMAGES
+# =========================================================
+
+STATIC_IMAGE_DIR = os.path.join(
+    BASE_DIR,
+    "static",
+    "images",
+)
+
+os.makedirs(
+    STATIC_IMAGE_DIR,
+    exist_ok=True,
+)
+
+
+FLOWER_IMAGE_SOURCES = {
+    "White Orchid":
+        "https://gulmahal.in/wp-content/uploads/2024/12/White-Orchids.webp",
+
+    "White Daisy":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZuWjhG7KIur1VeZsQmsAvzWn-gaMmz1qKVzRKimV26AcQr9mY3F-pqYOr&s=10",
+
+    "White Rose":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuMVeqo3ZIHDJUlonbb8lg7Yvg4YoaTYnuLWa0DIKoF399wsJf8-XOm35b&s=10",
+
+    "Yellow Sunflower":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnfEY0KzMi6VfOH_3OnVeLngGT1KbmboQsZudNFV5P8u2ZG92MkP9koOI4&s=10",
+
+    "Pink Rose":
+        "https://blacktulipflowers.in/wp-content/uploads/2026/01/Blush-Pink-Roses-Valentine-Bouquet-4.png",
+
+    "Pink Tulip":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ4bgC-yH50TAMaYytpdTUbQSzd_bJUK7u1hPdXhk4Sw&s=10",
+
+    "White Lily":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsybGsp0VZnLWS3RLEba1KLQDJaPKo9zFVH9xpdeXvBJMBplAIgqJngoQ&s=10",
+}
+
+
+FLOWER_LOCAL_FILES = {
+    "White Orchid": "white-orchid.webp",
+    "White Daisy": "white-daisy.jpg",
+    "White Rose": "white-rose.jpg",
+    "Yellow Sunflower": "yellow-sunflower.jpg",
+    "Pink Rose": "pink-rose.png",
+    "Pink Tulip": "pink-tulip.jpg",
+    "White Lily": "white-lily.jpg",
+}
 
 
 # =========================================================
@@ -396,7 +448,7 @@ DEFAULT_FLOWERS = [
         "Lily",
         "Beautiful fresh white lilies with an elegant fragrance.",
         599,
-        "https://images.unsplash.com/photo-1589781876844-46a2a0c4a691?auto=format&fit=crop&w=900&q=85",
+        "/static/images/white-lily.jpg",
         20,
     ),
 
@@ -405,7 +457,7 @@ DEFAULT_FLOWERS = [
         "Tulip",
         "Fresh pink tulips that bring beauty and happiness.",
         449,
-        "https://images.unsplash.com/photo-1520763185298-7a2f3c8d8f2e?auto=format&fit=crop&w=900&q=85",
+        "/static/images/pink-tulip.jpg",
         30,
     ),
 
@@ -414,7 +466,7 @@ DEFAULT_FLOWERS = [
         "Sunflower",
         "Bright yellow sunflowers to make every day cheerful.",
         399,
-        "https://images.unsplash.com/photo-1597848212624-e19e7f9b5b1a?auto=format&fit=crop&w=900&q=85",
+        "/static/images/yellow-sunflower.jpg",
         15,
     ),
 
@@ -423,7 +475,7 @@ DEFAULT_FLOWERS = [
         "Rose",
         "Soft pink roses suitable for gifts and celebrations.",
         549,
-        "https://images.unsplash.com/photo-1455659817273-f96807779d8a?auto=format&fit=crop&w=900&q=85",
+        "/static/images/pink-rose.png",
         18,
     ),
 
@@ -441,7 +493,7 @@ DEFAULT_FLOWERS = [
         "Rose",
         "Elegant white roses perfect for peaceful and beautiful occasions.",
         529,
-        "https://images.unsplash.com/photo-1496062031456-07b8f162a4c8?auto=format&fit=crop&w=900&q=85",
+        "/static/images/white-rose.jpg",
         20,
     ),
 
@@ -459,7 +511,7 @@ DEFAULT_FLOWERS = [
         "Daisy",
         "Fresh white daisies that bring a simple and cheerful feeling.",
         349,
-        "https://images.unsplash.com/photo-1597848212624-e19e7f9b5b1a?auto=format&fit=crop&w=900&q=85",
+        "/static/images/white-daisy.jpg",
         25,
     ),
 
@@ -477,7 +529,7 @@ DEFAULT_FLOWERS = [
         "Orchid",
         "Elegant white orchids with a premium and graceful appearance.",
         799,
-        "https://images.unsplash.com/photo-1562804698-7323a2a9b6b4?auto=format&fit=crop&w=900&q=85",
+        "/static/images/white-orchid.webp",
         12,
     ),
 
@@ -610,60 +662,9 @@ def update_flower_images():
 
     try:
 
-        image_updates = {
-
-            "Red Rose":
-                "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=85",
-
-            "White Lily":
-                "https://images.unsplash.com/photo-1589781876844-46a2a0c4a691?auto=format&fit=crop&w=900&q=85",
-
-            "Pink Tulip":
-                "https://images.unsplash.com/photo-1520763185298-7a2f3c8d8f2e?auto=format&fit=crop&w=900&q=85",
-
-            "Yellow Sunflower":
-                "https://images.unsplash.com/photo-1597848212624-e19e7f9b5b1a?auto=format&fit=crop&w=900&q=85",
-
-            "Pink Rose":
-                "https://images.unsplash.com/photo-1455659817273-f96807779d8a?auto=format&fit=crop&w=900&q=85",
-
-            "Orange Lily":
-                "https://www.thespruce.com/thmb/Am7_uxE6gU8CIj3UiGONPM5Top4=/4200x0/filters:no_upscale():max_bytes(150000):strip_icc()/orange-lily-growing-guide-5209359-hero-d918f048c3424f1499bf54268a36952c.jpg",
-
-            "White Rose":
-                "https://images.unsplash.com/photo-1496062031456-07b8f162a4c8?auto=format&fit=crop&w=900&q=85",
-
-            "Purple Tulip":
-                "https://images.unsplash.com/photo-1526397751294-331021109fbd?auto=format&fit=crop&w=900&q=85",
-
-            "White Daisy":
-                "https://images.unsplash.com/photo-1597848212624-e19e7f9b5b1a?auto=format&fit=crop&w=900&q=85",
-
-            "Pink Gerbera":
-                "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=900&q=85",
-
-            "White Orchid":
-                "https://images.unsplash.com/photo-1562804698-7323a2a9b6b4?auto=format&fit=crop&w=900&q=85",
-
-            "Red Carnation":
-                "https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=900&q=85",
-
-            "Yellow Marigold":
-                "https://images.unsplash.com/photo-1606041008023-472dfb5e530f?auto=format&fit=crop&w=900&q=85",
-
-            "Purple Iris":
-                "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=900&q=85",
-
-            "Pink Peony":
-                "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&w=900&q=85",
-        }
-
-
-        # =================================================
-        # UPDATE EVERY FLOWER IMAGE
-        # =================================================
-
-        for flower_name, image_url in image_updates.items():
+        # Keep the database pointed at local static files so the
+        # browser never depends on a third-party image host.
+        for flower_name, filename in FLOWER_LOCAL_FILES.items():
 
             conn.execute(
                 """
@@ -672,45 +673,117 @@ def update_flower_images():
                 WHERE name = ?
                 """,
                 (
-                    image_url,
-                    flower_name
+                    f"/static/images/{filename}",
+                    flower_name,
                 )
             )
 
-
-        # =================================================
-        # SAVE IMAGE UPDATES
-        # =================================================
-
         conn.commit()
-
-        print(
-            "Flower images updated successfully."
-        )
-
 
     except Exception as error:
 
         conn.rollback()
-
-        print(
-            "Image Update Error:",
-            error
-        )
-
+        print("Local Image DB Update Error:", error)
         raise
-
 
     finally:
 
         conn.close()
 
 
-# =========================================================
-# RUN IMAGE UPDATE
-# =========================================================
+def sync_local_flower_images():
+    """Try to download the user's exact image URLs into static/images.
 
-update_flower_images()
+    If a remote host blocks the request or the deployment has no network,
+    the committed SVG fallback remains available, so the flower card never
+    becomes a broken image.
+    """
+
+    for flower_name, source_url in FLOWER_IMAGE_SOURCES.items():
+
+        filename = FLOWER_LOCAL_FILES[flower_name]
+        destination = os.path.join(
+            STATIC_IMAGE_DIR,
+            filename,
+        )
+
+        # The exact image is already committed in static/images.
+        # Only download again if the file is missing (for example,
+        # after a clean deployment).
+        if os.path.exists(destination) and os.path.getsize(destination) > 0:
+            continue
+
+        try:
+
+            request = urllib.request.Request(
+                source_url,
+                headers={
+                    "User-Agent":
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                        "AppleWebKit/537.36 Chrome/151 Safari/537.36",
+                },
+            )
+
+            with urllib.request.urlopen(
+                request,
+                timeout=5,
+            ) as response:
+
+                content_type = (
+                    response.headers.get(
+                        "Content-Type",
+                        "",
+                    ).lower()
+                )
+
+                content = response.read()
+
+            if content and (
+                content_type.startswith("image/")
+                or source_url.lower().endswith(
+                    (".jpg", ".jpeg", ".png", ".webp")
+                )
+            ):
+                # Keep the SVG fallback only when the remote download fails.
+                # The exact remote image is stored with its original extension
+                # where possible; otherwise use the existing fallback name.
+                extension = ".webp"
+                if "png" in content_type or source_url.lower().endswith(".png"):
+                    extension = ".png"
+                elif "jpeg" in content_type or "jpg" in content_type or source_url.lower().endswith((".jpg", ".jpeg")):
+                    extension = ".jpg"
+
+                remote_filename = os.path.splitext(filename)[0] + extension
+                remote_destination = os.path.join(
+                    STATIC_IMAGE_DIR,
+                    remote_filename,
+                )
+
+                with open(remote_destination, "wb") as image_file:
+                    image_file.write(content)
+
+                conn = get_db()
+                try:
+                    conn.execute(
+                        "UPDATE flowers SET image = ? WHERE name = ?",
+                        (
+                            f"/static/images/{remote_filename}",
+                            flower_name,
+                        )
+                    )
+                    conn.commit()
+                finally:
+                    conn.close()
+
+                print(
+                    f"Local image synced: {flower_name}"
+                )
+
+        except Exception as error:
+
+            print(
+                f"Image download skipped for {flower_name}: {error}"
+            )
 
 
 # =========================================================
@@ -2134,7 +2207,10 @@ def add_to_cart():
               AND flower_id = ?
             LIMIT 1
             """,
-            (session_user_id, flower_id),
+            (
+                session_user_id,
+                flower_id,
+            )
         ).fetchone()
 
         if existing:
@@ -2334,31 +2410,45 @@ def add_to_cart():
 )
 def get_cart():
     """
-    Get current user's active cart plus completed ordered items.
+    Get current user's cart
     ---
     tags:
       - Cart
     """
 
-    user_id = session.get("user_id")
+    user_id = session.get(
+        "user_id"
+    )
 
     if not user_id:
-        return jsonify({
-            "success": False,
-            "message": "Please login first",
-        }), 401
+
+        return jsonify(
+            {
+                "success": False,
+                "message": "Please login first",
+            }
+        ), 401
 
     try:
+
         user_id = int(user_id)
-    except (TypeError, ValueError):
-        return jsonify({
-            "success": False,
-            "message": "Invalid session",
-        }), 401
+
+    except (
+        TypeError,
+        ValueError
+    ):
+
+        return jsonify(
+            {
+                "success": False,
+                "message": "Invalid session",
+            }
+        ), 401
 
     conn = get_db()
 
     try:
+
         rows = conn.execute(
             """
             SELECT
@@ -2368,117 +2458,224 @@ def get_cart():
                 cart.quantity,
                 cart.status,
                 cart.created_at,
+
                 flowers.name,
                 flowers.category,
                 flowers.description,
                 flowers.price,
                 flowers.image,
                 flowers.stock
+
             FROM cart
-            INNER JOIN flowers ON cart.flower_id = flowers.id
+
+            INNER JOIN flowers
+                ON cart.flower_id = flowers.id
+
             WHERE cart.user_id = ?
               AND cart.status = 'In Cart'
+
             ORDER BY cart.id DESC
             """,
-            (user_id,),
+            (
+                user_id,
+            )
         ).fetchall()
 
         cart_items = []
-        total_amount = 0.0
+
+        total_amount = 0
         total_quantity = 0
 
         for row in rows:
-            quantity = int(row["quantity"] or 0)
-            price = float(row["price"] or 0)
-            subtotal = price * quantity
+
+            quantity = int(
+                row["quantity"] or 0
+            )
+
+            price = float(
+                row["price"] or 0
+            )
+
+            subtotal = (
+                price * quantity
+            )
+
             total_amount += subtotal
             total_quantity += quantity
 
-            cart_items.append({
-                "id": int(row["cart_id"]),
-                "cart_id": int(row["cart_id"]),
-                "user_id": int(row["user_id"]),
-                "flower_id": int(row["flower_id"]),
-                "name": row["name"],
-                "category": row["category"],
-                "description": row["description"],
-                "price": price,
-                "image": row["image"],
-                "stock": int(row["stock"] or 0),
-                "quantity": quantity,
-                "subtotal": round(subtotal, 2),
-                "status": row["status"] or "In Cart",
-                "created_at": row["created_at"],
-            })
+            cart_items.append(
+                {
+                    "cart_id":
+                        int(row["cart_id"]),
 
-        # Completed items are stored in order_items after checkout.
-        # Return them as read-only Ordered items for the Cart page.
+                    "id":
+                        int(row["cart_id"]),
+
+                    "user_id":
+                        int(row["user_id"]),
+
+                    "flower_id":
+                        int(row["flower_id"]),
+
+                    "name":
+                        row["name"],
+
+                    "category":
+                        row["category"],
+
+                    "description":
+                        row["description"],
+
+                    "price":
+                        price,
+
+                    "image":
+                        row["image"],
+
+                    "stock":
+                        int(
+                            row["stock"] or 0
+                        ),
+
+                    "quantity":
+                        quantity,
+
+                    "subtotal":
+                        round(
+                            subtotal,
+                            2
+                        ),
+
+                    "status":
+                        row["status"],
+
+                    "created_at":
+                        row["created_at"],
+                }
+            )
+
+        # =================================================
+        # ORDERED ITEMS FOR THE SAME USER
+        # =================================================
+
         ordered_rows = conn.execute(
             """
             SELECT
-                oi.id AS order_item_id,
-                oi.order_id,
-                oi.flower_id,
-                oi.flower_name AS name,
-                oi.price,
-                oi.quantity,
-                oi.subtotal,
-                o.created_at,
-                f.category,
-                f.description,
-                f.image
-            FROM order_items oi
-            INNER JOIN orders o ON oi.order_id = o.id
-            LEFT JOIN flowers f ON oi.flower_id = f.id
-            WHERE o.user_id = ?
-            ORDER BY oi.id DESC
+                order_items.id AS item_id,
+                order_items.order_id,
+                order_items.flower_id,
+                order_items.flower_name AS name,
+                order_items.price,
+                order_items.quantity,
+                order_items.subtotal,
+                orders.created_at,
+                flowers.description,
+                flowers.image
+            FROM order_items
+            INNER JOIN orders
+                ON order_items.order_id = orders.id
+            LEFT JOIN flowers
+                ON order_items.flower_id = flowers.id
+            WHERE orders.user_id = ?
+            ORDER BY orders.id DESC, order_items.id ASC
             """,
-            (user_id,),
+            (user_id,)
         ).fetchall()
 
+        ordered_items = []
+
         for row in ordered_rows:
-            quantity = int(row["quantity"] or 0)
-            price = float(row["price"] or 0)
-            subtotal = float(row["subtotal"] or (price * quantity))
+            ordered_items.append(
+                {
+                    "id": int(row["item_id"]),
+                    "cart_id": int(row["item_id"]),
+                    "order_id": int(row["order_id"]),
+                    "flower_id": int(row["flower_id"]),
+                    "name": row["name"],
+                    "description": row["description"] or "Beautiful fresh flower.",
+                    "price": float(row["price"] or 0),
+                    "image": row["image"] or "/static/images/white-daisy.jpg",
+                    "quantity": int(row["quantity"] or 0),
+                    "subtotal": float(row["subtotal"] or 0),
+                    "status": "Ordered",
+                    "created_at": row["created_at"],
+                }
+            )
 
-            cart_items.append({
-                # Negative ids cannot collide with active cart ids.
-                "id": -int(row["order_item_id"]),
-                "cart_id": None,
-                "order_id": int(row["order_id"]),
-                "user_id": user_id,
-                "flower_id": int(row["flower_id"]),
-                "name": row["name"],
-                "category": row["category"] or "",
-                "description": row["description"] or "",
-                "price": price,
-                "image": row["image"] or "",
-                "stock": 0,
-                "quantity": quantity,
-                "subtotal": round(subtotal, 2),
-                "status": "Ordered",
-                "created_at": row["created_at"],
-            })
+        return jsonify(
+            {
+                "success": True,
+                "message":
+                    "Cart fetched successfully",
 
-        return jsonify({
-            "success": True,
-            "message": "Cart fetched successfully",
-            "cart": cart_items,
-            "items": cart_items,
-            "total_items": len(rows),
-            "total_quantity": total_quantity,
-            "total_amount": round(total_amount, 2),
-        }), 200
+                "cart":
+                    cart_items,
+
+                "items":
+                    cart_items,
+
+                "ordered":
+                    ordered_items,
+
+                "total_items":
+                    len(cart_items),
+
+                "total_quantity":
+                    total_quantity,
+
+                "total_amount":
+                    round(
+                        total_amount,
+                        2
+                    ),
+            }
+        ), 200
 
     except Exception as error:
-        print("Get Cart Error:", error)
-        return jsonify({
-            "success": False,
-            "message": "Unable to fetch cart",
-        }), 500
+
+        print(
+            "Get Cart Error:",
+            error
+        )
+
+        return jsonify(
+            {
+                "success": False,
+                "message":
+                    "Unable to fetch cart",
+            }
+        ), 500
 
     finally:
+
         conn.close()
+
+
+# =========================================================
+# BACKWARD-COMPATIBLE CART URL
+# =========================================================
+
+@app.route(
+    "/api/cart/<int:requested_user_id>",
+    methods=["GET"]
+)
+def get_cart_legacy(requested_user_id):
+    # The logged-in session is always authoritative.
+    user_id = session.get("user_id")
+
+    if not user_id:
+        return jsonify({
+            "success": False,
+            "message": "Please login first",
+        }), 401
+
+    if int(user_id) != int(requested_user_id):
+        return jsonify({
+            "success": False,
+            "message": "You can only access your own cart",
+        }), 403
+
+    return get_cart()
 
 
 # =========================================================
@@ -3501,11 +3698,7 @@ def create_order():
     "/api/orders",
     methods=["GET"]
 )
-@app.route(
-    "/api/orders/user/<int:requested_user_id>",
-    methods=["GET"]
-)
-def get_orders(requested_user_id=None):
+def get_orders():
     """
     Get current user's orders
     ---
@@ -3526,15 +3719,6 @@ def get_orders(requested_user_id=None):
                     "Please login first",
             }
         ), 401
-
-    if requested_user_id is not None and int(requested_user_id) != int(user_id):
-
-        return jsonify(
-            {
-                "success": False,
-                "message": "You can only view your own orders",
-            }
-        ), 403
 
     conn = get_db()
 
@@ -3558,10 +3742,14 @@ def get_orders(requested_user_id=None):
 
             items = conn.execute(
                 """
-                SELECT *
+                SELECT
+                    order_items.*,
+                    flowers.image AS flower_image
                 FROM order_items
-                WHERE order_id = ?
-                ORDER BY id ASC
+                LEFT JOIN flowers
+                    ON order_items.flower_id = flowers.id
+                WHERE order_items.order_id = ?
+                ORDER BY order_items.id ASC
                 """,
                 (
                     order["id"],
@@ -3582,6 +3770,12 @@ def get_orders(requested_user_id=None):
 
                         "flower_name":
                             item["flower_name"],
+
+                        "name":
+                            item["flower_name"],
+
+                        "image":
+                            item["flower_image"] or "/static/images/white-daisy.jpg",
 
                         "price":
                             float(
